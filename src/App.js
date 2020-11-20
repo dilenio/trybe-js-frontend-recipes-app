@@ -5,25 +5,28 @@ import Login from './pages/Login';
 import Home from './pages/Home';
 import Profile from './pages/Profile';
 import Explore from './pages/Explore';
+import Provider from './context/Provider';
 
 function App() {
   return (
-    <BrowserRouter>
-      <Switch>
-        <Route exact path="/comidas" component={ Home } />
-        <Route exact path="/bebidas" component={ Home } />
-        <Route exact path="/explorar/comidas" component={ Explore } />
-        <Route exact path="/explorar/comidas/ingredientes" component={ Explore } />
-        <Route exact path="/explorar/bebidas" component={ Explore } />
-        <Route exact path="/explorar/bebidas/ingredientes" component={ Explore } />
-        <Route exact path="/explorar/comidas/area" component={ Explore } />
-        <Route path="/receitas-feitas" component={ Explore } />
-        <Route path="/receitas-favoritas" component={ Explore } />
-        <Route path="/explorar" component={ Explore } />
-        <Route path="/perfil" component={ Profile } />
-        <Route exact path="/" component={ Login } />
-      </Switch>
-    </BrowserRouter>
+    <Provider>
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/comidas" component={ Home } />
+          <Route exact path="/bebidas" component={ Home } />
+          <Route exact path="/explorar/comidas" component={ Explore } />
+          <Route exact path="/explorar/comidas/ingredientes" component={ Explore } />
+          <Route exact path="/explorar/bebidas" component={ Explore } />
+          <Route exact path="/explorar/bebidas/ingredientes" component={ Explore } />
+          <Route exact path="/explorar/comidas/area" component={ Explore } />
+          <Route path="/receitas-feitas" component={ Explore } />
+          <Route path="/receitas-favoritas" component={ Explore } />
+          <Route path="/explorar" component={ Explore } />
+          <Route path="/perfil" component={ Profile } />
+          <Route exact path="/" component={ Login } />
+        </Switch>
+      </BrowserRouter>
+    </Provider>
   );
 }
 
