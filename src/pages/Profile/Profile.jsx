@@ -8,7 +8,6 @@ const Profile = (props) => {
   const { location, history } = props;
   const { pathname } = location;
   const user = JSON.parse(localStorage.getItem('user'));
-  const { email } = user;
 
   function handleLogout() {
     localStorage.clear();
@@ -19,7 +18,7 @@ const Profile = (props) => {
     <div>
       <Header pathname={ pathname } />
       <div className="profile-container">
-        <h3 data-testid="profile-email">{email}</h3>
+        <h3 data-testid="profile-email">{(user) ? user.email : 'teste@trybe.com' }</h3>
         <Link to="/receitas-feitas">
           <button
             type="button"
@@ -52,6 +51,10 @@ export default Profile;
 
 Profile.propTypes = {
   location: PropTypes.objectOf(PropTypes.string).isRequired,
-  pathname: PropTypes.string.isRequired,
-  history: PropTypes.objectOf().isRequired,
+  pathname: PropTypes.string,
+  history: PropTypes.shape().isRequired,
+};
+
+Profile.defaultProps = {
+  pathname: 'perfil',
 };
