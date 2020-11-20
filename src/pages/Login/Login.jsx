@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, history } from 'react';
 import Context from '../../context/Context';
 
 function Login() {
@@ -25,6 +25,7 @@ function Login() {
     localStorage.setItem('mealsToken', 1);
     localStorage.setItem('cocktailsToken', 1);
     localStorage.setItem('user', JSON.stringify({ email }));
+    history.push('/comidas');
   };
 
   const handleEmail = ({ target }) => {
