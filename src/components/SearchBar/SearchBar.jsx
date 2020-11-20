@@ -41,12 +41,6 @@ function SearchBar() {
         />
         Primeira letra
       </label>
-      <button
-        type="button"
-        data-testid="search-top-btn"
-      >
-        Buscar
-      </button>
     </div>
   );
 }

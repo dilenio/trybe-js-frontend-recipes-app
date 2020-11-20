@@ -1,0 +1,23 @@
+.header {
+  background-color: #8a8a8a;
+  display: flex;
+  height: 80px;
+  justify-content: center;
+  align-items: center;
+}
+
+.header h3 {
+  margin: 0 50px;
+}
+
+.header button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  height: 50px;
+  width: 50px;
+}
+
+.header button:active, button:focus {
+  outline: none;
+}
