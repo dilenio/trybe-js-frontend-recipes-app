@@ -43,22 +43,22 @@ function Login() {
         type="text"
         placeholder="inserir email"
         data-testid="email-input"
-        onChange={handleEmail}
-        value={email}
+        onChange={ handleEmail }
+        value={ email }
       />
       <input
         id="input-password"
         type="password"
         placeholder="inserir senha"
         data-testid="password-input"
-        onChange={handlePassword}
-        value={passWord}
+        onChange={ handlePassword }
+        value={ passWord }
       />
       <button
         type="button"
         data-testid="login-submit-btn"
-        onClick={handleClick}
-        disabled={validation}
+        onClick={ handleClick }
+        disabled={ validation }
       >
         Entrar
       </button>
