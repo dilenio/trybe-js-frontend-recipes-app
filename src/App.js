@@ -9,7 +9,7 @@ function App() {
     <Provider>
       <BrowserRouter>
         <Switch>
-          <Route path="/" component={Login} />
+          <Route path="/" component={ Login } />
         </Switch>
       </BrowserRouter>
     </Provider>
