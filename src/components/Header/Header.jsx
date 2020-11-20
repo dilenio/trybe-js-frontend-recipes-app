@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import profileIcon from '../../images/profileIcon.svg';
 import searchIcon from '../../images/searchIcon.svg';
+import SearchBar from '../SearchBar/SearchBar';
 import './Header.css';
 
 const Header = (props) => {
@@ -41,26 +42,26 @@ const Header = (props) => {
         <Link to="/perfil">
           <img
             data-testid="profile-top-btn"
-            src={profileIcon}
+            src={ profileIcon }
             alt="profile"
           />
         </Link>
-        <h3 data-testid="page-title">{pageTitle}</h3>
+        <h3 data-testid="page-title">{ pageTitle }</h3>
         {searchButton && (
           <button
             type="button"
-            onClick={() => setSearchBar(!searchBar)}
+            onClick={ () => setSearchBar(!searchBar) }
           >
             <img
               data-testid="search-top-btn"
-              src={searchIcon}
+              src={ searchIcon }
               alt="search"
             />
           </button>
         )}
       </div>
       <div className="searchbar">
-        {searchBar && <p data-testid="search-input">busca</p>}
+        {searchBar && <SearchBar />}
       </div>
     </div>
   );

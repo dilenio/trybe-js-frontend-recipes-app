@@ -7,7 +7,7 @@ const Profile = (props) => {
   const { pathname } = location;
   return (
     <div>
-      <Header pathname={pathname} />
+      <Header pathname={ pathname } />
     </div>
   );
 };
