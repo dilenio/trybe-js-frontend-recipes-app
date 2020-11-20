@@ -14,8 +14,8 @@ function Provider({ children }) {
   };
 
   return (
-    <Context.Provider value={context}>
-      {children}
+    <Context.Provider value={ context }>
+      { children }
     </Context.Provider>
   );
 }
