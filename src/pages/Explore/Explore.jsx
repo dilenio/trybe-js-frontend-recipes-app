@@ -20,5 +20,9 @@ export default Explore;
 
 Explore.propTypes = {
   location: PropTypes.objectOf(PropTypes.string).isRequired,
-  pathname: PropTypes.string.isRequired,
+  pathname: PropTypes.string,
+};
+
+Explore.defaultProps = {
+  pathname: 'explorar',
 };
