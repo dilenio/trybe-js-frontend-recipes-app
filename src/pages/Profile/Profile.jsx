@@ -5,7 +5,6 @@ import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import './Profile.css';
 
-
 const Profile = (props) => {
   const { location, history } = props;
   const { pathname } = location;
@@ -45,7 +44,7 @@ const Profile = (props) => {
           Sair
         </button>
       </div>
-       <Footer />
+      <Footer />
     </div>
   );
 };
