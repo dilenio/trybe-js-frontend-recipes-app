@@ -1,7 +1,8 @@
-import React, { useState, useContext, history } from 'react';
+import React, { useState, useContext } from 'react';
+import PropTypes from 'prop-types';
 import Context from '../../context/Context';
 
-function Login() {
+function Login(props) {
   const [validation, setValidation] = useState(true);
   const { email, setemail } = useContext(Context);
   const [passWord, setpassWord] = useState('');
@@ -21,6 +22,7 @@ function Login() {
   };
 
   const handleClick = (e) => {
+    const { history } = props;
     e.preventDefault();
     localStorage.setItem('mealsToken', 1);
     localStorage.setItem('cocktailsToken', 1);
@@ -66,5 +68,9 @@ function Login() {
     </div>
   );
 }
+
+Login.propTypes = {
+  history: PropTypes.shape().isRequired,
+};
 
 export default Login;
