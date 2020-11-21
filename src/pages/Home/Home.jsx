@@ -17,5 +17,9 @@ export default Home;
 
 Home.propTypes = {
   location: PropTypes.objectOf(PropTypes.string).isRequired,
-  pathname: PropTypes.string.isRequired,
+  pathname: PropTypes.string,
+};
+
+Home.defaultProps = {
+  pathname: 'comidas',
 };
