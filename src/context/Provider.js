@@ -9,9 +9,9 @@ function Provider({ children }) {
     searchText: '',
     searchType: '',
   });
+  const [pageTitle, setPageTitle] = useState('');
   const [loading, setLoading] = useState(false);
-  const [meals, setMeals] = useState({});
-  const [drinks, setDrinks] = useState({});
+  const [recipes, setRecipes] = useState([]);
 
   const context = {
     email,
@@ -20,12 +20,12 @@ function Provider({ children }) {
     setpassWord,
     search,
     setSearch,
-    meals,
-    setMeals,
-    drinks,
-    setDrinks,
+    recipes,
+    setRecipes,
     loading,
     setLoading,
+    pageTitle,
+    setPageTitle,
   };
 
   return (
