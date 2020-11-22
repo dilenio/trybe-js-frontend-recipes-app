@@ -6,9 +6,12 @@ function Provider({ children }) {
   const [email, setemail] = useState('');
   const [passWord, setpassWord] = useState('');
   const [search, setSearch] = useState({
-    text: '',
-    type: '',
+    searchText: '',
+    searchType: '',
   });
+  const [loading, setLoading] = useState(false);
+  const [meals, setMeals] = useState({});
+  const [drinks, setDrinks] = useState({});
 
   const context = {
     email,
@@ -17,6 +20,12 @@ function Provider({ children }) {
     setpassWord,
     search,
     setSearch,
+    meals,
+    setMeals,
+    drinks,
+    setDrinks,
+    loading,
+    setLoading,
   };
 
   return (

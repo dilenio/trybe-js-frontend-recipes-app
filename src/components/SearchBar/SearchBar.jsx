@@ -1,44 +1,42 @@
 import React, { useState, useContext } from 'react';
 import Context from '../../context/Context';
+import getMealsAPI from '../../services/API';
 
 function SearchBar() {
-  const [searchName, setSearchName] = useState('');
+  const [searchText, setSearchText] = useState('');
   const [searchType, setSearchType] = useState('name');
-  const { setSearch } = useContext(Context);
+  const { setSearch, setMeals, setLoading } = useContext(Context);
 
-  const handleSearchName = ({ target }) => {
-    setSearchName(target.value);
+  const handleSearchText = ({ target }) => {
+    setSearchText(target.value);
   };
 
   const handleSearchType = (value) => {
-    setSearchType(value); 
+    setSearchType(value);
   };
 
   const handleSearch = () => {
-    if (searchType === 'firstletter' && searchName.length > 1) {
+    if (searchType === 'firstletter' && searchText.length > 1) {
       alert('Sua busca deve conter somente 1 (um) caracter');
+      return;
     }
     setSearch({
-      name: searchName,
-      type: searchType,
-    })
+      searchText,
+      searchType,
+    });
+    setLoading(true);
+    getMealsAPI(searchText, searchType).then((data) => setMeals(data));
+    setLoading(false);
   };
 
   return (
     <div>
-      <button
-        type="button"
-        data-testid="exec-search-btn"
-        onClick={ handleSearch }
-      >
-        Buscar
-      </button>
       <input
         type="text"
         data-testid="search-input"
         placeholder="Buscar Receita"
-        value={ searchName }
-        onChange={ handleSearchName }
+        value={ searchText }
+        onChange={ handleSearchText }
       />
       <label htmlFor="ingredient">
         <input
@@ -76,6 +74,13 @@ function SearchBar() {
         />
         Primeira letra
       </label>
+      <button
+        type="button"
+        data-testid="exec-search-btn"
+        onClick={ handleSearch }
+      >
+        Buscar
+      </button>
     </div>
   );
 }

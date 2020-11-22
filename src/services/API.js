@@ -1,27 +1,20 @@
-import React, { useContext } from 'react';
-import Context from '../context/Context';
+const NAME_MEAL_API = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+const INGREDIENT_MEAL_API = 'https://www.themealdb.com/api/json/v1/1/filter.php?i=';
+const FIRSTLETTER_MEAL_API = 'https://www.themealdb.com/api/json/v1/1/search.php?f=';
 
-const NAME_FOOD_API = 'https://www.themealdb.com/api/json/v1/1/filter.php?i=';
-const INGREDIENT_FOOD_API = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
-const FIRSTLETTER_FOOD_API = 'https://www.themealdb.com/api/json/v1/1/search.php?f=';
-const { search } = useContext(Context);
-
-// A 'search' é um objeto com duas chaves: text e type.
-// 'type' pode ter os valores: 'name', 'ingredient' ou 'firstletter'
-
-export const getFoodsAPI = async () => {
-  if (search.type === 'name') {
-    const data = await (await fetch(`${NAME_FOOD_API}{${search.type}}`)).json();
-    return data.results;
+const getMealsAPI = async (searchText, searchType) => {
+  if (searchType === 'name') {
+    const data = await (await fetch(`${NAME_MEAL_API}${searchText}`)).json();
+    return data.meals;
   }
-  if (search.type === 'ingredient') {
-    const data = await (await fetch(`${INGREDIENT_FOOD_API}{${search.type}}`)).json();
-    return data.results;
+  if (searchType === 'ingredient') {
+    const data = await (await fetch(`${INGREDIENT_MEAL_API}${searchText}`)).json();
+    return data.meals;
   }
-  if (search.type === 'firstletter') {
-    const data = await (await fetch(`${FIRSTLETTER_FOOD_API}{${search.type}}`)).json();
-    return data.results;
+  if (searchType === 'firstletter') {
+    const data = await (await fetch(`${FIRSTLETTER_MEAL_API}${searchText}`)).json();
+    return data.meals;
   }
 };
 
-export default getFoodsAPI;
+export default getMealsAPI;
