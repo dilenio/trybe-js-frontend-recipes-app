@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Header from '../../components/Header';
 import './Home.css';
+import Footer from '../../components/Footer';
+import '../../components/Footer/Footer.css';
 
 const Home = (props) => {
   const { location } = props;
@@ -9,6 +11,7 @@ const Home = (props) => {
   return (
     <div>
       <Header pathname={ pathname } />
+      <Footer pathname={ pathname } />
     </div>
   );
 };

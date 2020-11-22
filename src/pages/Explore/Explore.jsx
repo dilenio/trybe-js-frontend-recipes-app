@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Header from '../../components/Header';
+import Footer from '../../components/Footer';
 
 const Explore = (props) => {
   const { location } = props;
@@ -8,6 +9,9 @@ const Explore = (props) => {
   return (
     <div>
       <Header pathname={ pathname } />
+      {pathname !== '/receitas-feitas'
+      && pathname !== '/receitas-favoritas'
+      && <Footer pathname={ pathname } />}
     </div>
   );
 };

@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Header from '../../components/Header';
+import Footer from '../../components/Footer';
 import './Profile.css';
 
 const Profile = (props) => {
@@ -43,6 +44,7 @@ const Profile = (props) => {
           Sair
         </button>
       </div>
+      <Footer />
     </div>
   );
 };
