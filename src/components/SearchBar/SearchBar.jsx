@@ -1,11 +1,11 @@
 import React, { useState, useContext } from 'react';
 import Context from '../../context/Context';
-import getMealsAPI from '../../services/API';
+import { getMealsAPI, getDrinksApi } from '../../services/API';
 
 function SearchBar() {
   const [searchText, setSearchText] = useState('');
   const [searchType, setSearchType] = useState('name');
-  const { setSearch, setMeals, setLoading } = useContext(Context);
+  const { pageTitle, setSearch, setRecipes, setLoading } = useContext(Context);
 
   const handleSearchText = ({ target }) => {
     setSearchText(target.value);
@@ -25,7 +25,16 @@ function SearchBar() {
       searchType,
     });
     setLoading(true);
-    getMealsAPI(searchText, searchType).then((data) => setMeals(data));
+    if (pageTitle === 'Comidas') {
+      getMealsAPI(searchText, searchType).then((data) => setRecipes({
+        ...data,
+      }));
+    }
+    if (pageTitle === 'Bebidas') {
+      getDrinksApi(searchText, searchType).then((data) => setRecipes({
+        ...data,
+      }));
+    }
     setLoading(false);
   };
 
