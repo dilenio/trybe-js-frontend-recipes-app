@@ -1,10 +1,13 @@
 import React, { useState, useContext } from 'react';
+import { Redirect } from 'react-router-dom';
 import Context from '../../context/Context';
 import { getMealsAPI, getDrinksApi } from '../../services/API';
 
 function SearchBar() {
   const [searchText, setSearchText] = useState('');
   const [searchType, setSearchType] = useState('name');
+  const [redirectTo, setRedirectTo] = useState(false);
+  const [redirectRoute, setRedirectRoute] = useState('');
   const { pageTitle, setSearch, setRecipes, setLoading } = useContext(Context);
 
   const handleSearchText = ({ target }) => {
@@ -26,20 +29,34 @@ function SearchBar() {
     });
     setLoading(true);
     if (pageTitle === 'Comidas') {
-      getMealsAPI(searchText, searchType).then((data) => setRecipes({
-        ...data,
-      }));
+      getMealsAPI(searchText, searchType).then((data) => {
+        setRecipes({
+          ...data,
+        });
+        setLoading(false);
+        if (data.length === 1) {
+          setRedirectRoute(`/comidas/${data[0].idMeal}`);
+          setRedirectTo(true);
+        }
+      });
     }
     if (pageTitle === 'Bebidas') {
-      getDrinksApi(searchText, searchType).then((data) => setRecipes({
-        ...data,
-      }));
+      getDrinksApi(searchText, searchType).then((data) => {
+        setRecipes({
+          ...data,
+        });
+        setLoading(false);
+        if (data.length === 1) {
+          setRedirectRoute(`/bebidas/${data[0].idDrink}`);
+          setRedirectTo(true);
+        }
+      });
     }
-    setLoading(false);
   };
 
   return (
     <div>
+      { redirectTo && <Redirect to={ redirectRoute } />}
       <input
         type="text"
         data-testid="search-input"
