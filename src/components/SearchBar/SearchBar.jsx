@@ -34,6 +34,10 @@ function SearchBar() {
           ...data,
         });
         setLoading(false);
+        if (!data) {
+          alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+          return;
+        }
         if (data.length === 1) {
           setRedirectRoute(`/comidas/${data[0].idMeal}`);
           setRedirectTo(true);
@@ -46,6 +50,10 @@ function SearchBar() {
           ...data,
         });
         setLoading(false);
+        if (!data) {
+          alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+          return;
+        }
         if (data.length === 1) {
           setRedirectRoute(`/bebidas/${data[0].idDrink}`);
           setRedirectTo(true);
