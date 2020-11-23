@@ -31,7 +31,7 @@ const CategoryDisplay = () => {
             .map(
               (category, index) => {
                 const CATEGORY_NUMBER = 5;
-                while (index > CATEGORY_NUMBER) {
+                while (index < CATEGORY_NUMBER) {
                   return (
                     <th
                       className="th-category"
