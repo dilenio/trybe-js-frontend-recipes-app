@@ -1,4 +1,4 @@
-const ALL_MEALS_API = 'https://www.themealdb.com/api/json/v1/1/filter.php?i=';
+const ALL_MEALS_API = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
 const ALL_DRINKS_API = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
 const INGREDIENT_MEAL_API = 'https://www.themealdb.com/api/json/v1/1/filter.php?i=';
 const NAME_MEAL_API = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';

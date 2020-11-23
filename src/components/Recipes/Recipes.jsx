@@ -1,33 +1,53 @@
-import React from 'react';
-import { useEffect, useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Context from '../../context/Context';
 import { getMealsAPI, getDrinksApi } from '../../services/API';
+import RecipeCard from '../RecipeCard';
+import './Recipes.css';
 
 const Recipes = () => {
-  const { pageTitle, setSearch, setRecipes, setLoading } = useContext(Context);
+  const {
+    pageTitle,
+    recipes,
+    setRecipes,
+    setLoading,
+    setRecipesType,
+  } = useContext(Context);
+
   useEffect(() => {
     if (pageTitle === 'Comidas') {
       setLoading(true);
       getMealsAPI().then((data) => {
-        setRecipes({
-          ...data,
-        });
+        setRecipes(data);
         setLoading(false);
+        setRecipesType('meals');
       });
-    } else {
+    } else if (pageTitle === 'Bebidas') {
       setLoading(true);
       getDrinksApi().then((data) => {
-        setRecipes({
-          ...data,
-        });
+        setRecipes(data);
         setLoading(false);
+        setRecipesType('drinks');
       });
     }
   }, [pageTitle]);
 
   return (
-    <p>recipes</p>
+    <div className="recipes-container">
+      {recipes.map((recipe, index) => {
+        const MAX_CARDS = 11;
+        while (index <= MAX_CARDS) {
+          return (
+            <RecipeCard
+              key={ recipe.idMeal || recipe.idDrink }
+              recipe={ recipe }
+              index={ index }
+            />
+          );
+        }
+        return <p key={ recipe.idMeal || recipe.idDrink }>no cards</p>;
+      })}
+    </div>
   );
-}
+};
 
 export default Recipes;
