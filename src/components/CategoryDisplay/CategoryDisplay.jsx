@@ -25,7 +25,6 @@ const CategoryDisplay = () => {
 
   return (
     <div>
-      Categorias
       <table className="category-table">
         <tr>
           {categoryes
@@ -34,7 +33,12 @@ const CategoryDisplay = () => {
                 const CATEGORY_NUMBER = 5;
                 while (index > CATEGORY_NUMBER) {
                   return (
-                    <th key={ category.strCategory } className="th-category">{ category.strCategory }</th>
+                    <th
+                      className="th-category"
+                      data-testid={ `${category.strCategory}-category-filter` }
+                    >
+                      { category.strCategory }
+                    </th>
                   );
                 }
                 return undefined;
