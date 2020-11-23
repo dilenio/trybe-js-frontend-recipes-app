@@ -11,6 +11,7 @@ const Recipes = () => {
     recipes,
     setRecipes,
     setLoading,
+    selectedCategory,
   } = useContext(Context);
 
   useEffect(() => {
@@ -35,14 +36,28 @@ const Recipes = () => {
       <div className="recipes-container">
         {recipes && recipes.map((recipe, index) => {
           const MAX_CARDS = 11;
-          while (index <= MAX_CARDS) {
-            return (
-              <RecipeCard
-                key={ recipe.idMeal || recipe.idDrink }
-                recipe={ recipe }
-                index={ index }
-              />
-            );
+          if (selectedCategory === '') {
+            while (index <= MAX_CARDS) {
+              return (
+                <RecipeCard
+                  key={ recipe.idMeal || recipe.idDrink }
+                  recipe={ recipe }
+                  index={ index }
+                />
+              );
+            }
+          }
+          if (recipe.strCategory === selectedCategory) {
+            console.log('igual');
+            while (index <= MAX_CARDS) {
+              return (
+                <RecipeCard
+                  key={ recipe.idMeal || recipe.idDrink }
+                  recipe={ recipe }
+                  index={ index }
+                />
+              );
+            }
           }
           return undefined;
         })}
