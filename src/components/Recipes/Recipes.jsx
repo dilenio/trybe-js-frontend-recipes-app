@@ -10,7 +10,6 @@ const Recipes = () => {
     recipes,
     setRecipes,
     setLoading,
-    setRecipesType,
   } = useContext(Context);
 
   useEffect(() => {
@@ -19,14 +18,12 @@ const Recipes = () => {
       getMealsAPI().then((data) => {
         setRecipes(data);
         setLoading(false);
-        setRecipesType('meals');
       });
     } else if (pageTitle === 'Bebidas') {
       setLoading(true);
       getDrinksApi().then((data) => {
         setRecipes(data);
         setLoading(false);
-        setRecipesType('drinks');
       });
     }
   }, [pageTitle]);

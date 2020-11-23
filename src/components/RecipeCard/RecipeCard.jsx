@@ -13,7 +13,7 @@ const RecipeCard = (props) => {
         <img
           src={ recipe.strMealThumb || recipe.strDrinkThumb }
           data-testid={ `${index}-card-img` }
-          alt="meal display"
+          alt="recipe display"
         />
       </div>
       <h3 data-testid={ `${index}-card-name` }>{ recipe.strMeal || recipe.strDrink }</h3>
