@@ -12,6 +12,7 @@ function Provider({ children }) {
   const [pageTitle, setPageTitle] = useState('');
   const [loading, setLoading] = useState(false);
   const [recipes, setRecipes] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState('');
 
   const context = {
     email,
@@ -26,6 +27,8 @@ function Provider({ children }) {
     setLoading,
     pageTitle,
     setPageTitle,
+    selectedCategory,
+    setSelectedCategory,
   };
 
   return (

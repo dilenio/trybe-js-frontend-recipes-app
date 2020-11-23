@@ -5,6 +5,7 @@ import './CategoryDisplay.css';
 
 const CategoryDisplay = () => {
   const [categoryes, setCategoryes] = useState([]);
+  const { setSelectedCategory } = useContext(Context);
 
   const { pageTitle } = useContext(Context);
 
@@ -20,6 +21,12 @@ const CategoryDisplay = () => {
     }
   }, [pageTitle]);
 
+  function handleSelectCategory(event) {
+    const { target } = event;
+    const { value } = target;
+    setSelectedCategory(value);
+  }
+
   return (
     <div>
       <table className="category-table">
@@ -30,11 +37,16 @@ const CategoryDisplay = () => {
                 const CATEGORY_NUMBER = 5;
                 while (index < CATEGORY_NUMBER) {
                   return (
-                    <th
-                      className="th-category"
-                      data-testid={ `${category.strCategory}-category-filter` }
-                    >
-                      { category.strCategory }
+                    <th key={ category.strCategory } className="th-category">
+                      <button
+                        className="category-btn"
+                        type="button"
+                        value={ category.strCategory }
+                        data-testid={ `${category.strCategory}-category-filter` }
+                        onClick={ (event) => handleSelectCategory(event) }
+                      >
+                        { category.strCategory }
+                      </button>
                     </th>
                   );
                 }
