@@ -1,7 +1,4 @@
-import React from 'react';
-import { useState } from 'react';
-import { useContext } from 'react';
-import { useEffect } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import Context from '../../context/Context';
 import { getMealsAPI, getDrinksApi } from '../../services/API';
 import './CategoryDisplay.css';
