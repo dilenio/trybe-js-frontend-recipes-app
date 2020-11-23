@@ -30,21 +30,23 @@ const Recipes = () => {
   }, [pageTitle]);
 
   return (
-    <div className="recipes-container">
+    <div className="wrapper">
       <CategoryDisplay />
-      {recipes && recipes.map((recipe, index) => {
-        const MAX_CARDS = 11;
-        while (index <= MAX_CARDS) {
-          return (
-            <RecipeCard
-              key={ recipe.idMeal || recipe.idDrink }
-              recipe={ recipe }
-              index={ index }
-            />
-          );
-        }
-        return undefined;
-      })}
+      <div className="recipes-container">
+        {recipes && recipes.map((recipe, index) => {
+          const MAX_CARDS = 11;
+          while (index <= MAX_CARDS) {
+            return (
+              <RecipeCard
+                key={ recipe.idMeal || recipe.idDrink }
+                recipe={ recipe }
+                index={ index }
+              />
+            );
+          }
+          return undefined;
+        })}
+      </div>
     </div>
   );
 };

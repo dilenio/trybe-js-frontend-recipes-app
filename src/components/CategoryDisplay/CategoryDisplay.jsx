@@ -7,7 +7,6 @@ import { getMealsAPI, getDrinksApi } from '../../services/API';
 import './CategoryDisplay.css';
 
 const CategoryDisplay = () => {
-
   const [categoryes, setCategoryes] = useState([]);
 
   const { pageTitle } = useContext(Context);
@@ -27,17 +26,22 @@ const CategoryDisplay = () => {
   return (
     <div>
       Categorias
-      <tr>
-        <td>
-          <button
-            type="button"
-            onClick={ (event) => console.log(categoryes) }
-          >
-            Teste
-          </button>
-        </td>
-        <td>Melão</td>
-      </tr>
+      <table className="category-table">
+        <tr>
+          {categoryes
+            .map(
+              (category, index) => {
+                const CATEGORY_NUMBER = 5;
+                while (index > CATEGORY_NUMBER) {
+                  return (
+                    <th key={ category.strCategory } className="th-category">{ category.strCategory }</th>
+                  );
+                }
+                return undefined;
+              },
+            )}
+        </tr>
+      </table>
     </div>
   );
 };
