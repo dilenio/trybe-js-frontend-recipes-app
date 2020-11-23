@@ -28,7 +28,7 @@ function Footer() {
           type="button"
           data-testid="explore-bottom-btn"
           src={ exploreIcon }
-
+          onClick={ () => setPageTitle('Explorar') }
         >
           <img
             src={ exploreIcon }
