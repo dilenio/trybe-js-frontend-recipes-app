@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import Context from '../../context/Context';
 import { getMealsAPI, getDrinksApi } from '../../services/API';
+import CategoryDisplay from '../CategoryDisplay/CategoryDisplay';
 import RecipeCard from '../RecipeCard';
 import './Recipes.css';
 
@@ -30,6 +31,7 @@ const Recipes = () => {
 
   return (
     <div className="recipes-container">
+      <CategoryDisplay />
       {recipes && recipes.map((recipe, index) => {
         const MAX_CARDS = 11;
         while (index <= MAX_CARDS) {
