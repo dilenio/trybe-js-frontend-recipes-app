@@ -1,4 +1,4 @@
-.header {
+.page-header {
   background-color: #8a8a8a;
   display: flex;
   height: 80px;
@@ -6,11 +6,11 @@
   align-items: center;
 }
 
-.header h3 {
+.page-header h3 {
   margin: 0 50px;
 }
 
-.header button {
+.page-header button {
   background-color: transparent;
   border: none;
   cursor: pointer;
@@ -18,6 +18,6 @@
   width: 50px;
 }
 
-.header button:active, button:focus {
+.page-header button:active, button:focus {
   outline: none;
 }

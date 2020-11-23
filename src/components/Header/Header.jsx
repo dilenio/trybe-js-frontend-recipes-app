@@ -39,7 +39,7 @@ const Header = (props) => {
 
   return (
     <div>
-      <div className="header">
+      <div className="page-header">
         <Link to="/perfil">
           <img
             data-testid="profile-top-btn"

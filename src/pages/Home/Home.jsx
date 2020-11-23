@@ -4,6 +4,7 @@ import Header from '../../components/Header';
 import './Home.css';
 import Footer from '../../components/Footer';
 import '../../components/Footer/Footer.css';
+import Recipes from '../../components/Recipes/Recipes';
 
 const Home = (props) => {
   const { location } = props;
@@ -11,7 +12,8 @@ const Home = (props) => {
   return (
     <div>
       <Header pathname={ pathname } />
-      <Footer pathname={ pathname } />
+      <Recipes />
+      <Footer />
     </div>
   );
 };

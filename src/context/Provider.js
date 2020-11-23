@@ -4,7 +4,7 @@ import Context from './Context';
 
 function Provider({ children }) {
   const [email, setemail] = useState('');
-  const [passWord, setpassWord] = useState('');
+  const [password, setPassword] = useState('');
   const [search, setSearch] = useState({
     searchText: '',
     searchType: '',
@@ -16,8 +16,8 @@ function Provider({ children }) {
   const context = {
     email,
     setemail,
-    passWord,
-    setpassWord,
+    password,
+    setPassword,
     search,
     setSearch,
     recipes,

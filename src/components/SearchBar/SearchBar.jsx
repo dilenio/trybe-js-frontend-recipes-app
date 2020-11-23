@@ -30,9 +30,7 @@ function SearchBar() {
     setLoading(true);
     if (pageTitle === 'Comidas') {
       getMealsAPI(searchText, searchType).then((data) => {
-        setRecipes({
-          ...data,
-        });
+        setRecipes(data);
         setLoading(false);
         if (!data) {
           alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
@@ -46,9 +44,7 @@ function SearchBar() {
     }
     if (pageTitle === 'Bebidas') {
       getDrinksApi(searchText, searchType).then((data) => {
-        setRecipes({
-          ...data,
-        });
+        setRecipes(data);
         setLoading(false);
         if (!data) {
           alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');

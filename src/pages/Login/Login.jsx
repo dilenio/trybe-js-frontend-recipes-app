@@ -5,13 +5,11 @@ import Context from '../../context/Context';
 function Login(props) {
   const [validation, setValidation] = useState(true);
   const { email, setemail } = useContext(Context);
-  const [passWord, setpassWord] = useState('');
+  const [password, setPassword] = useState('');
 
   const loginValidation = () => {
     const emailResult = document.getElementById('input-email');
-    console.log(emailResult);
     const passwordResult = document.getElementById('input-password');
-    console.log(passwordResult);
     const regex = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
     const six = 6;
     if (regex.test(emailResult.value) === true && passwordResult.value.length > six) {
@@ -36,7 +34,7 @@ function Login(props) {
   };
 
   const handlePassword = ({ target }) => {
-    setpassWord(target.value);
+    setPassword(target.value);
     loginValidation();
   };
   return (
@@ -55,7 +53,7 @@ function Login(props) {
         placeholder="inserir senha"
         data-testid="password-input"
         onChange={ handlePassword }
-        value={ passWord }
+        value={ password }
       />
       <button
         type="button"

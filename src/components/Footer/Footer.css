@@ -4,7 +4,7 @@ div.footer {
   height: 80px;
   justify-content: center;
   align-items: center;
-  width:100%;
+  width: 100%;
   position: fixed;
   bottom: 0;
   display: flex;
