@@ -33,7 +33,7 @@ const Recipes = () => {
 
   return (
     <div className="recipes-container">
-      {recipes.map((recipe, index) => {
+      {recipes && recipes.map((recipe, index) => {
         const MAX_CARDS = 11;
         while (index <= MAX_CARDS) {
           return (
@@ -44,7 +44,7 @@ const Recipes = () => {
             />
           );
         }
-        return <p key={ recipe.idMeal || recipe.idDrink }>no cards</p>;
+        return undefined;
       })}
     </div>
   );

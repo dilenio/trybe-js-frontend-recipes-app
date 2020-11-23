@@ -24,6 +24,6 @@ const RecipeCard = (props) => {
 export default RecipeCard;
 
 RecipeCard.propTypes = {
-  recipe: PropTypes.objectOf.isRequired,
+  recipe: PropTypes.shape().isRequired,
   index: PropTypes.number.isRequired,
 };
