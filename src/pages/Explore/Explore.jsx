@@ -33,8 +33,7 @@ const Explore = (props) => {
           </button>
         </Link>
       </div>
-      {pathname !== '/receitas-feitas'
-      && pathname !== '/receitas-favoritas'
+      {pathname && pathname !== '/receitas-favoritas'
       && <Footer pathname={ pathname } />}
     </div>
   );

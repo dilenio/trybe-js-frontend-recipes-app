@@ -49,39 +49,42 @@ const Recipes = () => {
   }, [selectedCategory]);
 
   function renderCards() {
-    const MAX_CARDS = 11;
-    if (selectedCategory === '') {
-      return (
-        recipes.map((recipe, index) => {
-          while (index <= MAX_CARDS) {
-            return (
-              <RecipeCard
-                key={ recipe.idMeal || recipe.idDrink }
-                recipe={ recipe }
-                index={ index }
-              />
-            );
-          }
-          return undefined;
-        })
-      );
+    if (recipes) {
+      const MAX_CARDS = 11;
+      if (selectedCategory === '') {
+        return (
+          recipes.map((recipe, index) => {
+            while (index <= MAX_CARDS) {
+              return (
+                <RecipeCard
+                  key={ recipe.idMeal || recipe.idDrink }
+                  recipe={ recipe }
+                  index={ index }
+                />
+              );
+            }
+            return undefined;
+          })
+        );
+      }
+      if (selectedCategory !== '') {
+        return (
+          newRecipes.map((recipe, index) => {
+            while (index <= MAX_CARDS) {
+              return (
+                <RecipeCard
+                  key={ recipe.idMeal || recipe.idDrink }
+                  recipe={ recipe }
+                  index={ index }
+                />
+              );
+            }
+            return undefined;
+          })
+        );
+      }
     }
-    if (selectedCategory !== '') {
-      return (
-        newRecipes.map((recipe, index) => {
-          while (index <= MAX_CARDS) {
-            return (
-              <RecipeCard
-                key={ recipe.idMeal || recipe.idDrink }
-                recipe={ recipe }
-                index={ index }
-              />
-            );
-          }
-          return undefined;
-        })
-      );
-    }
+    return undefined;
   }
 
   return (
