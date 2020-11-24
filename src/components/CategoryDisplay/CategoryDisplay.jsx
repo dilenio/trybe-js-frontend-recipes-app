@@ -11,11 +11,11 @@ const CategoryDisplay = () => {
 
   useEffect(() => {
     if (pageTitle === 'Comidas') {
-      getMealsAPI('list', 'category').then((data) => {
+      getMealsAPI('c=list', 'category').then((data) => {
         setCategoryes(data);
       });
     } else if (pageTitle === 'Bebidas') {
-      getDrinksApi('list', 'category').then((data) => {
+      getDrinksApi('c=list', 'category').then((data) => {
         setCategoryes(data);
       });
     }
@@ -30,30 +30,32 @@ const CategoryDisplay = () => {
   return (
     <div>
       <table className="category-table">
-        <tr>
-          {categoryes
-            .map(
-              (category, index) => {
-                const CATEGORY_NUMBER = 5;
-                while (index < CATEGORY_NUMBER) {
-                  return (
-                    <th key={ category.strCategory } className="th-category">
-                      <button
-                        className="category-btn"
-                        type="button"
-                        value={ category.strCategory }
-                        data-testid={ `${category.strCategory}-category-filter` }
-                        onClick={ (event) => handleSelectCategory(event) }
-                      >
-                        { category.strCategory }
-                      </button>
-                    </th>
-                  );
-                }
-                return undefined;
-              },
-            )}
-        </tr>
+        <thead>
+          <tr>
+            {categoryes
+              .map(
+                (category, index) => {
+                  const CATEGORY_NUMBER = 5;
+                  while (index < CATEGORY_NUMBER) {
+                    return (
+                      <th key={ category.strCategory } className="th-category">
+                        <button
+                          className="category-btn"
+                          type="button"
+                          value={ category.strCategory }
+                          data-testid={ `${category.strCategory}-category-filter` }
+                          onClick={ (event) => handleSelectCategory(event) }
+                        >
+                          {category.strCategory}
+                        </button>
+                      </th>
+                    );
+                  }
+                  return undefined;
+                },
+              )}
+          </tr>
+        </thead>
       </table>
     </div>
   );

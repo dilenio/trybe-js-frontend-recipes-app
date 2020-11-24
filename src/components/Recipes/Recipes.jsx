@@ -30,12 +30,35 @@ const Recipes = () => {
     }
   }, [pageTitle]);
 
+  useEffect(() => {
+    console.log(selectedCategory);
+    if (selectedCategory !== '' && pageTitle === 'Comidas') {
+      console.log('if de comidas');
+      setLoading(true);
+      getMealsAPI(`c=${selectedCategory}`, 'byCategory').then((data) => {
+        setRecipes(data);
+        setLoading(false);
+        console.log('comidas');
+      });
+    } else if (selectedCategory !== '' && pageTitle === 'Bebidas') {
+      console.log('if de bebidas');
+      setLoading(true);
+      getDrinksApi(`c=${selectedCategory}`, 'byCategory').then((data) => {
+        setRecipes(data);
+        setLoading(false);
+        console.log('bebidas');
+        console.log(data);
+      });
+    }
+  }, [selectedCategory]);
+
   return (
     <div className="wrapper">
       <CategoryDisplay />
       <div className="recipes-container">
         {recipes && recipes.map((recipe, index) => {
           const MAX_CARDS = 11;
+          const TWELVE = 12;
           if (selectedCategory === '') {
             while (index <= MAX_CARDS) {
               return (
@@ -48,8 +71,7 @@ const Recipes = () => {
             }
           }
           if (recipe.strCategory === selectedCategory) {
-            console.log('igual');
-            while (index <= MAX_CARDS) {
+            while (index <= TWELVE) {
               return (
                 <RecipeCard
                   key={ recipe.idMeal || recipe.idDrink }
