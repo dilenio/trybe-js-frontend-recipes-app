@@ -13,6 +13,7 @@ const CATEGORY_MEAL_API = 'https://www.themealdb.com/api/json/v1/1/list.php?c=';
 const LIST_INGREDIENTS_MEAL_API = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
 const LIST_INGREDIENTS_DRINK_API = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list';
 
+// função de fetch
 const fetchData = async (url, endpoint, type) => {
   const data = await (await fetch(`${url}${endpoint}`)).json();
   return data[type];
