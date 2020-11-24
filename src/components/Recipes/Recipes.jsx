@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import Context from '../../context/Context';
 import { getMealsAPI, getDrinksApi } from '../../services/API';
+import CategoryDisplay from '../CategoryDisplay/CategoryDisplay';
 import RecipeCard from '../RecipeCard';
 import './Recipes.css';
 
@@ -29,20 +30,23 @@ const Recipes = () => {
   }, [pageTitle]);
 
   return (
-    <div className="recipes-container">
-      {recipes && recipes.map((recipe, index) => {
-        const MAX_CARDS = 11;
-        while (index <= MAX_CARDS) {
-          return (
-            <RecipeCard
-              key={ recipe.idMeal || recipe.idDrink }
-              recipe={ recipe }
-              index={ index }
-            />
-          );
-        }
-        return undefined;
-      })}
+    <div className="wrapper">
+      <CategoryDisplay />
+      <div className="recipes-container">
+        {recipes && recipes.map((recipe, index) => {
+          const MAX_CARDS = 11;
+          while (index <= MAX_CARDS) {
+            return (
+              <RecipeCard
+                key={ recipe.idMeal || recipe.idDrink }
+                recipe={ recipe }
+                index={ index }
+              />
+            );
+          }
+          return undefined;
+        })}
+      </div>
     </div>
   );
 };
