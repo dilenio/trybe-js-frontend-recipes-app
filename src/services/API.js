@@ -1,3 +1,5 @@
+const RANDOM_MEALS_API = 'https://www.themealdb.com/api/json/v1/1/random.php';
+const RANDOM_DRINKS_API = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
 const ALL_MEALS_API = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
 const ALL_DRINKS_API = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
 const INGREDIENT_MEAL_API = 'https://www.themealdb.com/api/json/v1/1/filter.php?i=';
@@ -27,6 +29,9 @@ export const getMealsAPI = async (searchText, searchType) => {
   if (searchType === 'firstletter') {
     return fetchData(FIRSTLETTER_MEAL_API, searchText, 'meals');
   }
+  if (searchType === 'random') {
+    return fetchData(RANDOM_MEALS_API, searchText, 'meals');
+  }
   if (searchType === 'category') {
     return fetchData(CATEGORY_MEAL_API, searchText, 'meals');
   }
@@ -44,6 +49,9 @@ export const getDrinksApi = async (searchText, searchType) => {
   }
   if (searchType === 'firstletter') {
     return fetchData(FIRSTLETTER_DRINK_API, searchText, 'drinks');
+  }
+  if (searchType === 'random') {
+    return fetchData(RANDOM_DRINKS_API, searchText, 'drinks');
   }
   if (searchType === 'category') {
     return fetchData(CATEGORY_DRINK_API, searchText, 'drinks');
