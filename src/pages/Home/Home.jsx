@@ -11,8 +11,10 @@ const Home = (props) => {
   const { pathname } = location;
   return (
     <div>
-      <Header pathname={ pathname } />
-      <Recipes />
+      <div className="home-content">
+        <Header pathname={ pathname } />
+        <Recipes />
+      </div>
       <Footer />
     </div>
   );
