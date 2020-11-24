@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import Profile from './pages/Profile';
 import Explore from './pages/Explore';
 import Provider from './context/Provider';
+import RecipesDone from './pages/RecipesDone/RecipesDone';
 
 function App() {
   return (
@@ -19,7 +20,7 @@ function App() {
           <Route exact path="/explorar/bebidas" component={ Explore } />
           <Route exact path="/explorar/bebidas/ingredientes" component={ Explore } />
           <Route exact path="/explorar/comidas/area" component={ Explore } />
-          <Route path="/receitas-feitas" component={ Explore } />
+          <Route path="/receitas-feitas" component={ RecipesDone } />
           <Route path="/receitas-favoritas" component={ Explore } />
           <Route path="/explorar" component={ Explore } />
           <Route path="/perfil" component={ Profile } />
