@@ -5,6 +5,7 @@ import Context from '../../context/Context';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import { getMealsAPI, getDrinksApi } from '../../services/API';
+import './ExploreMealsDrinks.css';
 
 const ExploreMealsDrinks = (props) => {
   const { location: { pathname } } = props;
@@ -53,26 +54,28 @@ const ExploreMealsDrinks = (props) => {
       {pathname !== '/receitas-feitas'
       && pathname !== '/receitas-favoritas'
       && <Footer pathname={ pathname } />}
-      <Link
-        to={ `${pathname}/ingredientes` }
-        data-testid="explore-by-ingredient"
-      >
-        Por Ingredientes
-      </Link>
-      { pageTitle === 'Explorar Comidas' && (
+      <div className="explore-container">
         <Link
-          to={ `${pathname}/area` }
-          data-testid="explore-by-area"
+          to={ `${pathname}/ingredientes` }
+          data-testid="explore-by-ingredient"
         >
-          Por Local de Origem
+          <button>Por Ingredientes</button>
         </Link>
-      )}
-      <Link
-        to={ `${randomId}` }
-        data-testid="explore-surprise"
-      >
-        Me Surpreenda!
-      </Link>
+        { pageTitle === 'Explorar Comidas' && (
+          <Link
+            to={ `${pathname}/area` }
+            data-testid="explore-by-area"
+          >
+            <button>Por Local de Origem</button>
+          </Link>
+        )}
+        <Link
+          to={ `${randomId}` }
+          data-testid="explore-surprise"
+        >
+          <button>Me Surpreenda!</button>
+        </Link>
+      </div>
     </div>
   );
 };
