@@ -31,26 +31,20 @@ const Recipes = () => {
   }, [pageTitle]);
 
   useEffect(() => {
-    console.log(selectedCategory);
     if (selectedCategory !== '' && pageTitle === 'Comidas') {
-      console.log('if de comidas');
       setLoading(true);
       getMealsAPI(`c=${selectedCategory}`, 'byCategory').then((data) => {
         setRecipes(data);
         setLoading(false);
-        console.log('comidas');
       });
     } else if (selectedCategory !== '' && pageTitle === 'Bebidas') {
-      console.log('if de bebidas');
       setLoading(true);
       getDrinksApi(`c=${selectedCategory}`, 'byCategory').then((data) => {
         setRecipes(data);
         setLoading(false);
-        console.log('bebidas');
-        console.log(data);
       });
     }
-  }, [selectedCategory]);
+  }, []);
 
   return (
     <div className="wrapper">
