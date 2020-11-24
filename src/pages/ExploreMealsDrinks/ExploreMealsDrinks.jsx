@@ -59,21 +59,21 @@ const ExploreMealsDrinks = (props) => {
           to={ `${pathname}/ingredientes` }
           data-testid="explore-by-ingredient"
         >
-          <button>Por Ingredientes</button>
+          <button type="button">Por Ingredientes</button>
         </Link>
         { pageTitle === 'Explorar Comidas' && (
           <Link
             to={ `${pathname}/area` }
             data-testid="explore-by-area"
           >
-            <button>Por Local de Origem</button>
+            <button type="button">Por Local de Origem</button>
           </Link>
         )}
         <Link
           to={ `${randomId}` }
           data-testid="explore-surprise"
         >
-          <button>Me Surpreenda!</button>
+          <button type="button">Me Surpreenda!</button>
         </Link>
       </div>
     </div>
