@@ -38,8 +38,13 @@
   margin: 5px auto 10px 15px;
 }
 
-.done-recipe-card-content h4, p {
+.done-recipe-card-content h4 {
+  color: #8a8a8a;
   margin: 5px auto 10px 15px;
+}
+
+.recipe-done {
+  margin: 5px auto 5px 15px;
 }
 
 .tag-container {

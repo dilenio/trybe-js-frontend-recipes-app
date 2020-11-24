@@ -10,11 +10,24 @@ const DoneRecipesCard = (props) => {
     // type,
     area,
     category,
-    // alcoholicOrNot,
+    alcoholicOrNot,
     name,
     image,
     doneDate,
     tags } = doneRecipe;
+
+  function renderHorizontalTopText() {
+    return alcoholicOrNot ? (
+      <h4 data-testid={ `${index}-horizontal-top-text` }>
+        { alcoholicOrNot }
+      </h4>
+    ) : (
+      <h4 data-testid={ `${index}-horizontal-top-text` }>
+        { `${area} - ${category}` }
+      </h4>
+    );
+  }
+
   return (
     <div className="done-recipe-card">
       <div className="img-container">
@@ -31,11 +44,12 @@ const DoneRecipesCard = (props) => {
           data-testid={ `${index}-horizontal-share-btn` }
           alt="share"
         />
-        <h3 data-testid={ `${index}-horizontal-top-text` }>
-          { `${area} - ${category}` }
-        </h3>
-        <h4 data-testid={ `${index}-horizontal-name` }>{name}</h4>
-        <p data-testid={ `${index}-horizontal-done-date` }>
+        { renderHorizontalTopText() }
+        <h3 data-testid={ `${index}-horizontal-name` }>{name}</h3>
+        <p
+          className="recipe-done"
+          data-testid={ `${index}-horizontal-done-date` }
+        >
           { `Feita em: ${doneDate}` }
         </p>
         <section className="tag-container">

@@ -57,7 +57,7 @@ const DoneRecipes = (props) => {
           type="button"
           data-testid="filter-by-drink-btn"
         >
-          Drink
+          Drinks
         </button>
       </div>
       <section className="done-recipes-content">
