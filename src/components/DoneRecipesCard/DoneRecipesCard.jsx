@@ -8,7 +8,7 @@ const DoneRecipesCard = (props) => {
   const {
     id,
     // type,
-    // area,
+    area,
     category,
     // alcoholicOrNot,
     name,
@@ -31,7 +31,9 @@ const DoneRecipesCard = (props) => {
           data-testid={ `${index}-horizontal-share-btn` }
           alt="share"
         />
-        <h3 data-testid={ `${index}-horizontal-top-text` }>{category}</h3>
+        <h3 data-testid={ `${index}-horizontal-top-text` }>
+          { `${area} - ${category}` }
+        </h3>
         <h4 data-testid={ `${index}-horizontal-name` }>{name}</h4>
         <p data-testid={ `${index}-horizontal-done-date` }>
           { `Feita em: ${doneDate}` }
