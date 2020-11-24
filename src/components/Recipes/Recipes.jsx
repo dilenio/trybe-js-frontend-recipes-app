@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Context from '../../context/Context';
 import { getMealsAPI, getDrinksApi } from '../../services/API';
 import CategoryDisplay from '../CategoryDisplay/CategoryDisplay';
@@ -13,6 +13,8 @@ const Recipes = () => {
     setLoading,
     selectedCategory,
   } = useContext(Context);
+
+  const [newRecipes, setNewRecipes] = useState([]);
 
   useEffect(() => {
     if (pageTitle === 'Comidas') {
@@ -34,49 +36,59 @@ const Recipes = () => {
     if (selectedCategory !== '' && pageTitle === 'Comidas') {
       setLoading(true);
       getMealsAPI(`c=${selectedCategory}`, 'byCategory').then((data) => {
-        setRecipes(data);
+        setNewRecipes(data);
         setLoading(false);
       });
     } else if (selectedCategory !== '' && pageTitle === 'Bebidas') {
       setLoading(true);
       getDrinksApi(`c=${selectedCategory}`, 'byCategory').then((data) => {
-        setRecipes(data);
+        setNewRecipes(data);
         setLoading(false);
       });
     }
-  }, []);
+  }, [selectedCategory]);
+
+  function renderCards() {
+    const MAX_CARDS = 11;
+    if (selectedCategory === '') {
+      return (
+        recipes.map((recipe, index) => {
+          while (index <= MAX_CARDS) {
+            return (
+              <RecipeCard
+                key={ recipe.idMeal || recipe.idDrink }
+                recipe={ recipe }
+                index={ index }
+              />
+            );
+          }
+          return undefined;
+        })
+      );
+    }
+    if (selectedCategory !== '') {
+      return (
+        newRecipes.map((recipe, index) => {
+          while (index <= MAX_CARDS) {
+            return (
+              <RecipeCard
+                key={ recipe.idMeal || recipe.idDrink }
+                recipe={ recipe }
+                index={ index }
+              />
+            );
+          }
+          return undefined;
+        })
+      );
+    }
+  }
 
   return (
     <div className="wrapper">
       <CategoryDisplay />
       <div className="recipes-container">
-        {recipes && recipes.map((recipe, index) => {
-          const MAX_CARDS = 11;
-          const TWELVE = 12;
-          if (selectedCategory === '') {
-            while (index <= MAX_CARDS) {
-              return (
-                <RecipeCard
-                  key={ recipe.idMeal || recipe.idDrink }
-                  recipe={ recipe }
-                  index={ index }
-                />
-              );
-            }
-          }
-          if (recipe.strCategory === selectedCategory) {
-            while (index <= TWELVE) {
-              return (
-                <RecipeCard
-                  key={ recipe.idMeal || recipe.idDrink }
-                  recipe={ recipe }
-                  index={ index }
-                />
-              );
-            }
-          }
-          return undefined;
-        })}
+        { renderCards() }
       </div>
     </div>
   );
