@@ -12,6 +12,10 @@ const CATEGORY_DRINK_API = 'https://www.thecocktaildb.com/api/json/v1/1/list.php
 const CATEGORY_MEAL_API = 'https://www.themealdb.com/api/json/v1/1/list.php?c=';
 const LIST_INGREDIENTS_MEAL_API = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
 const LIST_INGREDIENTS_DRINK_API = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list';
+const LIST_DRINK_API = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?';
+const LIST_MEAL_API = 'https://www.themealdb.com/api/json/v1/1/list.php?';
+const FILTER_DRINK_API = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?';
+const FILTER_MEAL_API = 'https://www.themealdb.com/api/json/v1/1/filter.php?';
 
 const fetchData = async (url, endpoint, type) => {
   const data = await (await fetch(`${url}${endpoint}`)).json();
@@ -35,7 +39,10 @@ export const getMealsAPI = async (searchText, searchType) => {
     return fetchData(RANDOM_MEALS_API, searchText, 'meals');
   }
   if (searchType === 'category') {
-    return fetchData(CATEGORY_MEAL_API, searchText, 'meals');
+    return fetchData(LIST_MEAL_API, searchText, 'meals');
+  }
+  if (searchType === 'byCategory') {
+    return fetchData(FILTER_MEAL_API, searchText, 'meals');
   }
   if (searchType === 'list-all-ingredients') {
     return fetchData(LIST_INGREDIENTS_MEAL_API, searchText, 'meals');
@@ -59,7 +66,10 @@ export const getDrinksApi = async (searchText, searchType) => {
     return fetchData(RANDOM_DRINKS_API, searchText, 'drinks');
   }
   if (searchType === 'category') {
-    return fetchData(CATEGORY_DRINK_API, searchText, 'drinks');
+    return fetchData(LIST_DRINK_API, searchText, 'drinks');
+  }
+  if (searchType === 'byCategory') {
+    return fetchData(FILTER_DRINK_API, searchText, 'drinks');
   }
   if (searchType === 'list-all-ingredients') {
     return fetchData(LIST_INGREDIENTS_DRINK_API, searchText, 'drinks');
