@@ -8,6 +8,7 @@ const DoneRecipes = (props) => {
   const { location } = props;
   const { pathname } = location;
   const [messageToggle, setMessageToggle] = useState(false);
+  const [doneRecipeFilter, setDoneRecipeFilter] = useState('all');
 
   // const test = {
   //   id: 0,
@@ -32,10 +33,21 @@ const DoneRecipes = (props) => {
     }, TWO_SECONDS);
   };
 
+  const filterDoneRecipes = (doneRecipes) => {
+    switch (doneRecipeFilter) {
+    case 'meals':
+      return doneRecipes.filter((doneRecipe) => !doneRecipe.alcoholicOrNot);
+    case 'drinks':
+      return doneRecipes.filter((doneRecipe) => doneRecipe.alcoholicOrNot);
+    default:
+      return doneRecipes;
+    }
+  };
+
   function renderDoneRecipes() {
     const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
     if (doneRecipes) {
-      return doneRecipes.map((doneRecipe, index) => (
+      return filterDoneRecipes(doneRecipes).map((doneRecipe, index) => (
         <DoneRecipesCard
           key={ doneRecipe.id }
           doneRecipe={ doneRecipe }
@@ -54,18 +66,21 @@ const DoneRecipes = (props) => {
         <button
           type="button"
           data-testid="filter-by-all-btn"
+          onClick={ () => setDoneRecipeFilter('all') }
         >
           All
         </button>
         <button
           type="button"
           data-testid="filter-by-food-btn"
+          onClick={ () => setDoneRecipeFilter('meals') }
         >
           Food
         </button>
         <button
           type="button"
           data-testid="filter-by-drink-btn"
+          onClick={ () => setDoneRecipeFilter('drinks') }
         >
           Drinks
         </button>
