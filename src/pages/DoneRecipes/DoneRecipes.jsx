@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Header from '../../components/Header';
 import DoneRecipesCard from '../../components/DoneRecipesCard';
@@ -7,6 +7,7 @@ import './DoneRecipes.css';
 const DoneRecipes = (props) => {
   const { location } = props;
   const { pathname } = location;
+  const [messageToggle, setMessageToggle] = useState(false);
 
   // const test = {
   //   id: 0,
@@ -23,6 +24,14 @@ const DoneRecipes = (props) => {
   // localStorage.setItem('doneRecipes', JSON.stringify([test]));
   // const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
 
+  const showMessage = () => {
+    const TWO_SECONDS = 2000;
+    setMessageToggle(true);
+    setTimeout(() => {
+      setMessageToggle(false);
+    }, TWO_SECONDS);
+  };
+
   function renderDoneRecipes() {
     const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
     if (doneRecipes) {
@@ -31,6 +40,7 @@ const DoneRecipes = (props) => {
           key={ doneRecipe.id }
           doneRecipe={ doneRecipe }
           index={ index }
+          showMessage={ showMessage }
         />
       ));
     }
@@ -63,6 +73,7 @@ const DoneRecipes = (props) => {
       <section className="done-recipes-content">
         {renderDoneRecipes()}
       </section>
+      {messageToggle && <p>Link copiado!</p>}
     </div>
   );
 };

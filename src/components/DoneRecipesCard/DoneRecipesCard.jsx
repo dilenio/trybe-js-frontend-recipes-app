@@ -4,7 +4,7 @@ import shareBtn from '../../images/shareIcon.svg';
 import './DoneRecipesCard.css';
 
 const DoneRecipesCard = (props) => {
-  const { doneRecipe, index } = props;
+  const { doneRecipe, index, showMessage } = props;
   const {
     id,
     // type,
@@ -28,6 +28,14 @@ const DoneRecipesCard = (props) => {
     );
   }
 
+  const copyUrlToClipboard = () => {
+    const detailsPage = window.location.href.replace('receitas-feitas', () => (
+      (!alcoholicOrNot) ? `comidas/${id}` : `bebidas/${id}`
+    ));
+    // learned from here: https://medium.com/dev-genius/react-tips-copy-to-clipboard-comparing-old-and-new-values-with-hooks-a5f22a258a09
+    navigator.clipboard.writeText(detailsPage).then(() => showMessage());
+  };
+
   return (
     <div className="done-recipe-card">
       <div className="img-container">
@@ -39,11 +47,17 @@ const DoneRecipesCard = (props) => {
         />
       </div>
       <div className="done-recipe-card-content">
-        <img
-          src={ shareBtn }
-          data-testid={ `${index}-horizontal-share-btn` }
-          alt="share"
-        />
+        <button
+          type="button"
+          // data-testid={ `${index}-horizontal-share-btn` }
+          onClick={ () => copyUrlToClipboard() }
+        >
+          <img
+            src={ shareBtn }
+            data-testid={ `${index}-horizontal-share-btn` }
+            alt="share"
+          />
+        </button>
         { renderHorizontalTopText() }
         <h3 data-testid={ `${index}-horizontal-name` }>{name}</h3>
         <p
@@ -73,4 +87,5 @@ export default DoneRecipesCard;
 DoneRecipesCard.propTypes = {
   doneRecipe: PropTypes.shape().isRequired,
   index: PropTypes.number.isRequired,
+  showMessage: PropTypes.func.isRequired,
 };
