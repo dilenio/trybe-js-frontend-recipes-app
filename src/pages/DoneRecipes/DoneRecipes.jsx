@@ -10,21 +10,6 @@ const DoneRecipes = (props) => {
   const [messageToggle, setMessageToggle] = useState(false);
   const [doneRecipeFilter, setDoneRecipeFilter] = useState('all');
 
-  // const test = {
-  //   id: 0,
-  //   type: 'meals',
-  //   area: 'mars',
-  //   category: 'mars food',
-  //   alcoholicOrNot: 'alcoholic',
-  //   name: 'meatballs from mars',
-  //   image: '',
-  //   doneDate: '20/11/2020',
-  //   tags: ['meatballs', 'alcoholic'],
-  // };
-
-  // localStorage.setItem('doneRecipes', JSON.stringify([test]));
-  // const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
-
   const showMessage = () => {
     const TWO_SECONDS = 2000;
     setMessageToggle(true);
