@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import Profile from './pages/Profile';
 import Explore from './pages/Explore';
 import ExploreMealsDrinks from './pages/ExploreMealsDrinks';
+import ExploreByIngredient from './pages/ExploreByIngredient';
 import Provider from './context/Provider';
 import DoneRecipes from './pages/DoneRecipes/DoneRecipes';
 
@@ -17,9 +18,17 @@ function App() {
           <Route exact path="/comidas" component={ Home } />
           <Route exact path="/bebidas" component={ Home } />
           <Route exact path="/explorar/comidas" component={ ExploreMealsDrinks } />
-          <Route exact path="/explorar/comidas/ingredientes" component={ Explore } />
+          <Route
+            exact
+            path="/explorar/comidas/ingredientes"
+            component={ ExploreByIngredient }
+          />
           <Route exact path="/explorar/bebidas" component={ ExploreMealsDrinks } />
-          <Route exact path="/explorar/bebidas/ingredientes" component={ Explore } />
+          <Route
+            exact
+            path="/explorar/bebidas/ingredientes"
+            component={ ExploreByIngredient }
+          />
           <Route exact path="/explorar/comidas/area" component={ Explore } />
           <Route path="/receitas-feitas" component={ DoneRecipes } />
           <Route path="/receitas-favoritas" component={ Explore } />

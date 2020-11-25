@@ -12,6 +12,7 @@ function Provider({ children }) {
   const [pageTitle, setPageTitle] = useState('');
   const [loading, setLoading] = useState(false);
   const [recipes, setRecipes] = useState([]);
+  const [ingredients, setIngredients] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('');
 
   const context = {
@@ -27,6 +28,8 @@ function Provider({ children }) {
     setLoading,
     pageTitle,
     setPageTitle,
+    ingredients,
+    setIngredients,
     selectedCategory,
     setSelectedCategory,
   };
