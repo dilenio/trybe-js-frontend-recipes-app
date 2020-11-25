@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import Profile from './pages/Profile';
 import Explore from './pages/Explore';
 import Provider from './context/Provider';
+import Details from './pages/Details';
 
 function App() {
   return (
@@ -14,6 +15,8 @@ function App() {
         <Switch>
           <Route exact path="/comidas" component={ Home } />
           <Route exact path="/bebidas" component={ Home } />
+          <Route exact path="/comidas/:id" component={ Details } />
+          <Route exact path="/bebidas/:id" component={ Details } />
           <Route exact path="/explorar/comidas" component={ Explore } />
           <Route exact path="/explorar/comidas/ingredientes" component={ Explore } />
           <Route exact path="/explorar/bebidas" component={ Explore } />
