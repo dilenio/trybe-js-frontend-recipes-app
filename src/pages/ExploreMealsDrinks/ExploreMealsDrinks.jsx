@@ -82,7 +82,11 @@ const ExploreMealsDrinks = (props) => {
 
 ExploreMealsDrinks.propTypes = {
   location: PropTypes.objectOf(PropTypes.string).isRequired,
-  pathname: PropTypes.string.isRequired,
+  pathname: PropTypes.string,
+};
+
+ExploreMealsDrinks.defaultProps = {
+  pathname: '/comidas',
 };
 
 export default ExploreMealsDrinks;
