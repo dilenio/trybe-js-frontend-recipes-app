@@ -5,7 +5,7 @@ import DoneRecipesCard from '../../components/DoneRecipesCard';
 import './DoneRecipes.css';
 
 const DoneRecipes = (props) => {
-  const { location } = props;
+  const { location, history } = props;
   const { pathname } = location;
   const [messageToggle, setMessageToggle] = useState(false);
   const [doneRecipeFilter, setDoneRecipeFilter] = useState('all');
@@ -53,6 +53,7 @@ const DoneRecipes = (props) => {
           doneRecipe={ doneRecipe }
           index={ index }
           showMessage={ showMessage }
+          history={ history }
         />
       ));
     }
@@ -97,6 +98,7 @@ export default DoneRecipes;
 
 DoneRecipes.propTypes = {
   location: PropTypes.objectOf(PropTypes.string).isRequired,
+  history: PropTypes.shape().isRequired,
   pathname: PropTypes.string,
 };
 
