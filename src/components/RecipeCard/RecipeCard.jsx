@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import './RecipeCard.css';
 
 const RecipeCard = (props) => {
-  const { recipe, index, alt } = props;
+  const { recipe, index } = props;
 
   return (
     <div
