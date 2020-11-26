@@ -6,7 +6,7 @@ import favBtn from '../../images/blackHeartIcon.svg';
 import './FavDoneRecipeCard.css';
 
 const FavDoneRecipeCard = (props) => {
-  const { cardType } = useContext(Context);
+  const { pageTitle, cardType, setFavDoneRecipes } = useContext(Context);
   const { recipe, index, showMessage, history } = props;
   const {
     id,
@@ -31,17 +31,12 @@ const FavDoneRecipeCard = (props) => {
     );
   }
 
-  const getType = () => {
-    switch (cardType) {
-    case 'done':
-      return 'receitas-feitas';
-    default:
-      return 'receitas-favoritas';
-    }
+  const getCardType = () => {
+    return (pageTitle === 'Receitas Feitas') ? 'receitas-feitas' : 'receitas-favoritas';
   };
 
   const copyUrlToClipboard = () => {
-    const detailsPage = window.location.href.replace(getType(), () => (
+    const detailsPage = window.location.href.replace(getCardType(), () => (
       (!alcoholicOrNot) ? `comidas/${id}` : `bebidas/${id}`
     ));
     navigator.clipboard.writeText(detailsPage).then(() => showMessage());
@@ -51,12 +46,17 @@ const FavDoneRecipeCard = (props) => {
     (!alcoholicOrNot) ? `comidas/${id}` : `bebidas/${id}`
   );
 
+  // const updateFavDoneRecipes = () => {
+  //   const oldRecipes = JSON.parse(localStorage.getItem(getType()));
+  //   console.log(oldRecipes)
+  // };
+
   return (
     <div className="recipe-card">
       {(cardType === 'favorite') ? (
         <button
           type="button"
-          // onClick= {}
+          // onClick= { () => updateFavDoneRecipes() }
         >
           <img
             src={ favBtn }

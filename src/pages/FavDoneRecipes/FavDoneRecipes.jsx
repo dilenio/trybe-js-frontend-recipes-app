@@ -6,12 +6,21 @@ import FavDoneRecipeCard from '../../components/FavDoneRecipeCard';
 import FavDoneRecipesFilters
   from '../../components/FavDoneRecipesFiltes/FavDoneRecipesFilters';
 import './FavDoneRecipes.css';
+import { useEffect } from 'react';
 
 const FavDoneRecipes = (props) => {
   const { location, history } = props;
   const { pathname } = location;
   const [messageToggle, setMessageToggle] = useState(false);
-  const { doneFavRecipeFilter, setCardType, cardType, pageTitle } = useContext(Context);
+  const { doneFavRecipeFilter, setCardType, cardType, pageTitle, favDoneRecipes } = useContext(Context);
+
+  useEffect(() => {
+    if (pageTitle === 'Receitas Feitas') {
+      setCardType('done');
+    } else {
+      setCardType('favorite');
+    }
+  }, []);
 
   const showMessage = () => {
     const TWO_SECONDS = 2000;
@@ -32,13 +41,13 @@ const FavDoneRecipes = (props) => {
     }
   };
 
+  const getCardType = () => {
+    return (pageTitle === 'Receitas Feitas') ? 'done' : 'favorite';
+  };
+
   function renderFavDoneRecipes() {
-    if (pageTitle === 'Receitas Feitas') {
-      setCardType('done');
-    } else {
-      setCardType('favorite');
-    }
-    const recipes = JSON.parse(localStorage.getItem(`${cardType}Recipes`));
+    const recipes = JSON.parse(localStorage.getItem(`${getCardType()}Recipes`));
+
     if (recipes) {
       return filterFavDoneRecipes(recipes).map((recipe, index) => (
         <FavDoneRecipeCard
