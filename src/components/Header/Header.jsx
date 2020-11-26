@@ -39,28 +39,34 @@ const Header = (props) => {
 
   return (
     <div>
-      <div className="page-header">
+      <header className="page-header">
         <Link to="/perfil">
-          <img
-            data-testid="profile-top-btn"
-            src={ profileIcon }
-            alt="profile"
-          />
-        </Link>
-        <h3 data-testid="page-title">{ pageTitle }</h3>
-        {searchButton && (
-          <button
-            type="button"
-            onClick={ () => setSearchBar(!searchBar) }
-          >
+          <div className="profile-button-container">
             <img
-              data-testid="search-top-btn"
-              src={ searchIcon }
-              alt="search"
+              data-testid="profile-top-btn"
+              src={ profileIcon }
+              alt="profile"
             />
-          </button>
-        )}
-      </div>
+          </div>
+        </Link>
+        <div className="title-container">
+          <h3 data-testid="page-title">{ pageTitle }</h3>
+        </div>
+        <div className="search-button-container">
+          {searchButton && (
+            <button
+              type="button"
+              onClick={ () => setSearchBar(!searchBar) }
+            >
+              <img
+                data-testid="search-top-btn"
+                src={ searchIcon }
+                alt="search"
+              />
+            </button>
+          )}
+        </div>
+      </header>
       <div className="searchbar">
         {searchBar && <SearchBar />}
       </div>

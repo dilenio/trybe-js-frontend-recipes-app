@@ -14,6 +14,8 @@ function Provider({ children }) {
   const [recipes, setRecipes] = useState([]);
   const [details, setdetails] = useState([]);
   const [recomendations, setRecomendations] = useState([]);
+  const [ingredients, setIngredients] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState('');
 
   const context = {
     email,
@@ -32,6 +34,10 @@ function Provider({ children }) {
     details,
     recomendations,
     setRecomendations,
+    ingredients,
+    setIngredients,
+    selectedCategory,
+    setSelectedCategory,
   };
 
   return (

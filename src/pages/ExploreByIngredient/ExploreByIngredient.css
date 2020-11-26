@@ -1,5 +1,6 @@
-.recipes-container {
+.ingredient-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  padding-bottom: 60px;
 }
