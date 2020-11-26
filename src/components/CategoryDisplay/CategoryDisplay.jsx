@@ -5,7 +5,7 @@ import './CategoryDisplay.css';
 
 const CategoryDisplay = () => {
   const [categoryes, setCategoryes] = useState([]);
-  const { setSelectedCategory } = useContext(Context);
+  const { selectedCategory, setSelectedCategory } = useContext(Context);
 
   const { pageTitle } = useContext(Context);
 
@@ -22,9 +22,13 @@ const CategoryDisplay = () => {
   }, [pageTitle]);
 
   function handleSelectCategory(event) {
-    const { target } = event;
-    const { value } = target;
-    setSelectedCategory(value);
+    if (selectedCategory === '') {
+      const { target } = event;
+      const { value } = target;
+      setSelectedCategory(value);
+    } else {
+      setSelectedCategory('');
+    }
   }
 
   return (
