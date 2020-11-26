@@ -39,6 +39,7 @@ const FavoriteRecipes = (props) => {
           index={ index }
           showMessage={ showMessage }
           // history={ history }
+          cardType="favorite"
         />
       ));
     }

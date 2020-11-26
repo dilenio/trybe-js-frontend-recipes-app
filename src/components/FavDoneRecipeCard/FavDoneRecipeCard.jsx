@@ -2,9 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import shareBtn from '../../images/shareIcon.svg';
 import favBtn from '../../images/blackHeartIcon.svg';
+import './FavDoneRecipeCard.css';
 
 const FavDoneRecipeCard = (props) => {
-  const { recipe, index, showMessage } = props;
+  const { recipe, index, showMessage, cardType, history } = props;
   const {
     id,
     // type,
@@ -28,28 +29,43 @@ const FavDoneRecipeCard = (props) => {
     );
   }
 
+  const getType = () => {
+    switch (cardType) {
+    case 'done':
+      return 'receitas-feitas';
+    default:
+      return 'receitas-favoritas';
+    }
+  };
+
   const copyUrlToClipboard = () => {
-    const detailsPage = window.location.href.replace('receitas-favoritas', () => (
+    const detailsPage = window.location.href.replace(getType(), () => (
       (!alcoholicOrNot) ? `comidas/${id}` : `bebidas/${id}`
     ));
     navigator.clipboard.writeText(detailsPage).then(() => showMessage());
   };
 
+  const getDetailsPath = () => (
+    (!alcoholicOrNot) ? `comidas/${id}` : `bebidas/${id}`
+  );
+
   return (
-    <div className="done-recipe-card">
+    <div className="recipe-card">
+      {(cardType === 'favorite') ? (
+        <button
+          type="button"
+          // onClick= {}
+        >
+          <img
+            src={ favBtn }
+            data-testid={ `${index}-horizontal-favorite-btn` }
+            alt="recipe"
+          />
+        </button>
+      ) : undefined}
       <button
         type="button"
-        // onClick= {}
-      >
-        <img
-          src={ favBtn }
-          data-testid={ `${index}-horizontal-favorite-btn` }
-          alt="recipe"
-        />
-      </button>
-      <button
-        type="button"
-        // onClick={ () => history.push(getDetailsPath()) }
+        onClick={ () => history.push(getDetailsPath()) }
       >
         <div className="img-container">
           <img
@@ -59,7 +75,7 @@ const FavDoneRecipeCard = (props) => {
           />
         </div>
       </button>
-      <div className="done-recipe-card-content">
+      <div className="recipe-card-content">
         <button
           type="button"
           className="share-btn"
@@ -75,16 +91,19 @@ const FavDoneRecipeCard = (props) => {
         <button
           className="name-button"
           type="button"
-          // onClick={ () => history.push(getDetailsPath()) }
+          onClick={ () => history.push(getDetailsPath()) }
         >
           <h3 data-testid={ `${index}-horizontal-name` }>{name}</h3>
         </button>
-        <p
-          className="recipe-done"
-          data-testid={ `${index}-horizontal-done-date` }
-        >
-          { `Feita em: ${doneDate}` }
-        </p>
+        {(doneDate) ? (
+          <p
+            className="recipe-done"
+            data-testid={ `${index}-horizontal-done-date` }
+          >
+            { `Feita em: ${doneDate}` }
+          </p>
+
+        ) : undefined}
         <section className="tag-container">
           {(tags) ? tags.map((tag) => (
             <p
@@ -105,7 +124,8 @@ FavDoneRecipeCard.propTypes = {
   recipe: PropTypes.shape().isRequired,
   index: PropTypes.number.isRequired,
   showMessage: PropTypes.func.isRequired,
-  // history: PropTypes.shape().isRequired,
+  history: PropTypes.shape().isRequired,
+  cardType: PropTypes.string.isRequired,
 };
 
 export default FavDoneRecipeCard;

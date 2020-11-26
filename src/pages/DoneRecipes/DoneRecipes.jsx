@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import Context from '../../context/Context';
 import Header from '../../components/Header';
-import DoneRecipesCard from '../../components/DoneRecipesCard';
+import FavDoneRecipeCard from '../../components/FavDoneRecipeCard';
 import DoneRecFavRecFilters
   from '../../components/DoneRecFavRecFilters/DoneRecFavRecFilters';
 import './DoneRecipes.css';
@@ -35,13 +35,14 @@ const DoneRecipes = (props) => {
   function renderDoneRecipes() {
     const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
     if (doneRecipes) {
-      return filterDoneRecipes(doneRecipes).map((doneRecipe, index) => (
-        <DoneRecipesCard
-          key={ doneRecipe.id }
-          doneRecipe={ doneRecipe }
+      return filterDoneRecipes(doneRecipes).map((recipe, index) => (
+        <FavDoneRecipeCard
+          key={ recipe.id }
+          recipe={ recipe }
           index={ index }
           showMessage={ showMessage }
           history={ history }
+          cardType="done"
         />
       ));
     }
