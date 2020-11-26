@@ -4,6 +4,7 @@ import './RecipeCard.css';
 
 const RecipeCard = (props) => {
   const { recipe, index } = props;
+
   return (
     <div
       className="recipe-card"
