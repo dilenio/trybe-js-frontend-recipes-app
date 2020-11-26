@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import shareBtn from '../../images/shareIcon.svg';
-import './DoneRecipesCard.css';
+import favBtn from '../../images/blackHeartIcon.svg';
 
-const DoneRecipesCard = (props) => {
-  const { doneRecipe, index, showMessage, history } = props;
+const FavDoneRecipeCard = (props) => {
+  const { recipe, index, showMessage } = props;
   const {
     id,
     // type,
@@ -14,7 +14,7 @@ const DoneRecipesCard = (props) => {
     name,
     image,
     doneDate,
-    tags } = doneRecipe;
+    tags } = recipe;
 
   function renderHorizontalTopText() {
     return alcoholicOrNot ? (
@@ -28,15 +28,10 @@ const DoneRecipesCard = (props) => {
     );
   }
 
-  const getDetailsPath = () => (
-    (!alcoholicOrNot) ? `comidas/${id}` : `bebidas/${id}`
-  );
-
   const copyUrlToClipboard = () => {
-    const detailsPage = window.location.href.replace('receitas-feitas', () => (
+    const detailsPage = window.location.href.replace('receitas-favoritas', () => (
       (!alcoholicOrNot) ? `comidas/${id}` : `bebidas/${id}`
     ));
-    // learned from here: https://medium.com/dev-genius/react-tips-copy-to-clipboard-comparing-old-and-new-values-with-hooks-a5f22a258a09
     navigator.clipboard.writeText(detailsPage).then(() => showMessage());
   };
 
@@ -44,7 +39,17 @@ const DoneRecipesCard = (props) => {
     <div className="done-recipe-card">
       <button
         type="button"
-        onClick={ () => history.push(getDetailsPath()) }
+        // onClick= {}
+      >
+        <img
+          src={ favBtn }
+          data-testid={ `${index}-horizontal-favorite-btn` }
+          alt="recipe"
+        />
+      </button>
+      <button
+        type="button"
+        // onClick={ () => history.push(getDetailsPath()) }
       >
         <div className="img-container">
           <img
@@ -70,7 +75,7 @@ const DoneRecipesCard = (props) => {
         <button
           className="name-button"
           type="button"
-          onClick={ () => history.push(getDetailsPath()) }
+          // onClick={ () => history.push(getDetailsPath()) }
         >
           <h3 data-testid={ `${index}-horizontal-name` }>{name}</h3>
         </button>
@@ -96,11 +101,11 @@ const DoneRecipesCard = (props) => {
   );
 };
 
-export default DoneRecipesCard;
-
-DoneRecipesCard.propTypes = {
-  doneRecipe: PropTypes.shape().isRequired,
+FavDoneRecipeCard.propTypes = {
+  recipe: PropTypes.shape().isRequired,
   index: PropTypes.number.isRequired,
   showMessage: PropTypes.func.isRequired,
-  history: PropTypes.shape().isRequired,
+  // history: PropTypes.shape().isRequired,
 };
+
+export default FavDoneRecipeCard;

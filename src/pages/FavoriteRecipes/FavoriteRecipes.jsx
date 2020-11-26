@@ -1,17 +1,14 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import Context from '../../context/Context';
 import Header from '../../components/Header';
-import DoneRecipesCard from '../../components/DoneRecipesCard';
-import DoneRecFavRecFilters
-  from '../../components/DoneRecFavRecFilters/DoneRecFavRecFilters';
-import './DoneRecipes.css';
+import DoneRecFavRecFilters from '../../components/DoneRecFavRecFilters';
+import FavDoneRecipeCard from '../../components/FavDoneRecipeCard/FavDoneRecipeCard';
 
-const DoneRecipes = (props) => {
-  const { location, history } = props;
-  const { pathname } = location;
-  const [messageToggle, setMessageToggle] = useState(false);
+const FavoriteRecipes = (props) => {
+  const { location: { pathname } } = props;
   const { doneFavRecipeFilter } = useContext(Context);
+  const [messageToggle, setMessageToggle] = useState(false);
 
   const showMessage = () => {
     const TWO_SECONDS = 2000;
@@ -21,7 +18,7 @@ const DoneRecipes = (props) => {
     }, TWO_SECONDS);
   };
 
-  const filterDoneRecipes = (doneRecipes) => {
+  const filterFavoriteRecipes = (doneRecipes) => {
     switch (doneFavRecipeFilter) {
     case 'meals':
       return doneRecipes.filter((doneRecipe) => !doneRecipe.alcoholicOrNot);
@@ -32,16 +29,16 @@ const DoneRecipes = (props) => {
     }
   };
 
-  function renderDoneRecipes() {
-    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
-    if (doneRecipes) {
-      return filterDoneRecipes(doneRecipes).map((doneRecipe, index) => (
-        <DoneRecipesCard
-          key={ doneRecipe.id }
-          doneRecipe={ doneRecipe }
+  function renderFavoriteRecipes() {
+    const favRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (favRecipes) {
+      return filterFavoriteRecipes(favRecipes).map((recipe, index) => (
+        <FavDoneRecipeCard
+          key={ recipe.id }
+          recipe={ recipe }
           index={ index }
           showMessage={ showMessage }
-          history={ history }
+          // history={ history }
         />
       ));
     }
@@ -49,25 +46,25 @@ const DoneRecipes = (props) => {
   }
 
   return (
-    <div className="recipes-done">
+    <div>
       <Header pathname={ pathname } />
       <DoneRecFavRecFilters />
-      <section className="done-recipes-content">
-        {renderDoneRecipes()}
+      <section className="favorite-recipes-content">
+        {renderFavoriteRecipes()}
       </section>
       {messageToggle && <p>Link copiado!</p>}
     </div>
   );
 };
 
-export default DoneRecipes;
-
-DoneRecipes.propTypes = {
+FavoriteRecipes.propTypes = {
   location: PropTypes.objectOf(PropTypes.string).isRequired,
-  history: PropTypes.shape().isRequired,
+  // history: PropTypes.shape().isRequired,
   pathname: PropTypes.string,
 };
 
-DoneRecipes.defaultProps = {
+FavoriteRecipes.defaultProps = {
   pathname: 'comidas',
 };
+
+export default FavoriteRecipes;
