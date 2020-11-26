@@ -53,13 +53,13 @@ const CategoryDisplay = () => {
                   const CATEGORY_NUMBER = 5;
                   while (index < CATEGORY_NUMBER) {
                     return (
-                      <th key={category.strCategory} className="th-category">
+                      <th key={ category.strCategory } className="th-category">
                         <button
                           className="category-btn"
                           type="button"
-                          value={category.strCategory}
-                          data-testid={`${category.strCategory}-category-filter`}
-                          onClick={(event) => handleSelectCategory(event)}
+                          value={ category.strCategory }
+                          data-testid={ `${category.strCategory}-category-filter` }
+                          onClick={ (event) => handleSelectCategory(event) }
                         >
                           {category.strCategory}
                         </button>
