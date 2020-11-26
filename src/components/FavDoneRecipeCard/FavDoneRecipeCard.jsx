@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
+import Context from '../../context/Context';
 import shareBtn from '../../images/shareIcon.svg';
 import favBtn from '../../images/blackHeartIcon.svg';
 import './FavDoneRecipeCard.css';
 
 const FavDoneRecipeCard = (props) => {
-  const { recipe, index, showMessage, cardType, history } = props;
+  const { cardType } = useContext(Context);
+  const { recipe, index, showMessage, history } = props;
   const {
     id,
     // type,
@@ -125,7 +127,6 @@ FavDoneRecipeCard.propTypes = {
   index: PropTypes.number.isRequired,
   showMessage: PropTypes.func.isRequired,
   history: PropTypes.shape().isRequired,
-  cardType: PropTypes.string.isRequired,
 };
 
 export default FavDoneRecipeCard;

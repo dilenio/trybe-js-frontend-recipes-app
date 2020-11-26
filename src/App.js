@@ -9,8 +9,7 @@ import ExploreMealsDrinks from './pages/ExploreMealsDrinks';
 import ExploreByIngredient from './pages/ExploreByIngredient';
 import Provider from './context/Provider';
 import Details from './pages/Details';
-import DoneRecipes from './pages/DoneRecipes/DoneRecipes';
-import FavoriteRecipes from './pages/FavoriteRecipes';
+import FavDoneRecipes from './pages/FavDoneRecipes/FavDoneRecipes';
 
 function App() {
   return (
@@ -34,8 +33,8 @@ function App() {
             component={ ExploreByIngredient }
           />
           <Route exact path="/explorar/comidas/area" component={ Explore } />
-          <Route path="/receitas-feitas" component={ DoneRecipes } />
-          <Route path="/receitas-favoritas" component={ FavoriteRecipes } />
+          <Route path="/receitas-feitas" component={ FavDoneRecipes } />
+          <Route path="/receitas-favoritas" component={ FavDoneRecipes } />
           <Route path="/explorar" component={ Explore } />
           <Route path="/perfil" component={ Profile } />
           <Route exact path="/" component={ Login } />

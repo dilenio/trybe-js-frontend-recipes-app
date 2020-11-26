@@ -17,6 +17,7 @@ function Provider({ children }) {
   const [ingredients, setIngredients] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('');
   const [doneFavRecipeFilter, setDoneFavRecipeFilter] = useState('all');
+  const [cardType, setCardType] = useState('');
 
   const context = {
     email,
@@ -41,6 +42,8 @@ function Provider({ children }) {
     setSelectedCategory,
     doneFavRecipeFilter,
     setDoneFavRecipeFilter,
+    cardType,
+    setCardType,
   };
 
   return (

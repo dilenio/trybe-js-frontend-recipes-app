@@ -5,13 +5,13 @@ import Header from '../../components/Header';
 import FavDoneRecipeCard from '../../components/FavDoneRecipeCard';
 import FavDoneRecipesFilters
   from '../../components/FavDoneRecipesFiltes/FavDoneRecipesFilters';
-import './DoneRecipes.css';
+import './FavDoneRecipes.css';
 
-const DoneRecipes = (props) => {
+const FavDoneRecipes = (props) => {
   const { location, history } = props;
   const { pathname } = location;
   const [messageToggle, setMessageToggle] = useState(false);
-  const { doneFavRecipeFilter } = useContext(Context);
+  const { doneFavRecipeFilter, setCardType, cardType, pageTitle } = useContext(Context);
 
   const showMessage = () => {
     const TWO_SECONDS = 2000;
@@ -21,28 +21,32 @@ const DoneRecipes = (props) => {
     }, TWO_SECONDS);
   };
 
-  const filterDoneRecipes = (doneRecipes) => {
+  const filterFavDoneRecipes = (recipes) => {
     switch (doneFavRecipeFilter) {
     case 'meals':
-      return doneRecipes.filter((doneRecipe) => !doneRecipe.alcoholicOrNot);
+      return recipes.filter((recipe) => !recipe.alcoholicOrNot);
     case 'drinks':
-      return doneRecipes.filter((doneRecipe) => doneRecipe.alcoholicOrNot);
+      return recipes.filter((recipe) => recipe.alcoholicOrNot);
     default:
-      return doneRecipes;
+      return recipes;
     }
   };
 
-  function renderDoneRecipes() {
-    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
-    if (doneRecipes) {
-      return filterDoneRecipes(doneRecipes).map((recipe, index) => (
+  function renderFavDoneRecipes() {
+    if (pageTitle === 'Receitas Feitas') {
+      setCardType('done');
+    } else {
+      setCardType('favorite');
+    }
+    const recipes = JSON.parse(localStorage.getItem(`${cardType}Recipes`));
+    if (recipes) {
+      return filterFavDoneRecipes(recipes).map((recipe, index) => (
         <FavDoneRecipeCard
           key={ recipe.id }
           recipe={ recipe }
           index={ index }
           showMessage={ showMessage }
           history={ history }
-          cardType="done"
         />
       ));
     }
@@ -54,21 +58,21 @@ const DoneRecipes = (props) => {
       <Header pathname={ pathname } />
       <FavDoneRecipesFilters />
       <section className="done-recipes-content">
-        {renderDoneRecipes()}
+        {renderFavDoneRecipes()}
       </section>
       {messageToggle && <p>Link copiado!</p>}
     </div>
   );
 };
 
-export default DoneRecipes;
+export default FavDoneRecipes;
 
-DoneRecipes.propTypes = {
+FavDoneRecipes.propTypes = {
   location: PropTypes.objectOf(PropTypes.string).isRequired,
   history: PropTypes.shape().isRequired,
   pathname: PropTypes.string,
 };
 
-DoneRecipes.defaultProps = {
+FavDoneRecipes.defaultProps = {
   pathname: 'comidas',
 };
