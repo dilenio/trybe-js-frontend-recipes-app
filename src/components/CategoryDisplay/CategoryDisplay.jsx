@@ -22,9 +22,9 @@ const CategoryDisplay = () => {
   }, [pageTitle]);
 
   function handleSelectCategory(event) {
-    if (selectedCategory === '') {
-      const { target } = event;
-      const { value } = target;
+    const { target } = event;
+    const { value } = target;
+    if (selectedCategory === '' || value !== selectedCategory) {
       setSelectedCategory(value);
     } else {
       setSelectedCategory('');
