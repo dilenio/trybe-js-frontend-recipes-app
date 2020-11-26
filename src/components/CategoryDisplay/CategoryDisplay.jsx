@@ -36,19 +36,30 @@ const CategoryDisplay = () => {
       <table className="category-table">
         <thead>
           <tr>
+            <th key="All-categories" className="th-category">
+              <button
+                className="category-btn"
+                type="button"
+                value=""
+                data-testid="All-category-filter"
+                onClick={ (event) => handleSelectCategory(event) }
+              >
+                All
+              </button>
+            </th>
             {categoryes
               .map(
                 (category, index) => {
                   const CATEGORY_NUMBER = 5;
                   while (index < CATEGORY_NUMBER) {
                     return (
-                      <th key={ category.strCategory } className="th-category">
+                      <th key={category.strCategory} className="th-category">
                         <button
                           className="category-btn"
                           type="button"
-                          value={ category.strCategory }
-                          data-testid={ `${category.strCategory}-category-filter` }
-                          onClick={ (event) => handleSelectCategory(event) }
+                          value={category.strCategory}
+                          data-testid={`${category.strCategory}-category-filter`}
+                          onClick={(event) => handleSelectCategory(event)}
                         >
                           {category.strCategory}
                         </button>
