@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import Context from '../../context/Context';
 import Header from '../../components/Header';
 import FavDoneRecipeCard from '../../components/FavDoneRecipeCard';
-import DoneRecFavRecFilters
-  from '../../components/DoneRecFavRecFilters/DoneRecFavRecFilters';
+import FavDoneRecipesFilters
+  from '../../components/FavDoneRecipesFiltes/FavDoneRecipesFilters';
 import './DoneRecipes.css';
 
 const DoneRecipes = (props) => {
@@ -52,7 +52,7 @@ const DoneRecipes = (props) => {
   return (
     <div className="recipes-done">
       <Header pathname={ pathname } />
-      <DoneRecFavRecFilters />
+      <FavDoneRecipesFilters />
       <section className="done-recipes-content">
         {renderDoneRecipes()}
       </section>

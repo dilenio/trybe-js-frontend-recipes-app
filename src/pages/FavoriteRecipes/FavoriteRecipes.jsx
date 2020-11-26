@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import Context from '../../context/Context';
 import Header from '../../components/Header';
-import DoneRecFavRecFilters from '../../components/DoneRecFavRecFilters';
+import FavDoneRecipesFilters from '../../components/FavDoneRecipesFiltes';
 import FavDoneRecipeCard from '../../components/FavDoneRecipeCard/FavDoneRecipeCard';
 
 const FavoriteRecipes = (props) => {
@@ -49,7 +49,7 @@ const FavoriteRecipes = (props) => {
   return (
     <div>
       <Header pathname={ pathname } />
-      <DoneRecFavRecFilters />
+      <FavDoneRecipesFilters />
       <section className="favorite-recipes-content">
         {renderFavoriteRecipes()}
       </section>

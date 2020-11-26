@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import Context from '../../context/Context';
-import './DoneRecFavRecFilters.css';
+import './FavDoneRecipesFilters.css';
 
-const DoneRecFavRecFilters = () => {
+const FavDoneRecipesFilters = () => {
   const { setDoneFavRecipeFilter } = useContext(Context);
   return (
     <div className="recipes-header">
@@ -31,4 +31,4 @@ const DoneRecFavRecFilters = () => {
   );
 };
 
-export default DoneRecFavRecFilters;
+export default FavDoneRecipesFilters;
