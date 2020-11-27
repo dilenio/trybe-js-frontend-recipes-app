@@ -2,6 +2,8 @@ import React, { useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { foodDetails, drinkDetails, getDrinksApi, getMealsAPI } from '../../services/API';
 import Context from '../../context/Context';
+import RecipeCard from '../../components/RecipeCard';
+import './Details.css';
 
 const Details = (props) => {
   const { details, setdetails } = useContext(Context);
@@ -12,20 +14,26 @@ const Details = (props) => {
   const idDetails = id;
   const { path } = match;
   const pop = path;
+  const cinco = 5;
+  const {
+    strAlcoholic,
+    strCategory,
+    strYoutubes
+  } = details
   const RandomDetails = () => {
     if (pop === '/comidas/:id') {
       foodDetails(idDetails).then((data) => {
         setdetails(data[0]);
       });
-      getMealsAPI().then((data) => {
-        setRecomendations(data[0]);
+      getMealsAPI().then((index) => {
+        setRecomendations(index);
       });
     } else {
       drinkDetails(idDetails).then((data) => {
         setdetails(data[0]);
       });
-      getDrinksApi().then((data) => {
-        setRecomendations(data[0]);
+      getDrinksApi().then((index) => {
+        setRecomendations(index[0]);
       });
     }
   };
@@ -33,19 +41,20 @@ const Details = (props) => {
   useEffect(() => {
     RandomDetails();
   }, []);
-
+  // const aux = details.strYoutube.replace('watch?v=', 'embed/') ;
+  // console.log(aux);
   return (
     <div>
       <img
-        src={ details.strDrinkThumb || details.strMealThumb }
+        src={details.strDrinkThumb || details.strMealThumb}
         data-testid="recipe-photo"
-        alt={ details.strMeal || details.strDrink }
+        alt={details.strMeal || details.strDrink}
       />
 
       <h1
         data-testid="recipe-title"
       >
-        { details.strDrink || details.strMeal }
+        {details.strDrink || details.strMeal}
       </h1>
       <button
         type="button"
@@ -65,8 +74,8 @@ const Details = (props) => {
         <text
           data-testid="recipe-category"
         >
-          { details.strAlcoholic }
-          { details.strCategory }
+          {strAlcoholic}
+          {strCategory}
         </text>
       </div>
 
@@ -82,8 +91,8 @@ const Details = (props) => {
                 const measureIndex = measure[index];
                 return (
                   <li
-                    key={ index }
-                    data-testid={ `${index}-ingredient-name-and-measure` }
+                    key={index}
+                    data-testid={`${index}-ingredient-name-and-measure`}
                   >
                     { `${details[ingredient]} - ${details[measureIndex]} `}
                   </li>
@@ -98,24 +107,24 @@ const Details = (props) => {
         <text
           data-testid="instructions"
         >
-          { details.strInstructions }
+          {details.strInstructions}
         </text>
+        {/* {className={"wall wall-"`${i}`} id={"wall-"`${i}`}} */}
       </div>
       <div data-testid="video">
-        <video
-          width="560"
-          height="315"
-          src={ details.strYoutube }
-        >
-          <track src="" kind="captions" />
-        </video>
+        <iframe width="560" height="315" title="frame" src={strYoutubes} frameborder="0" ></iframe>
       </div>
-
-      <div data-testid="0-recomendation-card">
-        <p>
-          recomendations
-          {recomendations.idMeal}
-        </p>
+      <div className="recomendation-container">
+        {recomendations
+          .filter((_, index) => index <= 12)
+          .map((recipe, i) => (
+            <div className="recomendation-card"
+            key={i} data-testid={`${i}-recomendation-card`}>
+              <RecipeCard key={ recipe.idMeal || recipe.idDrink }
+                  recipe={ recipe }
+                  index={ i } />
+            </div>
+          ))}
       </div>
 
       <button

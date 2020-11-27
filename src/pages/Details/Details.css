@@ -1,0 +1,22 @@
+.recomendation-container {
+  display: flex;
+  flex-flow: row nowrap;
+  overflow-x: scroll;
+  margin: auto;
+}
+
+.recomendation-card {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: center;
+}
+.img{
+  width: 100%;
+    }
+    .recomendation-card :target{
+      display: block;
+  }
