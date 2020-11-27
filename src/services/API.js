@@ -19,9 +19,7 @@ const FILTER_MEAL_API = 'https://www.themealdb.com/api/json/v1/1/filter.php?';
 
 const fetchData = async (url, endpoint, type) => {
   const data = await (await fetch(`${url}${endpoint}`)).json();
-  console.log(data[type])
   return data[type];
-  
 };
 
 export const getMealsAPI = async (searchText, searchType) => {
