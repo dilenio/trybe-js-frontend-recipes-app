@@ -1,5 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
-import Context from '../../context/Context';
+import React, { useEffect, useState } from 'react';
 import { getMealsAPI, getDrinksApi } from '../../services/API';
 import './InProgress.css';
 
@@ -37,13 +36,13 @@ const InProgress = () => {
           const measureIndex = measure[index];
           return (
             <li
-              data-testid={`${index}ingredient-step`}
-              htmlFor={index}
+              data-testid={ `${index}ingredient-step` }
+              htmlFor={ index }
             >
               { `${data[ingredient]} - ${data[measureIndex]} `}
               <input
                 type="checkbox"
-                name={index}
+                name={ index }
               />
             </li>
           );
@@ -51,8 +50,6 @@ const InProgress = () => {
         return '';
       });
   }
-
-
 
   return (
     <div className="recipe-wrapper">
@@ -65,8 +62,8 @@ const InProgress = () => {
         <img
           className="recipe-thumb"
           data-testid="recipe-photo"
-          src={data.strMealThumb || data.strDrinkThumb}
-          alt={data.strMeal || data.strDrink}
+          src={ data.strMealThumb || data.strDrinkThumb }
+          alt={ data.strMeal || data.strDrink }
         />
         <p
           className="recipe-title"
@@ -103,4 +100,3 @@ const InProgress = () => {
 };
 
 export default InProgress;
-// test
