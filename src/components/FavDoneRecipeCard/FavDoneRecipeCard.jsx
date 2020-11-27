@@ -65,7 +65,7 @@ const FavDoneRecipeCard = (props) => {
 
   return (
     <div className="recipe-card">
-      {(cardType === 'favorite') ? (
+      {(getCardType() === 'favorite') ? (
         <button
           type="button"
           onClick={ () => updateFavDoneRecipes() }
