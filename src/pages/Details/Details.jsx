@@ -62,119 +62,116 @@ const Details = (props) => {
   }
 
   return (
-    (details) && (
+    <div>
+      <img
+        src={ details.strDrinkThumb || details.strMealThumb }
+        data-testid="recipe-photo"
+        alt={ details.strMeal || details.strDrink }
+      />
+
+      <h1
+        data-testid="recipe-title"
+      >
+        { details.strDrink || details.strMeal }
+      </h1>
+      <button
+        type="button"
+        data-testid="share-btn"
+      >
+        share
+      </button>
+
+      <button
+        type="button"
+        data-testid="favorite-btn"
+      >
+        favorite
+      </button>
+
       <div>
-        <img
-          src={ details.strDrinkThumb || details.strMealThumb }
-          data-testid="recipe-photo"
-          alt={ details.strMeal || details.strDrink }
-        />
-
-        <h1
-          data-testid="recipe-title"
+        <text
+          data-testid="recipe-category"
         >
-          { details.strDrink || details.strMeal }
-        </h1>
-        <button
-          type="button"
-          data-testid="share-btn"
-        >
-          share
-        </button>
-
-        <button
-          type="button"
-          data-testid="favorite-btn"
-        >
-          favorite
-        </button>
-
-        <div>
-          <text
-            data-testid="recipe-category"
-          >
-            { details.strAlcoholic }
-            { details.strCategory }
-          </text>
-        </div>
-
-        <h2>Ingredientes:</h2>
-        <ul>
-          {
-            Object.keys(details)
-              .filter((keys) => keys.includes('Ingredient'))
-              .map((ingredient, index) => {
-                if (details[ingredient] !== '' && details[ingredient] !== null) {
-                  const measure = Object.keys(details)
-                    .filter((keys) => keys.includes('Measure'));
-                  const measureIndex = measure[index];
-                  return (
-                    <li
-                      key={ index }
-                      data-testid={ `${index}-ingredient-name-and-measure` }
-                    >
-                      { `${details[ingredient]} - ${details[measureIndex]} `}
-                    </li>
-                  );
-                }
-                return '';
-              })
-          }
-        </ul>
-
-        <div>
-          <text
-            data-testid="instructions"
-          >
-            { details.strInstructions }
-          </text>
-        </div>
-        <div data-testid="video">
-          <iframe
-            width="320"
-            height="180"
-            title="frame"
-            src={ details.strYoutube && details.strYoutube.replace('watch?v=', 'embed/') }
-            frameBorder="0"
-          />
-        </div>
-        <div className="recomendation-container">
-          { recomendations.filter((_, indx) => indx <= cinco)
-            .map((recipe, index) => (
-              <div
-                data-testid={ `${index}-recomendation-card` }
-                key={ recipe.idMeal || recipe.idDrink }
-                className="recomendation-card"
-              >
-                <img
-                  src={ recipe.strMealThumb || recipe.strDrinkThumb }
-                  alt={ recipe.idMeal || recipe.idDrink }
-                />
-                <h4 data-testid={ `${index}-recomendation-title` }>
-                  { recipe.strMeal || recipe.strDrink }
-                </h4>
-              </div>
-            ))}
-        </div>
-
-        <button
-          className="start-recipe-btn"
-          type="button"
-          data-testid="start-recipe-btn"
-          onClick={ handleClick }
-        >
-          Iniciar Receita
-        </button>
-        <button
-          className="continue-recipe-btn"
-          type="button"
-          onClick={ handleClick }
-        >
-          Continuar Receita
-        </button>
+          { details.strAlcoholic }
+          { details.strCategory }
+        </text>
       </div>
-    ));
 
+      <h2>Ingredientes:</h2>
+      <ul>
+        {
+          Object.keys(details)
+            .filter((keys) => keys.includes('Ingredient'))
+            .map((ingredient, index) => {
+              if (details[ingredient] !== '' && details[ingredient] !== null) {
+                const measure = Object.keys(details)
+                  .filter((keys) => keys.includes('Measure'));
+                const measureIndex = measure[index];
+                return (
+                  <li
+                    key={ index }
+                    data-testid={ `${index}-ingredient-name-and-measure` }
+                  >
+                    { `${details[ingredient]} - ${details[measureIndex]} `}
+                  </li>
+                );
+              }
+              return '';
+            })
+        }
+      </ul>
+
+      <div>
+        <text
+          data-testid="instructions"
+        >
+          { details.strInstructions }
+        </text>
+      </div>
+      <div data-testid="video">
+        <iframe
+          width="320"
+          height="180"
+          title="frame"
+          src={ details.strYoutube && details.strYoutube.replace('watch?v=', 'embed/') }
+          frameBorder="0"
+        />
+      </div>
+
+      <div className="recomendation-container">
+        {recomendations.filter((_, indx) => indx <= cinco)
+          .map((recipe, index) => (
+            <div
+              data-testid={ `${index}-recomendation-card` }
+              key={ recipe.idMeal || recipe.idDrink }
+              className="recomendation-card"
+            >
+              <img
+                src={ recipe.strMealThumb || recipe.strDrinkThumb }
+                alt={ recipe.idMeal || recipe.idDrink }
+              />
+              <h4 data-testid={ `${index}-recomendation-title` }>
+                { recipe.strMeal || recipe.strDrink }
+              </h4>
+            </div>
+          ))}
+      </div>
+
+      <button
+        className="start-recipe-btn"
+        type="button"
+        data-testid="start-recipe-btn"
+        onClick={ handleClick }
+      >
+        Iniciar Receita
+      </button>
+      <button
+        className="continue-recipe-btn"
+        type="button"
+        onClick={ handleClick }
+      >
+        Continuar Receita
+      </button>
       <button
         className="start-btn"
         type="button"
