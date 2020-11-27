@@ -6,7 +6,7 @@ import favBtn from '../../images/blackHeartIcon.svg';
 import './FavDoneRecipeCard.css';
 
 const FavDoneRecipeCard = (props) => {
-  const { pageTitle, cardType, setFavDoneRecipes } = useContext(Context);
+  const { pageTitle, cardType, setFavRecipes, setDoneRecipes } = useContext(Context);
   const { recipe, index, showMessage, history } = props;
   const {
     id,
@@ -31,12 +31,12 @@ const FavDoneRecipeCard = (props) => {
     );
   }
 
-  const getCardType = () => {
-    return (pageTitle === 'Receitas Feitas') ? 'receitas-feitas' : 'receitas-favoritas';
-  };
+  const getType = () => (
+    (pageTitle === 'Receitas Feitas') ? 'receitas-feitas' : 'receitas-favoritas'
+  );
 
   const copyUrlToClipboard = () => {
-    const detailsPage = window.location.href.replace(getCardType(), () => (
+    const detailsPage = window.location.href.replace(getType(), () => (
       (!alcoholicOrNot) ? `comidas/${id}` : `bebidas/${id}`
     ));
     navigator.clipboard.writeText(detailsPage).then(() => showMessage());
@@ -46,17 +46,29 @@ const FavDoneRecipeCard = (props) => {
     (!alcoholicOrNot) ? `comidas/${id}` : `bebidas/${id}`
   );
 
-  // const updateFavDoneRecipes = () => {
-  //   const oldRecipes = JSON.parse(localStorage.getItem(getType()));
-  //   console.log(oldRecipes)
-  // };
+  const getCardType = () => (
+    (pageTitle === 'Receitas Feitas') ? 'done' : 'favorite'
+  );
+
+  const updateFavDoneRecipes = () => {
+    const oldRecipes = JSON.parse(localStorage.getItem(`${getCardType()}Recipes`));
+    const newRecipes = oldRecipes.filter((oldRecipe) => (
+      oldRecipe.id !== id
+    ));
+    if (cardType === 'favorite') {
+      setFavRecipes(newRecipes);
+    } else if (cardType === 'done') {
+      setDoneRecipes(newRecipes);
+    }
+    return localStorage.setItem(`${getCardType()}Recipes`, JSON.stringify(newRecipes));
+  };
 
   return (
     <div className="recipe-card">
       {(cardType === 'favorite') ? (
         <button
           type="button"
-          // onClick= { () => updateFavDoneRecipes() }
+          onClick={ () => updateFavDoneRecipes() }
         >
           <img
             src={ favBtn }

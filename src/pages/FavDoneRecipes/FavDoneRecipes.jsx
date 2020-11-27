@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Context from '../../context/Context';
 import Header from '../../components/Header';
@@ -6,13 +6,12 @@ import FavDoneRecipeCard from '../../components/FavDoneRecipeCard';
 import FavDoneRecipesFilters
   from '../../components/FavDoneRecipesFiltes/FavDoneRecipesFilters';
 import './FavDoneRecipes.css';
-import { useEffect } from 'react';
 
 const FavDoneRecipes = (props) => {
   const { location, history } = props;
   const { pathname } = location;
   const [messageToggle, setMessageToggle] = useState(false);
-  const { doneFavRecipeFilter, setCardType, cardType, pageTitle, favDoneRecipes } = useContext(Context);
+  const { doneFavRecipeFilter, setCardType, pageTitle } = useContext(Context);
 
   useEffect(() => {
     if (pageTitle === 'Receitas Feitas') {
@@ -41,9 +40,9 @@ const FavDoneRecipes = (props) => {
     }
   };
 
-  const getCardType = () => {
-    return (pageTitle === 'Receitas Feitas') ? 'done' : 'favorite';
-  };
+  const getCardType = () => (
+    (pageTitle === 'Receitas Feitas') ? 'done' : 'favorite'
+  );
 
   function renderFavDoneRecipes() {
     const recipes = JSON.parse(localStorage.getItem(`${getCardType()}Recipes`));
