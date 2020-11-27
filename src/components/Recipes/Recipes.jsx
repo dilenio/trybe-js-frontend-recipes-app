@@ -81,13 +81,22 @@ const Recipes = () => {
       if (selectedCategory !== '') {
         return (
           newRecipes.map((recipe, index) => {
+            let url = 'bebidas';
+            if (recipe.idMeal) {
+              url = 'comidas';
+            }
+            const recipeId = recipe.idMeal || recipe.idDrink;
             while (index <= MAX_CARDS) {
               return (
-                <RecipeCard
-                  key={ recipe.idMeal || recipe.idDrink }
-                  recipe={ recipe }
-                  index={ index }
-                />
+                <Link
+                  to={ `/${url}/${recipeId}` }
+                >
+                  <RecipeCard
+                    key={ recipe.idMeal || recipe.idDrink }
+                    recipe={ recipe }
+                    index={ index }
+                  />
+                </Link>
               );
             }
             return undefined;

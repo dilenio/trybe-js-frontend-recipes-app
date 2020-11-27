@@ -1,7 +1,9 @@
 import React, { useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { foodDetails, drinkDetails, getDrinksApi, getMealsAPI } from '../../services/API';
 import Context from '../../context/Context';
+import './Details.css';
 
 const Details = (props) => {
   const { details, setdetails } = useContext(Context);
@@ -33,6 +35,14 @@ const Details = (props) => {
   useEffect(() => {
     RandomDetails();
   }, []);
+
+  function getUrl() {
+    let url = 'comidas';
+    if (details.strDrink) {
+      url = 'bebidas';
+    }
+    return url;
+  }
 
   return (
     <div>
@@ -119,10 +129,13 @@ const Details = (props) => {
       </div>
 
       <button
+        className="start-btn"
         type="button"
         data-testid="start-recipe-btn"
       >
-        start recipe
+        <Link to={ `/${getUrl()}/${id}/in-progress` }>
+          Start recipe
+        </Link>
       </button>
     </div>
   );
