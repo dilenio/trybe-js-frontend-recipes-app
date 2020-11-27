@@ -20,6 +20,7 @@ function Provider({ children }) {
   const [doneRecipes, setDoneRecipes] = useState([]);
   const [favRecipes, setFavRecipes] = useState([]);
   const [cardType, setCardType] = useState('');
+  const [mealsAreasList, setMealsAreasList] = useState([]);
 
   const context = {
     email,
@@ -50,6 +51,8 @@ function Provider({ children }) {
     setDoneRecipes,
     favRecipes,
     setFavRecipes,
+    mealsAreasList,
+    setMealsAreasList,
   };
 
   return (
