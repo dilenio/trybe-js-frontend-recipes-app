@@ -15,24 +15,19 @@ const Details = (props) => {
   const { path } = match;
   const pop = path;
   const cinco = 5;
-  const {
-    strAlcoholic,
-    strCategory,
-    strYoutubes
-  } = details
   const RandomDetails = () => {
     if (pop === '/comidas/:id') {
       foodDetails(idDetails).then((data) => {
         setdetails(data[0]);
       });
-      getMealsAPI().then((index) => {
+      getDrinksApi().then((index) => {
         setRecomendations(index);
       });
     } else {
       drinkDetails(idDetails).then((data) => {
         setdetails(data[0]);
       });
-      getDrinksApi().then((index) => {
+      getMealsAPI().then((index) => {
         setRecomendations(index[0]);
       });
     }
@@ -44,6 +39,7 @@ const Details = (props) => {
   // const aux = details.strYoutube.replace('watch?v=', 'embed/') ;
   // console.log(aux);
   return (
+    (details) && (
     <div>
       <img
         src={details.strDrinkThumb || details.strMealThumb}
@@ -74,8 +70,8 @@ const Details = (props) => {
         <text
           data-testid="recipe-category"
         >
-          {strAlcoholic}
-          {strCategory}
+          {details.strAlcoholic}
+          {details.strCategory}
         </text>
       </div>
 
@@ -112,11 +108,11 @@ const Details = (props) => {
         {/* {className={"wall wall-"`${i}`} id={"wall-"`${i}`}} */}
       </div>
       <div data-testid="video">
-        <iframe width="560" height="315" title="frame" src={strYoutubes} frameborder="0" ></iframe>
+        <iframe width="320" height="180" title="frame" src={(details.strYoutube) && (details.strYoutube.replace("watch?v=", "embed/"))} frameborder="0" ></iframe>
       </div>
       <div className="recomendation-container">
         {recomendations
-          .filter((_, index) => index <= 12)
+          .filter((_, index) => index <= cinco)
           .map((recipe, i) => (
             <div className="recomendation-card"
             key={i} data-testid={`${i}-recomendation-card`}>
@@ -134,7 +130,7 @@ const Details = (props) => {
         start recipe
       </button>
     </div>
-  );
+  ));
 };
 Details.propTypes = {
   // props: PropTypes.shape().isRequired,
