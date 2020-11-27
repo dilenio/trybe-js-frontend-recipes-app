@@ -26,11 +26,43 @@ const InProgress = () => {
   }, []);
 
   return (
-    <div className="in-progress-wrapper">
-      In progress recipe
-      { recipeId || 'not fetch' }
-      { recipeType || 'not fetch' }
-      { data.strMeal }
+    <div className="recipe-wrapper">
+      { console.log(data) }
+      <nav className="social">
+        <button type="button" data-testid="favorite-btn">Favorite</button>
+        <button type="button" data-testid="share-btn">Share</button>
+      </nav>
+      <div className="recipe-info">
+        <img
+          className="recipe-thumb"
+          data-testid="recipe-photo"
+          src={ data.strMealThumb || data.strDrinkThumb }
+          alt={ data.strMeal || data.strDrink }
+        />
+        <p
+          className="recipe-title"
+          data-testid="recipe-title"
+        >
+          { data.strMeal || data.strDrink }
+        </p>
+        <p
+          className="recipe-category"
+          data-testid="recipe-category"
+        >
+          { data.strCategory }
+        </p>
+      </div>
+      <div className="recipe-steps">
+        <div className="recipe-ingredients">
+          Ingredients
+        </div>
+        <p
+          className="recipe-instructions"
+          data-testid="instructions"
+        >
+          { data.strInstructions }
+        </p>
+      </div>
     </div>
   );
 };
