@@ -18,6 +18,7 @@ const LIST_AREAS_MEALS_API = 'https://www.themealdb.com/api/json/v1/1/list.php?a
 const LIST_CATEGORIES_MEALS_API = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
 const FILTER_DRINK_API = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?';
 const FILTER_MEAL_API = 'https://www.themealdb.com/api/json/v1/1/filter.php?';
+const FILTER_MEAL_BY_AREA_API = 'https://www.themealdb.com/api/json/v1/1/filter.php?a=';
 
 const fetchData = async (url, endpoint, type) => {
   const data = await (await fetch(`${url}${endpoint}`)).json();
@@ -54,6 +55,9 @@ export const getMealsAPI = async (searchText, searchType) => {
   }
   if (searchType === 'meals-categories-list') {
     return fetchData(LIST_CATEGORIES_MEALS_API, '', 'meals');
+  }
+  if (searchType === 'byArea') {
+    return fetchData(FILTER_MEAL_BY_AREA_API, searchText, 'meals');
   }
 };
 

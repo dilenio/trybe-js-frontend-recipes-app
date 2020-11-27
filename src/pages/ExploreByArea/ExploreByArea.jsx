@@ -1,5 +1,6 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import Context from '../../context/Context';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
@@ -12,37 +13,57 @@ const ExploreByArea = (props) => {
   const {
     pageTitle,
     setLoading,
-    mealsAreasList,
-    setMealsAreasList,
-    recipes,
-    setRecipes,
   } = useContext(Context);
+  const [mealsByArea, setMealsByArea] = useState([]);
+  const [mealsAreaList, setMealsAreaList] = useState([]);
+  const [recipesShown, setRecipesShown] = useState([]);
 
   useEffect(() => {
     setLoading(true);
     getMealsAPI('', 'meals-areas-list').then((data) => {
-      setMealsAreasList(data);
+      setMealsAreaList(data);
       setLoading(false);
     });
+    setLoading(true);
     getMealsAPI().then((data) => {
-      setRecipes(data);
+      setMealsByArea(data);
+      setRecipesShown(data);
       setLoading(false);
     });
   }, [pageTitle]);
 
+  function filterMealsBySelectedArea({ target: { value } }) {
+    if (value !== 'All') {
+      setLoading(true);
+      getMealsAPI(value, 'byArea').then((data) => {
+        setRecipesShown(data);
+      });
+      setLoading(false);
+    } else {
+      return setRecipesShown(mealsByArea);
+    }
+  }
+
   function renderOptions() {
-    return mealsAreasList.map(({ strArea }) => (
-      <option data-testid={ `${strArea}-option` } key={ strArea }>{strArea}</option>
+    return mealsAreaList.map(({ strArea }) => (
+      <option
+        data-testid={ `${strArea}-option` }
+        key={ strArea }
+        value={ strArea }
+      >
+        {strArea}
+      </option>
     ));
   }
 
-  function renderAreaCards() {
-    if (mealsAreasList) {
+  function renderAreaFilters() {
+    if (mealsAreaList) {
       return (
         <select
           data-testid="explore-by-area-dropdown"
+          onChange={ (e) => filterMealsBySelectedArea(e) }
         >
-          <option data-testid="All-option">All</option>
+          <option data-testid="All-option" value="All">All</option>
           { renderOptions() }
         </select>
       );
@@ -50,29 +71,39 @@ const ExploreByArea = (props) => {
     return undefined;
   }
 
-  function renderRecipes() {
+  const mapRecipes = () => {
     const MAX_CARDS = 11;
-    return recipes ? (
-      recipes.map((recipe, index) => {
+    return (
+      recipesShown.map((recipe, index) => {
         while (index <= MAX_CARDS) {
           return (
-            <RecipeCard
-              key={ recipe.idMeal }
-              recipe={ recipe }
-              index={ index }
-            />
+            <Link
+              to={ pathname.replace('explorar/comidas/area', `comidas/${recipe.idMeal}`) }
+            >
+              <RecipeCard
+                key={ recipe.idMeal }
+                recipe={ recipe }
+                index={ index }
+              />
+            </Link>
           );
         }
         return undefined;
       })
+    );
+  };
+
+  function renderRecipes() {
+    return recipesShown ? (
+      mapRecipes()
     ) : undefined;
   }
 
   return (
     <div className="explore-by-area-content">
       <Header pathname={ pathname } />
-      { renderAreaCards() }
-      { renderRecipes() }
+      { mealsAreaList && renderAreaFilters() }
+      { mealsByArea && renderRecipes() }
       <Footer />
     </div>
   );
