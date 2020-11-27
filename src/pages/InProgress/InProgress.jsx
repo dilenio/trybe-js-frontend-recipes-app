@@ -3,13 +3,11 @@ import { getMealsAPI, getDrinksApi } from '../../services/API';
 import './InProgress.css';
 
 const InProgress = () => {
-  // const { inProgressId } = useContext(Context);
   const [data, setData] = useState([]);
 
   const path = window.location.pathname.split('/');
   const recipeId = path[2];
   const recipeType = path[1];
-  console.log(recipeId, recipeType);
 
   useEffect(() => {
     if (recipeType === 'comidas' && recipeId !== '') {
@@ -21,7 +19,6 @@ const InProgress = () => {
         setData(response[0]);
       });
     } else {
-      // console.warn('fetch error');
       return undefined;
     }
   }, []);
@@ -53,7 +50,6 @@ const InProgress = () => {
 
   return (
     <div className="recipe-wrapper">
-      { console.log(data)}
       <nav className="social">
         <button type="button" data-testid="favorite-btn">Favorite</button>
         <button type="button" data-testid="share-btn">Share</button>
