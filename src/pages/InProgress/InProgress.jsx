@@ -4,11 +4,13 @@ import { getMealsAPI, getDrinksApi } from '../../services/API';
 import './InProgress.css';
 
 const InProgress = () => {
-  const { inProgressId } = useContext(Context);
+  // const { inProgressId } = useContext(Context);
   const [data, setData] = useState([]);
 
-  const recipeId = inProgressId.id;
-  const recipeType = inProgressId.type;
+  const path = window.location.pathname.split('/');
+  const recipeId = path[2];
+  const recipeType = path[1];
+  console.log(recipeId, recipeType);
 
   useEffect(() => {
     if (recipeType === 'comidas' && recipeId !== '') {
@@ -20,14 +22,41 @@ const InProgress = () => {
         setData(response[0]);
       });
     } else {
-      console.warn('fetch error');
+      // console.warn('fetch error');
       return undefined;
     }
   }, []);
 
+  function buildTable() {
+    return Object.keys(data)
+      .filter((keys) => keys.includes('Ingredient'))
+      .map((ingredient, index) => {
+        if (data[ingredient] !== '' && data[ingredient] !== null) {
+          const measure = Object.keys(data)
+            .filter((keys) => keys.includes('Measure'));
+          const measureIndex = measure[index];
+          return (
+            <li
+              data-testid={`${index}ingredient-step`}
+              htmlFor={index}
+            >
+              { `${data[ingredient]} - ${data[measureIndex]} `}
+              <input
+                type="checkbox"
+                name={index}
+              />
+            </li>
+          );
+        }
+        return '';
+      });
+  }
+
+
+
   return (
     <div className="recipe-wrapper">
-      { console.log(data) }
+      { console.log(data)}
       <nav className="social">
         <button type="button" data-testid="favorite-btn">Favorite</button>
         <button type="button" data-testid="share-btn">Share</button>
@@ -36,32 +65,38 @@ const InProgress = () => {
         <img
           className="recipe-thumb"
           data-testid="recipe-photo"
-          src={ data.strMealThumb || data.strDrinkThumb }
-          alt={ data.strMeal || data.strDrink }
+          src={data.strMealThumb || data.strDrinkThumb}
+          alt={data.strMeal || data.strDrink}
         />
         <p
           className="recipe-title"
           data-testid="recipe-title"
         >
-          { data.strMeal || data.strDrink }
+          {data.strMeal || data.strDrink}
         </p>
         <p
           className="recipe-category"
           data-testid="recipe-category"
         >
-          { data.strCategory }
+          {data.strCategory}
         </p>
       </div>
       <div className="recipe-steps">
         <div className="recipe-ingredients">
           Ingredients
+          <ul>
+            { buildTable() }
+          </ul>
         </div>
         <p
           className="recipe-instructions"
           data-testid="instructions"
         >
-          { data.strInstructions }
+          {data.strInstructions}
         </p>
+        <button type="button" data-testid="finish-recipe-btn">
+          Finish recipe
+        </button>
       </div>
     </div>
   );
