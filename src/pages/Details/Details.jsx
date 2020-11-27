@@ -1,6 +1,6 @@
 import React, { useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
-
+import { Link } from 'react-router-dom';
 import { foodDetails, drinkDetails, getDrinksApi, getMealsAPI } from '../../services/API';
 import Context from '../../context/Context';
 import './Details.css';
@@ -52,8 +52,15 @@ const Details = (props) => {
   useEffect(() => {
     RandomDetails();
   }, []);
-  // const aux = details.strYoutube.replace('watch?v=', 'embed/') ;
-  // console.log(aux);
+
+  function getUrl() {
+    let url = 'comidas';
+    if (details.strDrink) {
+      url = 'bebidas';
+    }
+    return url;
+  }
+
   return (
     (details) && (
       <div>
@@ -167,6 +174,18 @@ const Details = (props) => {
         </button>
       </div>
     ));
+
+      <button
+        className="start-btn"
+        type="button"
+        data-testid="start-recipe-btn"
+      >
+        <Link to={ `/${getUrl()}/${id}/in-progress` }>
+          Start recipe
+        </Link>
+      </button>
+    </div>
+  );
 };
 Details.propTypes = {
   // props: PropTypes.shape().isRequired,
