@@ -16,6 +16,10 @@ function Provider({ children }) {
   const [recomendations, setRecomendations] = useState([]);
   const [ingredients, setIngredients] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('');
+  const [doneFavRecipeFilter, setDoneFavRecipeFilter] = useState('all');
+  const [doneRecipes, setDoneRecipes] = useState([]);
+  const [favRecipes, setFavRecipes] = useState([]);
+  const [cardType, setCardType] = useState('');
 
   const context = {
     email,
@@ -38,6 +42,14 @@ function Provider({ children }) {
     setIngredients,
     selectedCategory,
     setSelectedCategory,
+    doneFavRecipeFilter,
+    setDoneFavRecipeFilter,
+    cardType,
+    setCardType,
+    doneRecipes,
+    setDoneRecipes,
+    favRecipes,
+    setFavRecipes,
   };
 
   return (

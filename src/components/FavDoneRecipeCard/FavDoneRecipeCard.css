@@ -1,4 +1,4 @@
-.done-recipe-card {
+.recipe-card {
   box-shadow: 5px 5px 10px #8a8a8a;
   display: flex;
   height: 150px;
@@ -7,7 +7,7 @@
   width: 330px;
 }
 
-.done-recipe-card button {
+.recipe-card button {
   background-color: transparent;
   border: none;
 }
@@ -26,7 +26,7 @@
   width: 100%;
 }
 
-.done-recipe-card-content {
+.recipe-card-content {
   height: 100%;
   text-align: start;
   width: 60%;
@@ -54,7 +54,7 @@
   margin: 5px;
 }
 
-.done-recipe-card-content h4 {
+.recipe-card-content h4 {
   color: #8a8a8a;
   font-size: 0.9em;
   margin: 5px auto 0 12px;
