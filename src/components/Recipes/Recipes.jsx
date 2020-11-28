@@ -21,7 +21,6 @@ const Recipes = () => {
     if (pageTitle === 'Comidas') {
       setLoading(true);
       getMealsAPI().then((data) => {
-        console.log(data);
         setRecipes(data);
         setLoading(false);
       });

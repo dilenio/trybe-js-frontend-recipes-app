@@ -20,6 +20,7 @@ function Provider({ children }) {
   const [doneRecipes, setDoneRecipes] = useState([]);
   const [favRecipes, setFavRecipes] = useState([]);
   const [cardType, setCardType] = useState('');
+  const [mealsAreasList, setMealsAreasList] = useState([]);
   const [inProgressId, setInProgressId] = useState({
     id: '',
     type: '',
@@ -54,6 +55,8 @@ function Provider({ children }) {
     setDoneRecipes,
     favRecipes,
     setFavRecipes,
+    mealsAreasList,
+    setMealsAreasList,
     inProgressId,
     setInProgressId,
   };
