@@ -3,13 +3,19 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { foodDetails, drinkDetails, getDrinksApi, getMealsAPI } from '../../services/API';
 import Context from '../../context/Context';
+import shareBtn from '../../images/shareIcon.svg';
 import './Details.css';
 
 const Details = (props) => {
   const [startRecipeBtn, setStartRecipeBtn] = useState(true);
   const [recipeBtnText, setRecipeBtnText] = useState('Iniciar Receita');
-  const { details, setdetails } = useContext(Context);
-  const { recomendations, setRecomendations } = useContext(Context);
+  const [messageToggle, setMessageToggle] = useState(false);
+  const {
+    recomendations,
+    setRecomendations,
+    details,
+    setdetails,
+  } = useContext(Context);
   const { match } = props;
   const { params } = match;
   const { id } = params;
@@ -89,6 +95,19 @@ const Details = (props) => {
     </button>
   );
 
+  const showMessage = () => {
+    const TWO_SECONDS = 2000;
+    setMessageToggle(true);
+    setTimeout(() => {
+      setMessageToggle(false);
+    }, TWO_SECONDS);
+  };
+
+  const copyUrlToClipboard = () => {
+    navigator.clipboard.writeText(window.location.href);
+    showMessage();
+  };
+
   return (
     <div>
       <img
@@ -105,8 +124,9 @@ const Details = (props) => {
       <button
         type="button"
         data-testid="share-btn"
+        onClick={ () => copyUrlToClipboard() }
       >
-        share
+        <img src={ shareBtn } alt="share" />
       </button>
 
       <button
@@ -184,6 +204,7 @@ const Details = (props) => {
             </div>
           ))}
       </div>
+      {messageToggle && <p>Link copiado!</p>}
       {startRecipeBtn && renderRecipeBtn()}
       <button
         className="continue-recipe-btn"
