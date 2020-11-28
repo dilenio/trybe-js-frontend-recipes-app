@@ -4,12 +4,15 @@ import { Link } from 'react-router-dom';
 import { foodDetails, drinkDetails, getDrinksApi, getMealsAPI } from '../../services/API';
 import Context from '../../context/Context';
 import shareBtn from '../../images/shareIcon.svg';
+import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import './Details.css';
 
 const Details = (props) => {
   const [startRecipeBtn, setStartRecipeBtn] = useState(true);
   const [recipeBtnText, setRecipeBtnText] = useState('Iniciar Receita');
   const [messageToggle, setMessageToggle] = useState(false);
+  const [heartIcon, setHeartIcon] = useState('');
   const {
     recomendations,
     setRecomendations,
@@ -108,6 +111,21 @@ const Details = (props) => {
     showMessage();
   };
 
+  useEffect(() => {
+    const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (favoriteRecipes) {
+      favoriteRecipes.some((r) => {
+        if ((r.idDrink || r.idMeal) === (details.idMeal || details.idDrink)) {
+          return setHeartIcon(blackHeartIcon);
+        }
+        return undefined;
+      });
+    } else {
+      return setHeartIcon(whiteHeartIcon);
+    }
+    return undefined;
+  }, []);
+
   return (
     <div>
       <img
@@ -128,14 +146,16 @@ const Details = (props) => {
       >
         <img src={ shareBtn } alt="share" />
       </button>
-
       <button
         type="button"
         data-testid="favorite-btn"
+        src={ heartIcon }
       >
-        favorite
+        <img
+          alt="heart icon"
+          src={ heartIcon }
+        />
       </button>
-
       <div>
         <text
           data-testid="recipe-category"
