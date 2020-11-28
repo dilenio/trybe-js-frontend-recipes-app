@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { foodDetails, drinkDetails, getDrinksApi, getMealsAPI } from '../../services/API';
@@ -6,6 +6,7 @@ import Context from '../../context/Context';
 import './Details.css';
 
 const Details = (props) => {
+  const [startRecipeBtn, setStartRecipeBtn] = useState(true);
   const { details, setdetails } = useContext(Context);
   const { recomendations, setRecomendations } = useContext(Context);
   const { match } = props;
@@ -49,8 +50,22 @@ const Details = (props) => {
     }
   };
 
+  const checkDoneRecipes = () => {
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (doneRecipes) {
+      doneRecipes.some((recipe) => {
+        if (id === recipe.id) {
+          return setStartRecipeBtn(false);
+        }
+        return undefined;
+      });
+    }
+    return undefined;
+  };
+
   useEffect(() => {
     RandomDetails();
+    checkDoneRecipes();
   }, []);
 
   function getUrl() {
@@ -60,6 +75,18 @@ const Details = (props) => {
     }
     return url;
   }
+
+  const renderStartRecipeBtn = () => (
+    <button
+      className="start-recipe-btn"
+      type="button"
+      data-testid="start-recipe-btn"
+    >
+      <Link to={ `/${getUrl()}/${id}/in-progress` }>
+        Start recipe
+      </Link>
+    </button>
+  );
 
   return (
     <div>
@@ -156,30 +183,13 @@ const Details = (props) => {
             </div>
           ))}
       </div>
-
-      <button
-        className="start-recipe-btn"
-        type="button"
-        data-testid="start-recipe-btn"
-        onClick={ handleClick }
-      >
-        Iniciar Receita
-      </button>
+      {startRecipeBtn && renderStartRecipeBtn()}
       <button
         className="continue-recipe-btn"
         type="button"
         onClick={ handleClick }
       >
         Continuar Receita
-      </button>
-      <button
-        className="start-btn"
-        type="button"
-        data-testid="start-recipe-btn"
-      >
-        <Link to={ `/${getUrl()}/${id}/in-progress` }>
-          Start recipe
-        </Link>
       </button>
     </div>
   );
