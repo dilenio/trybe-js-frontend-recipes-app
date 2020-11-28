@@ -7,6 +7,7 @@ import './Details.css';
 
 const Details = (props) => {
   const [startRecipeBtn, setStartRecipeBtn] = useState(true);
+  const [recipeBtnText, setRecipeBtnText] = useState('Iniciar Receita');
   const { details, setdetails } = useContext(Context);
   const { recomendations, setRecomendations } = useContext(Context);
   const { match } = props;
@@ -60,7 +61,7 @@ const Details = (props) => {
         return undefined;
       });
     }
-    return undefined;
+    return setRecipeBtnText('Continuar Receita');
   };
 
   useEffect(() => {
@@ -76,14 +77,14 @@ const Details = (props) => {
     return url;
   }
 
-  const renderStartRecipeBtn = () => (
+  const renderRecipeBtn = () => (
     <button
       className="start-recipe-btn"
       type="button"
       data-testid="start-recipe-btn"
     >
       <Link to={ `/${getUrl()}/${id}/in-progress` }>
-        Start recipe
+        {recipeBtnText}
       </Link>
     </button>
   );
@@ -183,7 +184,7 @@ const Details = (props) => {
             </div>
           ))}
       </div>
-      {startRecipeBtn && renderStartRecipeBtn()}
+      {startRecipeBtn && renderRecipeBtn()}
       <button
         className="continue-recipe-btn"
         type="button"
