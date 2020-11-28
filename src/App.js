@@ -9,6 +9,7 @@ import ExploreMealsDrinks from './pages/ExploreMealsDrinks';
 import ExploreByIngredient from './pages/ExploreByIngredient';
 import Provider from './context/Provider';
 import Details from './pages/Details';
+import InProgress from './pages/InProgress';
 import FavDoneRecipes from './pages/FavDoneRecipes/FavDoneRecipes';
 import ExploreByArea from './pages/ExploreByArea';
 import NotFound from './pages/NotFound';
@@ -20,6 +21,8 @@ function App() {
         <Switch>
           <Route exact path="/comidas" component={ Home } />
           <Route exact path="/bebidas" component={ Home } />
+          <Route exact path="/comidas/:id/in-progress" component={ InProgress } />
+          <Route exact path="/bebidas/:id/in-progress" component={ InProgress } />
           <Route exact path="/comidas/:id" component={ Details } />
           <Route exact path="/bebidas/:id" component={ Details } />
           <Route exact path="/explorar/comidas" component={ ExploreMealsDrinks } />

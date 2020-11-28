@@ -14,20 +14,37 @@ const Details = (props) => {
   const idDetails = id;
   const { path } = match;
   const pop = path;
+  const cinco = 5;
   const RandomDetails = () => {
     if (pop === '/comidas/:id') {
       foodDetails(idDetails).then((data) => {
         setdetails(data[0]);
       });
-      getMealsAPI().then((data) => {
-        setRecomendations(data[0]);
+      getDrinksApi().then((index) => {
+        setRecomendations(index);
       });
     } else {
       drinkDetails(idDetails).then((data) => {
         setdetails(data[0]);
       });
-      getDrinksApi().then((data) => {
-        setRecomendations(data[0]);
+      getMealsAPI().then((index) => {
+        setRecomendations(index);
+      });
+    }
+  };
+
+  const handleClick = (e, setdisableButton) => {
+    e.preventDefault();
+    let savedRecipes = [];
+    savedRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    const { idDrink } = details;
+    const { idMeal } = details;
+    if (savedRecipes) {
+      savedRecipes.forEach((savedRecipe) => {
+        if (savedRecipe.id === idDrink || savedRecipe.id === idMeal) {
+          setdisableButton('hidden');
+          return true;
+        }
       });
     }
   };
@@ -112,22 +129,49 @@ const Details = (props) => {
         </text>
       </div>
       <div data-testid="video">
-        <video
-          width="560"
-          height="315"
-          src={ details.strYoutube }
-        >
-          <track src="" kind="captions" />
-        </video>
+        <iframe
+          width="320"
+          height="180"
+          title="frame"
+          src={ details.strYoutube && details.strYoutube.replace('watch?v=', 'embed/') }
+          frameBorder="0"
+        />
       </div>
 
-      <div data-testid="0-recomendation-card">
-        <p>
-          recomendations
-          {recomendations.idMeal}
-        </p>
+      <div className="recomendation-container">
+        {recomendations.filter((_, indx) => indx <= cinco)
+          .map((recipe, index) => (
+            <div
+              data-testid={ `${index}-recomendation-card` }
+              key={ recipe.idMeal || recipe.idDrink }
+              className="recomendation-card"
+            >
+              <img
+                src={ recipe.strMealThumb || recipe.strDrinkThumb }
+                alt={ recipe.idMeal || recipe.idDrink }
+              />
+              <h4 data-testid={ `${index}-recomendation-title` }>
+                { recipe.strMeal || recipe.strDrink }
+              </h4>
+            </div>
+          ))}
       </div>
 
+      <button
+        className="start-recipe-btn"
+        type="button"
+        data-testid="start-recipe-btn"
+        onClick={ handleClick }
+      >
+        Iniciar Receita
+      </button>
+      <button
+        className="continue-recipe-btn"
+        type="button"
+        onClick={ handleClick }
+      >
+        Continuar Receita
+      </button>
       <button
         className="start-btn"
         type="button"
