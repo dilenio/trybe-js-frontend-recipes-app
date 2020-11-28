@@ -126,6 +126,13 @@ const Details = (props) => {
     return undefined;
   }, []);
 
+  function handleFavorite() {
+    if (heartIcon === blackHeartIcon) {
+      return setHeartIcon(whiteHeartIcon);
+    }
+    return setHeartIcon(blackHeartIcon);
+  }
+
   return (
     <div>
       <img
@@ -150,6 +157,7 @@ const Details = (props) => {
         type="button"
         data-testid="favorite-btn"
         src={ heartIcon }
+        onClick={ () => handleFavorite() }
       >
         <img
           alt="heart icon"
