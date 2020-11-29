@@ -22,6 +22,11 @@ function Provider({ children }) {
   const [cardType, setCardType] = useState('');
   const [ingredientFilter, setIngredientFilter] = useState('');
   const [page, setPage] = useState('');
+  const [mealsAreasList, setMealsAreasList] = useState([]);
+  const [inProgressId, setInProgressId] = useState({
+    id: '',
+    type: '',
+  });
 
   const context = {
     email,
@@ -56,6 +61,10 @@ function Provider({ children }) {
     setPage,
     ingredientFilter,
     setIngredientFilter,
+    mealsAreasList,
+    setMealsAreasList,
+    inProgressId,
+    setInProgressId,
   };
 
   return (
