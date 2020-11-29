@@ -6,16 +6,17 @@
 }
   
 .recomendation-card {
-    align-self: flex-start;
-    min-width: 55%;
-    padding: 0;
-    display: flex;
-    flex-flow: column nowrap;
-    align-items: center;
-    justify-content: center;
+  align-self: flex-start;
+  min-width: 55%;
+  padding: 0;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
 }
+
 .recomendation-container img {
-      width: 100%;
+  width: 100%;
 }
 
 .start-recipe-btn {
@@ -24,5 +25,5 @@
   left: 50vw;
 }
 .recomendation-card :target{
-      display: block;
+  display: block;
 }

@@ -4,7 +4,7 @@ import Context from '../../context/Context';
 import Header from '../../components/Header';
 import FavDoneRecipeCard from '../../components/FavDoneRecipeCard';
 import FavDoneRecipesFilters
-  from '../../components/FavDoneRecipesFiltes/FavDoneRecipesFilters';
+  from '../../components/FavDoneRecipesFilters/FavDoneRecipesFilters';
 import './FavDoneRecipes.css';
 
 const FavDoneRecipes = (props) => {

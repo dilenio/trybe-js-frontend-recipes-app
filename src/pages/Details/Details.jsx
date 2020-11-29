@@ -1,13 +1,24 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { foodDetails, drinkDetails, getDrinksApi, getMealsAPI } from '../../services/API';
 import Context from '../../context/Context';
+import shareBtn from '../../images/shareIcon.svg';
+import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import './Details.css';
 
 const Details = (props) => {
-  const { details, setdetails } = useContext(Context);
-  const { recomendations, setRecomendations } = useContext(Context);
+  const [startRecipeBtn, setStartRecipeBtn] = useState(true);
+  const [recipeBtnText, setRecipeBtnText] = useState('Iniciar Receita');
+  const [messageToggle, setMessageToggle] = useState(false);
+  const [heartIcon, setHeartIcon] = useState('');
+  const {
+    recomendations,
+    setRecomendations,
+    details,
+    setdetails,
+  } = useContext(Context);
   const { match } = props;
   const { params } = match;
   const { id } = params;
@@ -49,8 +60,22 @@ const Details = (props) => {
     }
   };
 
+  const checkDoneRecipes = () => {
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (doneRecipes) {
+      doneRecipes.some((recipe) => {
+        if (id === recipe.id) {
+          return setStartRecipeBtn(false);
+        }
+        return undefined;
+      });
+    }
+    return setRecipeBtnText('Continuar Receita');
+  };
+
   useEffect(() => {
     RandomDetails();
+    checkDoneRecipes();
   }, []);
 
   function getUrl() {
@@ -59,6 +84,106 @@ const Details = (props) => {
       url = 'bebidas';
     }
     return url;
+  }
+
+  const renderRecipeBtn = () => (
+    <button
+      className="start-recipe-btn"
+      type="button"
+      data-testid="start-recipe-btn"
+    >
+      <Link to={ `/${getUrl()}/${id}/in-progress` }>
+        {recipeBtnText}
+      </Link>
+    </button>
+  );
+
+  const showMessage = () => {
+    const TWO_SECONDS = 2000;
+    setMessageToggle(true);
+    setTimeout(() => {
+      setMessageToggle(false);
+    }, TWO_SECONDS);
+  };
+
+  const copyUrlToClipboard = () => {
+    navigator.clipboard.writeText(window.location.href);
+    showMessage();
+  };
+
+  useEffect(() => {
+    const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (favoriteRecipes) {
+      favoriteRecipes.some((r) => {
+        if ((r.idDrink || r.idMeal) === (details.idMeal || details.idDrink)) {
+          return setHeartIcon(blackHeartIcon);
+        }
+        return undefined;
+      });
+    } else {
+      return setHeartIcon(whiteHeartIcon);
+    }
+    return undefined;
+  }, []);
+
+  function getRecipeValues(value) {
+    const { idMeal, strAlcoholic } = details;
+
+    switch (value) {
+    case 'type':
+      return (idMeal) ? 'comida' : 'bebida';
+    case 'alcohol':
+      return (strAlcoholic) ? 'Alcoholic' : '';
+    default:
+      return '';
+    }
+  }
+
+  function handleFavorite() {
+    const {
+      idMeal,
+      idDrink,
+      strCategory: category,
+      strMeal,
+      strDrink,
+      strArea,
+      strMealThumb,
+      strDrinkThumb,
+      // doneDate,
+      // strTags: tags,
+    } = details;
+
+    const newFavRecipe = {
+      id: idMeal || idDrink,
+      type: getRecipeValues('type'),
+      area: strArea || '',
+      category,
+      alcoholicOrNot: getRecipeValues('alcohol'),
+      name: strMeal || strDrink,
+      image: strMealThumb || strDrinkThumb,
+      // doneDate,
+      // tags,
+    };
+
+    const oldFavRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    let alreadyFavorited = false;
+    if (oldFavRecipes) {
+      alreadyFavorited = oldFavRecipes.find((r) => newFavRecipe.id === r.id);
+    }
+    if (oldFavRecipes && !alreadyFavorited) {
+      const updatedRecipes = [...oldFavRecipes, newFavRecipe];
+      localStorage.setItem('favoriteRecipes', JSON.stringify(updatedRecipes));
+      return setHeartIcon(blackHeartIcon);
+    }
+    localStorage.setItem('favoriteRecipes', JSON.stringify([newFavRecipe]));
+    return setHeartIcon(blackHeartIcon);
+  }
+
+  function toggleFavorite() {
+    if (heartIcon === blackHeartIcon) {
+      return setHeartIcon(whiteHeartIcon);
+    }
+    return handleFavorite();
   }
 
   return (
@@ -77,17 +202,21 @@ const Details = (props) => {
       <button
         type="button"
         data-testid="share-btn"
+        onClick={ () => copyUrlToClipboard() }
       >
-        share
+        <img src={ shareBtn } alt="share" />
       </button>
-
       <button
         type="button"
         data-testid="favorite-btn"
+        src={ heartIcon }
+        onClick={ () => toggleFavorite() }
       >
-        favorite
+        <img
+          alt="heart icon"
+          src={ heartIcon }
+        />
       </button>
-
       <div>
         <text
           data-testid="recipe-category"
@@ -156,30 +285,14 @@ const Details = (props) => {
             </div>
           ))}
       </div>
-
-      <button
-        className="start-recipe-btn"
-        type="button"
-        data-testid="start-recipe-btn"
-        onClick={ handleClick }
-      >
-        Iniciar Receita
-      </button>
+      {messageToggle && <p>Link copiado!</p>}
+      {startRecipeBtn && renderRecipeBtn()}
       <button
         className="continue-recipe-btn"
         type="button"
         onClick={ handleClick }
       >
         Continuar Receita
-      </button>
-      <button
-        className="start-btn"
-        type="button"
-        data-testid="start-recipe-btn"
-      >
-        <Link to={ `/${getUrl()}/${id}/in-progress` }>
-          Start recipe
-        </Link>
       </button>
     </div>
   );
