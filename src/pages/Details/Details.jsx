@@ -126,11 +126,64 @@ const Details = (props) => {
     return undefined;
   }, []);
 
+  function getRecipeValues(value) {
+    const { idMeal, strAlcoholic } = details;
+
+    switch (value) {
+    case 'type':
+      return (idMeal) ? 'comida' : 'bebida';
+    case 'alcohol':
+      return (strAlcoholic) ? 'Alcoholic' : '';
+    default:
+      return '';
+    }
+  }
+
   function handleFavorite() {
+    const {
+      idMeal,
+      idDrink,
+      strCategory: category,
+      strMeal,
+      strDrink,
+      strArea,
+      strMealThumb,
+      strDrinkThumb,
+      // doneDate,
+      // strTags: tags,
+    } = details;
+
+    const newFavRecipe = {
+      id: idMeal || idDrink,
+      type: getRecipeValues('type'),
+      area: strArea || '',
+      category,
+      alcoholicOrNot: getRecipeValues('alcohol'),
+      name: strMeal || strDrink,
+      image: strMealThumb || strDrinkThumb,
+      // doneDate,
+      // tags,
+    };
+
+    const oldFavRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    let alreadyFavorited = false;
+    if (oldFavRecipes) {
+      alreadyFavorited = oldFavRecipes.find((r) => newFavRecipe.id === r.id);
+    }
+    if (oldFavRecipes && !alreadyFavorited) {
+      const updatedRecipes = [...oldFavRecipes, newFavRecipe];
+      localStorage.setItem('favoriteRecipes', JSON.stringify(updatedRecipes));
+      return setHeartIcon(blackHeartIcon);
+    }
+    localStorage.setItem('favoriteRecipes', JSON.stringify([newFavRecipe]));
+    return setHeartIcon(blackHeartIcon);
+  }
+
+  function toggleFavorite() {
     if (heartIcon === blackHeartIcon) {
       return setHeartIcon(whiteHeartIcon);
     }
-    return setHeartIcon(blackHeartIcon);
+    return handleFavorite();
   }
 
   return (
@@ -157,7 +210,7 @@ const Details = (props) => {
         type="button"
         data-testid="favorite-btn"
         src={ heartIcon }
-        onClick={ () => handleFavorite() }
+        onClick={ () => toggleFavorite() }
       >
         <img
           alt="heart icon"
