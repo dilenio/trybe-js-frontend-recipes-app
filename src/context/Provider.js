@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Context from './Context';
 
+// Refatorar o context
 function Provider({ children }) {
   const [email, setemail] = useState('');
   const [password, setPassword] = useState('');
