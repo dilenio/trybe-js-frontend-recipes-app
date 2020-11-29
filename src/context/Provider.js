@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Context from './Context';
 
+// Refatorar o context
 function Provider({ children }) {
   const [email, setemail] = useState('');
   const [password, setPassword] = useState('');
@@ -20,6 +21,8 @@ function Provider({ children }) {
   const [doneRecipes, setDoneRecipes] = useState([]);
   const [favRecipes, setFavRecipes] = useState([]);
   const [cardType, setCardType] = useState('');
+  const [ingredientFilter, setIngredientFilter] = useState('');
+  const [page, setPage] = useState('');
   const [mealsAreasList, setMealsAreasList] = useState([]);
   const [inProgressId, setInProgressId] = useState({
     id: '',
@@ -55,6 +58,10 @@ function Provider({ children }) {
     setDoneRecipes,
     favRecipes,
     setFavRecipes,
+    page,
+    setPage,
+    ingredientFilter,
+    setIngredientFilter,
     mealsAreasList,
     setMealsAreasList,
     inProgressId,

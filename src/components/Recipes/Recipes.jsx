@@ -13,22 +13,27 @@ const Recipes = () => {
     setRecipes,
     setLoading,
     selectedCategory,
+    ingredientFilter,
+    setIngredientFilter,
   } = useContext(Context);
 
   const [newRecipes, setNewRecipes] = useState([]);
 
   useEffect(() => {
+    const ingredient = (ingredientFilter) ? 'ingredient' : '';
     if (pageTitle === 'Comidas') {
       setLoading(true);
-      getMealsAPI().then((data) => {
+      getMealsAPI(ingredientFilter, ingredient).then((data) => {
         setRecipes(data);
         setLoading(false);
+        setIngredientFilter('');
       });
     } else if (pageTitle === 'Bebidas') {
       setLoading(true);
-      getDrinksApi().then((data) => {
+      getDrinksApi(ingredientFilter, ingredient).then((data) => {
         setRecipes(data);
         setLoading(false);
+        setIngredientFilter('');
       });
     }
   }, [pageTitle]);

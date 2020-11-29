@@ -13,6 +13,7 @@ const ExploreByIngredient = (props) => {
     setLoading,
     ingredients,
     setIngredients,
+    setPage,
   } = useContext(Context);
 
   useEffect(() => {
@@ -22,6 +23,7 @@ const ExploreByIngredient = (props) => {
         setIngredients(data);
         setLoading(false);
       });
+      setPage('comidas');
     }
     if (pathname === '/explorar/bebidas/ingredientes') {
       setLoading(true);
@@ -29,6 +31,7 @@ const ExploreByIngredient = (props) => {
         setIngredients(data);
         setLoading(false);
       });
+      setPage('bebidas');
     }
   }, []);
 
