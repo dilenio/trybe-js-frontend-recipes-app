@@ -1,15 +1,26 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './IngredientCard.css';
+import Context from '../../context/Context';
 
 const IngredientCard = (props) => {
   const { ingredient, index } = props;
   const urlMeal = 'https://www.themealdb.com/images/ingredients/';
   const urlDrink = 'https://www.thecocktaildb.com/images/ingredients/';
+  const {
+    page,
+    setIngredientFilter,
+  } = useContext(Context);
+  const handleLink = (ingredientChild) => {
+    setIngredientFilter(ingredientChild);
+  };
 
   return (
-    <Link to="/comidas">
+    <Link
+      to={ `/${page}` }
+      onClick={ () => handleLink(ingredient.strIngredient || ingredient.strIngredient1) }
+    >
       <div
         className="ingredient-card"
         data-testid={ `${index}-ingredient-card` }
