@@ -181,6 +181,7 @@ const Details = (props) => {
       return unfavoriteRecipe();
     }
     return handleFavorite();
+    
   }
 
   return (
