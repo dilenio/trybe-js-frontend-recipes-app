@@ -69,6 +69,7 @@ const Recipes = () => {
               return (
                 <Link
                   to={ `/${url}/${recipeId}` }
+                  key={ recipe.idMeal || recipe.idDrink }
                 >
                   <RecipeCard
                     key={ recipe.idMeal || recipe.idDrink }

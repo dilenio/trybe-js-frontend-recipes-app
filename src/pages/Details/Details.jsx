@@ -112,18 +112,12 @@ const Details = (props) => {
   };
 
   useEffect(() => {
+    let isFav = false;
     const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
     if (favoriteRecipes) {
-      favoriteRecipes.some((r) => {
-        if ((r.idDrink || r.idMeal) === (details.idMeal || details.idDrink)) {
-          return setHeartIcon(blackHeartIcon);
-        }
-        return undefined;
-      });
-    } else {
-      return setHeartIcon(whiteHeartIcon);
+      isFav = favoriteRecipes.some((r) => r.id === id);
     }
-    return undefined;
+    return isFav ? setHeartIcon(blackHeartIcon) : setHeartIcon(whiteHeartIcon);
   }, []);
 
   function getRecipeValues(value) {
@@ -179,9 +173,18 @@ const Details = (props) => {
     return setHeartIcon(blackHeartIcon);
   }
 
+  const unfavoriteRecipe = () => {
+    const oldFavRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (oldFavRecipes) {
+      const updatedRecipes = oldFavRecipes.filter((r) => r.id !== id);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(updatedRecipes));
+    }
+    return setHeartIcon(whiteHeartIcon);
+  };
+
   function toggleFavorite() {
     if (heartIcon === blackHeartIcon) {
-      return setHeartIcon(whiteHeartIcon);
+      return unfavoriteRecipe();
     }
     return handleFavorite();
   }
