@@ -5,7 +5,6 @@ import { getMealsAPI, getDrinksApi } from '../../services/API';
 import CategoryDisplay from '../CategoryDisplay/CategoryDisplay';
 import RecipeCard from '../RecipeCard';
 import './Recipes.css';
-
 const Recipes = () => {
   const {
     pageTitle,
@@ -36,8 +35,7 @@ const Recipes = () => {
         setIngredientFilter('');
       });
     }
-  }, [pageTitle, ingredientFilter, setIngredientFilter, setLoading, setRecipes]);
-
+  }, [pageTitle]);
   useEffect(() => {
     if (selectedCategory !== '' && pageTitle === 'Comidas') {
       setLoading(true);
@@ -52,8 +50,7 @@ const Recipes = () => {
         setLoading(false);
       });
     }
-  }, [selectedCategory, pageTitle, setLoading]);
-
+  }, [selectedCategory]);
   function renderCards() {
     if (recipes) {
       const MAX_CARDS = 11;
@@ -69,7 +66,6 @@ const Recipes = () => {
               return (
                 <Link
                   to={ `/${url}/${recipeId}` }
-                  key={ recipe.idMeal || recipe.idDrink }
                 >
                   <RecipeCard
                     key={ recipe.idMeal || recipe.idDrink }
@@ -111,7 +107,6 @@ const Recipes = () => {
     }
     return undefined;
   }
-
   return (
     <div className="wrapper">
       <CategoryDisplay />
@@ -121,5 +116,4 @@ const Recipes = () => {
     </div>
   );
 };
-
 export default Recipes;
