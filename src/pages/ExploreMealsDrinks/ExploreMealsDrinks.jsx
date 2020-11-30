@@ -18,15 +18,6 @@ const ExploreMealsDrinks = (props) => {
   const [randomId, setRandomId] = useState('');
   const zero = 0;
 
-  const randomRecipe = () => {
-    if (recipes.length > zero && pageTitle === 'Explorar Comidas') {
-      setRandomId(`/comidas/${recipes[zero].idMeal}`);
-    }
-    if (recipes.length > zero && pageTitle === 'Explorar Bebidas') {
-      setRandomId(`/bebidas/${recipes[zero].idDrink}`);
-    }
-  };
-
   useEffect(() => {
     if (pageTitle === 'Explorar Comidas') {
       setLoading(true);
@@ -42,11 +33,16 @@ const ExploreMealsDrinks = (props) => {
         setLoading(false);
       });
     }
-  }, [pageTitle]);
+  }, [pageTitle, setLoading, setRecipes]);
 
   useEffect(() => {
-    randomRecipe();
-  }, [recipes]);
+    if (recipes.length > zero && pageTitle === 'Explorar Comidas') {
+      setRandomId(`/comidas/${recipes[zero].idMeal}`);
+    }
+    if (recipes.length > zero && pageTitle === 'Explorar Bebidas') {
+      setRandomId(`/bebidas/${recipes[zero].idDrink}`);
+    }
+  }, [recipes, pageTitle]);
 
   return (
     <div>

@@ -25,7 +25,7 @@ const Header = (props) => {
     if (pathname.match('area')) setPageTitle('Explorar Origem');
     if (pathname.match('receitas-feitas')) setPageTitle('Receitas Feitas');
     if (pathname.match('receitas-favoritas')) setPageTitle('Receitas Favoritas');
-  }, []);
+  }, [pathname, setPageTitle]);
 
   useEffect(() => {
     if (pathname.match('comidas')) setSearchButton(true);
@@ -35,7 +35,7 @@ const Header = (props) => {
     if (pathname.match('ingredientes')) setSearchButton(false);
     if (pathname.match('receitas')) setSearchButton(false);
     if (pathname.match('area')) setSearchButton(true);
-  }, [pageTitle]);
+  }, [pathname, pageTitle]);
 
   return (
     <div>

@@ -26,23 +26,6 @@ const Details = (props) => {
   const { path } = match;
   const pop = path;
   const cinco = 5;
-  const RandomDetails = () => {
-    if (pop === '/comidas/:id') {
-      foodDetails(idDetails).then((data) => {
-        setdetails(data[0]);
-      });
-      getDrinksApi().then((index) => {
-        setRecomendations(index);
-      });
-    } else {
-      drinkDetails(idDetails).then((data) => {
-        setdetails(data[0]);
-      });
-      getMealsAPI().then((index) => {
-        setRecomendations(index);
-      });
-    }
-  };
 
   const handleClick = (e, setdisableButton) => {
     e.preventDefault();
@@ -60,7 +43,23 @@ const Details = (props) => {
     }
   };
 
-  const checkDoneRecipes = () => {
+  useEffect(() => {
+    if (pop === '/comidas/:id') {
+      foodDetails(idDetails).then((data) => {
+        setdetails(data[0]);
+      });
+      getDrinksApi().then((index) => {
+        setRecomendations(index);
+      });
+    } else {
+      drinkDetails(idDetails).then((data) => {
+        setdetails(data[0]);
+      });
+      getMealsAPI().then((index) => {
+        setRecomendations(index);
+      });
+    }
+
     const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
     if (doneRecipes) {
       doneRecipes.some((recipe) => {
@@ -71,12 +70,7 @@ const Details = (props) => {
       });
     }
     return setRecipeBtnText('Continuar Receita');
-  };
-
-  useEffect(() => {
-    RandomDetails();
-    checkDoneRecipes();
-  }, []);
+  }, [id, idDetails, pop, setRecomendations, setdetails]);
 
   function getUrl() {
     let url = 'comidas';
@@ -118,7 +112,7 @@ const Details = (props) => {
       isFav = favoriteRecipes.some((r) => r.id === id);
     }
     return isFav ? setHeartIcon(blackHeartIcon) : setHeartIcon(whiteHeartIcon);
-  }, []);
+  }, [id]);
 
   function getRecipeValues(value) {
     const { idMeal, strAlcoholic } = details;

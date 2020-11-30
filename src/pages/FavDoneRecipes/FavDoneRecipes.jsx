@@ -19,7 +19,7 @@ const FavDoneRecipes = (props) => {
     } else {
       setCardType('favorite');
     }
-  }, []);
+  }, [pageTitle, setCardType]);
 
   const showMessage = () => {
     const TWO_SECONDS = 2000;

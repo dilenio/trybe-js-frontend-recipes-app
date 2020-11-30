@@ -21,7 +21,7 @@ const InProgress = () => {
     } else {
       return undefined;
     }
-  }, []);
+  }, [recipeId, recipeType]);
 
   function buildTable() {
     return Object.keys(data)

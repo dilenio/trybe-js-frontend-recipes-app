@@ -36,7 +36,7 @@ const Recipes = () => {
         setIngredientFilter('');
       });
     }
-  }, [pageTitle]);
+  }, [pageTitle, ingredientFilter, setIngredientFilter, setLoading, setRecipes]);
 
   useEffect(() => {
     if (selectedCategory !== '' && pageTitle === 'Comidas') {
@@ -52,7 +52,7 @@ const Recipes = () => {
         setLoading(false);
       });
     }
-  }, [selectedCategory]);
+  }, [selectedCategory, pageTitle, setLoading]);
 
   function renderCards() {
     if (recipes) {
