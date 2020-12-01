@@ -1,24 +1,18 @@
 import React from 'react';
-import renderWithRouter from './helpers/renderWithRouter';
 import { fireEvent, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import Header from '../components/Header';
-import Profile from '../pages/Profile';
+import renderWithRouter from './helpers/renderWithRouter';
 import App from '../App';
 
 describe('Profile page tests', () => {
   beforeAll(() => {
-    const { history } = renderWithRouter(<App />);
+    renderWithRouter(<App />);
     const email = screen.getByTestId('email-input');
     const senha = screen.getByTestId('password-input');
     const button = screen.getByTestId('login-submit-btn');
     userEvent.type(email, 'alguem@email.com');
     userEvent.type(senha, '1234567');
     userEvent.click(button);
-    const { pathname } = history.location;
-    setTimeout(() => {
-      expect(pathname).toBe('/comidas');
-    }, 1500);
   });
 
   beforeEach(() => {
