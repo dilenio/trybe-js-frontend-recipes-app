@@ -5,7 +5,7 @@ import './InProgress.css';
 
 const InProgress = () => {
   const [data, setData] = useState([]);
-  const [cheks, setChecks] = useState([]);
+  const [cheks, setChecks] = useState('0');
 
   const path = window.location.pathname.split('/');
   const recipeId = path[2];
@@ -49,6 +49,7 @@ const InProgress = () => {
 
   function handleCheck(event) {
     const { target } = event;
+    event.target.classList.toggle('checked');
     const getChecks = document.querySelectorAll('.checked').length;
     setChecks(getChecks);
     console.log(cheks, target);
