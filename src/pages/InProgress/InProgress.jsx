@@ -62,33 +62,55 @@ const InProgress = () => {
 
     if (data.idMeal && oldProgress) {
       const mealItems = (oldProgress.meals[thisId]) ? oldProgress.meals[thisId] : [];
-      const mealProgress = {
-        ...emptyProgress,
-        meals: {
-          [thisId]: [...mealItems, ingredient],
-        },
-      };
-      localStorage.setItem('inProgressRecipes', JSON.stringify(mealProgress));
+      if (!mealItems.includes(ingredient)) {
+        const mealProgress = {
+          ...emptyProgress,
+          meals: {
+            [thisId]: [...mealItems, ingredient],
+          },
+        };
+        localStorage.setItem('inProgressRecipes', JSON.stringify(mealProgress));
+      } else {
+        const updatedMealItems = mealItems.filter((m) => m !== ingredient);
+        const mealProgress = {
+          ...emptyProgress,
+          meals: {
+            [thisId]: [...updatedMealItems],
+          },
+        };
+        localStorage.setItem('inProgressRecipes', JSON.stringify(mealProgress));
+      }
     }
 
     if (data.idDrink && oldProgress) {
       const drinkItems = (oldProgress.cocktails[thisId]) ? oldProgress.cocktails[thisId] : [];
-      const mealProgress = {
-        ...emptyProgress,
-        cocktails: {
-          [thisId]: [...drinkItems, ingredient],
-        },
-      };
-      localStorage.setItem('inProgressRecipes', JSON.stringify(mealProgress));
+      if (!drinkItems.includes(ingredient)) {
+        const drinkProgress = {
+          ...emptyProgress,
+          cocktails: {
+            [thisId]: [...drinkItems, ingredient],
+          },
+        };
+        localStorage.setItem('inProgressRecipes', JSON.stringify(drinkProgress));
+      } else {
+        const updatedDrinkItems = drinkItems.filter((d) => d !== ingredient);
+        const drinkProgress = {
+          ...emptyProgress,
+          cocktails: {
+            [thisId]: [...updatedDrinkItems],
+          },
+        };
+        localStorage.setItem('inProgressRecipes', JSON.stringify(drinkProgress));
+      }
     }
   };
 
   function handleCheck(event, ingredient) {
     const { target } = event;
     target.classList.toggle('checked');
-    setToggleCheck(!toggleCheck);
     if (target.className === 'checked') {
       saveInProgress(ingredient);
+      setToggleCheck(!toggleCheck);
     };
   }
 
