@@ -6,6 +6,7 @@ import './InProgress.css';
 const InProgress = () => {
   const [data, setData] = useState([]);
   const [cheks, setChecks] = useState('0');
+  const [toggleCheck, setToggleCheck] = useState(false);
 
   const path = window.location.pathname.split('/');
   const recipeId = path[2];
@@ -35,24 +36,85 @@ const InProgress = () => {
         }
         return undefined;
       });
-    return amountArray.length;
+    return amountArray;
   }
 
   function enableFinish() {
     let verify = true;
-    if (cheks === ingredientsAmount()) {
+    if (cheks === ingredientsAmount().length) {
       verify = false;
       return verify;
     }
     return verify;
   }
 
-  function handleCheck(event) {
+  const saveInProgress = (ingredient) => {
+    const oldProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    const thisId = data.idMeal || data.idDrink;
+    const emptyProgress = {
+      cocktails: {
+        [thisId]: [],
+      },
+      meals: {
+        [thisId]: [],
+      },
+    };
+
+    if (data.idMeal && oldProgress) {
+      const mealItems = (oldProgress.meals[thisId]) ? oldProgress.meals[thisId] : [];
+      const mealProgress = {
+        ...emptyProgress,
+        meals: {
+          [thisId]: [...mealItems, ingredient],
+        },
+      };
+      localStorage.setItem('inProgressRecipes', JSON.stringify(mealProgress));
+    }
+
+    if (data.idDrink && oldProgress) {
+      const drinkItems = (oldProgress.cocktails[thisId]) ? oldProgress.cocktails[thisId] : [];
+      const mealProgress = {
+        ...emptyProgress,
+        cocktails: {
+          [thisId]: [...drinkItems, ingredient],
+        },
+      };
+      localStorage.setItem('inProgressRecipes', JSON.stringify(mealProgress));
+    }
+  };
+
+  function handleCheck(event, ingredient) {
     const { target } = event;
-    event.target.classList.toggle('checked');
-    const getChecks = document.querySelectorAll('.checked').length;
-    setChecks(getChecks);
-    console.log(cheks, target);
+    target.classList.toggle('checked');
+    setToggleCheck(!toggleCheck);
+    if (target.className === 'checked') {
+      saveInProgress(ingredient);
+    };
+  }
+
+  function checkIfChecked(ingredient) {
+    const oldProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    const thisId = data.idMeal || data.idDrink;
+    const emptyProgress = {
+      cocktails: {
+        [thisId]: [],
+      },
+      meals: {
+        [thisId]: [],
+      },
+    };
+
+    if (!oldProgress) {
+      localStorage.setItem('inProgressRecipes', JSON.stringify(emptyProgress));
+    }
+
+    const checkedIngredients = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    const type = (recipeType === 'comidas') ? 'meals' : 'cocktails';
+    if (checkedIngredients && checkedIngredients[type][recipeId]) {
+      const test = (checkedIngredients[type][recipeId].includes(ingredient)) ? true : false;
+      return test;
+    }
+    return false;
   }
 
   function buildTable() {
@@ -65,7 +127,7 @@ const InProgress = () => {
           const measureIndex = measure[index];
           return (
             <li
-              data-testid={ `${index}ingredient-step` }
+              data-testid={ `${index}-ingredient-step` }
               htmlFor={ index }
               key={ index }
             >
@@ -74,7 +136,8 @@ const InProgress = () => {
                 type="checkbox"
                 name={ index }
                 value={ ingredient }
-                onChange={ (event) => handleCheck(event) }
+                checked={ checkIfChecked(data[ingredient]) }
+                onChange={ (e) => handleCheck(e, data[ingredient]) }
               />
             </li>
           );
