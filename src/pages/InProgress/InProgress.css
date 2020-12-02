@@ -1,3 +1,9 @@
 .recipe-thumb {
   max-width: 300px;
 }
+
+.checked {
+  text-decoration: line-through;
+  color: green;
+  background-color: lightgray;
+}
