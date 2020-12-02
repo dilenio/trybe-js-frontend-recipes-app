@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { getMealsAPI, getDrinksApi } from '../../services/API';
 import './InProgress.css';
 
@@ -121,14 +122,16 @@ const InProgress = () => {
         >
           {data.strInstructions}
         </p>
-        <button
-          type="button"
-          data-testid="finish-recipe-btn"
-          onClick={ () => ingredientsAmount() }
-          disabled={ enableFinish() }
-        >
-          Finish recipe
-        </button>
+        <Link to="/receitas-feitas">
+          <button
+            type="button"
+            data-testid="finish-recipe-btn"
+            onClick={ () => ingredientsAmount() }
+            disabled={ enableFinish() }
+          >
+            Finish recipe
+          </button>
+        </Link>
       </div>
     </div>
   );
