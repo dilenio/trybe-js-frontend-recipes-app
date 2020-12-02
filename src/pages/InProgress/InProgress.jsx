@@ -49,7 +49,6 @@ const InProgress = () => {
 
   function handleCheck(event) {
     const { target } = event;
-    event.target.classList.toggle('checked');
     const getChecks = document.querySelectorAll('.checked').length;
     setChecks(getChecks);
     console.log(cheks, target);
