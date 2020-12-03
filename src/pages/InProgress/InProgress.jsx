@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getMealsAPI, getDrinksApi } from '../../services/API';
+import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import './InProgress.css';
 
 const InProgress = () => {
   const [data, setData] = useState([]);
-  const [cheks, setChecks] = useState('0');
+  const [checks, setChecks] = useState('0');
   const [toggleCheck, setToggleCheck] = useState(false);
+  const [messageToggle, setMessageToggle] = useState(false);
+  const [heartIcon, setHeartIcon] = useState('');
 
   const path = window.location.pathname.split('/');
   const recipeId = path[2];
@@ -26,6 +30,29 @@ const InProgress = () => {
     }
   }, [recipeId, recipeType]);
 
+  useEffect(() => {
+    let isFav = false;
+    const thisId = data.idMeal || data.idDrink;
+    const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (favoriteRecipes) {
+      isFav = favoriteRecipes.some((r) => r.id === thisId);
+    }
+    return isFav ? setHeartIcon(blackHeartIcon) : setHeartIcon(whiteHeartIcon);
+  }, [data]);
+
+  const showMessage = () => {
+    const TWO_SECONDS = 2000;
+    setMessageToggle(true);
+    setTimeout(() => {
+      setMessageToggle(false);
+    }, TWO_SECONDS);
+  };
+
+  const copyUrlToClipboard = () => {
+    const detailsPage = window.location.href.replace('/in-progress', '');
+    navigator.clipboard.writeText(detailsPage).then(() => showMessage());
+  };
+
   function ingredientsAmount() {
     const amountArray = [];
     Object.keys(data)
@@ -41,7 +68,7 @@ const InProgress = () => {
 
   function enableFinish() {
     let verify = true;
-    if (cheks === ingredientsAmount().length) {
+    if (checks === ingredientsAmount().length) {
       verify = false;
       return verify;
     }
@@ -83,7 +110,8 @@ const InProgress = () => {
     }
 
     if (data.idDrink && oldProgress) {
-      const drinkItems = (oldProgress.cocktails[thisId]) ? oldProgress.cocktails[thisId] : [];
+      const drinkItems = (oldProgress.cocktails[thisId])
+        ? oldProgress.cocktails[thisId] : [];
       if (!drinkItems.includes(ingredient)) {
         const drinkProgress = {
           ...emptyProgress,
@@ -108,10 +136,12 @@ const InProgress = () => {
   function handleCheck(event, ingredient) {
     const { target } = event;
     target.classList.toggle('checked');
+    const getChecks = document.querySelectorAll('.checked').length;
+    setChecks(getChecks);
     if (target.className === 'checked') {
       saveInProgress(ingredient);
       setToggleCheck(!toggleCheck);
-    };
+    }
   }
 
   function checkIfChecked(ingredient) {
@@ -133,8 +163,7 @@ const InProgress = () => {
     const checkedIngredients = JSON.parse(localStorage.getItem('inProgressRecipes'));
     const type = (recipeType === 'comidas') ? 'meals' : 'cocktails';
     if (checkedIngredients && checkedIngredients[type][recipeId]) {
-      const test = (checkedIngredients[type][recipeId].includes(ingredient)) ? true : false;
-      return test;
+      return (checkedIngredients[type][recipeId].includes(ingredient));
     }
     return false;
   }
@@ -168,11 +197,98 @@ const InProgress = () => {
       });
   }
 
+  function getRecipeValues(value) {
+    const { idMeal, strAlcoholic } = data;
+
+    switch (value) {
+    case 'type':
+      return (idMeal) ? 'comida' : 'bebida';
+    case 'alcohol':
+      return (strAlcoholic) ? 'Alcoholic' : '';
+    default:
+      return '';
+    }
+  }
+
+  function handleFavorite() {
+    const {
+      idMeal,
+      idDrink,
+      strCategory: category,
+      strMeal,
+      strDrink,
+      strArea,
+      strMealThumb,
+      strDrinkThumb,
+      // doneDate,
+      // strTags: tags,
+    } = data;
+
+    const newFavRecipe = {
+      id: idMeal || idDrink,
+      type: getRecipeValues('type'),
+      area: strArea || '',
+      category,
+      alcoholicOrNot: getRecipeValues('alcohol'),
+      name: strMeal || strDrink,
+      image: strMealThumb || strDrinkThumb,
+      // doneDate,
+      // tags,
+    };
+
+    const oldFavRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    let alreadyFavorited = false;
+    if (oldFavRecipes) {
+      alreadyFavorited = oldFavRecipes.find((r) => newFavRecipe.id === r.id);
+    }
+    if (oldFavRecipes && !alreadyFavorited) {
+      const updatedRecipes = [...oldFavRecipes, newFavRecipe];
+      localStorage.setItem('favoriteRecipes', JSON.stringify(updatedRecipes));
+      return setHeartIcon(blackHeartIcon);
+    }
+    localStorage.setItem('favoriteRecipes', JSON.stringify([newFavRecipe]));
+    return setHeartIcon(blackHeartIcon);
+  }
+
+  const unfavoriteRecipe = () => {
+    const oldFavRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const thisId = data.idMeal || data.idDrink;
+    if (oldFavRecipes) {
+      const updatedRecipes = oldFavRecipes.filter((r) => r.id !== thisId);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(updatedRecipes));
+    }
+    return setHeartIcon(whiteHeartIcon);
+  };
+
+  function toggleFavorite() {
+    if (heartIcon === blackHeartIcon) {
+      return unfavoriteRecipe();
+    }
+    return handleFavorite();
+  }
+
   return (
     <div className="recipe-wrapper">
       <nav className="social">
-        <button type="button" data-testid="favorite-btn">Favorite</button>
-        <button type="button" data-testid="share-btn">Share</button>
+        <button
+          type="button"
+          data-testid="favorite-btn"
+          src={ heartIcon }
+          onClick={ () => toggleFavorite() }
+        >
+          <img
+            alt="heart icon"
+            src={ heartIcon }
+          />
+        </button>
+        <button
+          type="button"
+          data-testid="share-btn"
+          onClick={ () => copyUrlToClipboard() }
+        >
+          Share
+        </button>
+        {messageToggle && <p>Link copiado!</p>}
       </nav>
       <div className="recipe-info">
         <img

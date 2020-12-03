@@ -3,7 +3,6 @@ import { cleanup, fireEvent, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import renderWithRouter from './helpers/renderWithRouter';
 import App from '../App';
-import FavDoneRecipes from '../pages/FavDoneRecipes/FavDoneRecipes';
 
 describe('favorite and done page tests', () => {
   beforeAll(() => {
@@ -38,15 +37,15 @@ describe('favorite and done page tests', () => {
 
   it('shows favorite recipe', () => {
     const testFavRecipe = [{
-      alcoholicOrNot: "",
-      area: "Canadian",
-      category: "Dessert",
-      id: "52929",
-      image: "https://www.themealdb.com/images/media/meals/txsupu1511815755.jpg",
-      name: "Timbits",
-      type: "comida",
+      alcoholicOrNot: '',
+      area: 'Canadian',
+      category: 'Dessert',
+      id: '52929',
+      image: 'https://www.themealdb.com/images/media/meals/txsupu1511815755.jpg',
+      name: 'Timbits',
+      type: 'comida',
     }];
-    
+
     localStorage.setItem('favoriteRecipes', JSON.stringify(testFavRecipe));
 
     renderWithRouter(<App />);
@@ -58,15 +57,15 @@ describe('favorite and done page tests', () => {
 
   it('shows done recipe', () => {
     const testDoneRecipe = [{
-      alcoholicOrNot: "",
-      area: "Canadian",
-      category: "Dessert",
-      id: "52929",
-      image: "https://www.themealdb.com/images/media/meals/txsupu1511815755.jpg",
-      name: "Timbits",
-      type: "comida",
+      alcoholicOrNot: '',
+      area: 'Canadian',
+      category: 'Dessert',
+      id: '52929',
+      image: 'https://www.themealdb.com/images/media/meals/txsupu1511815755.jpg',
+      name: 'Timbits',
+      type: 'comida',
     }];
-    
+
     localStorage.setItem('doneRecipes', JSON.stringify(testDoneRecipe));
 
     renderWithRouter(<App />);
