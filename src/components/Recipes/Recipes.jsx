@@ -37,7 +37,6 @@ const Recipes = () => {
       });
     }
   }, [pageTitle]);
-
   useEffect(() => {
     if (selectedCategory !== '' && pageTitle === 'Comidas') {
       setLoading(true);
@@ -53,7 +52,6 @@ const Recipes = () => {
       });
     }
   }, [selectedCategory]);
-
   function renderCards() {
     if (recipes) {
       const MAX_CARDS = 11;
@@ -110,7 +108,6 @@ const Recipes = () => {
     }
     return undefined;
   }
-
   return (
     <div className="wrapper">
       <CategoryDisplay />
@@ -120,5 +117,4 @@ const Recipes = () => {
     </div>
   );
 };
-
 export default Recipes;

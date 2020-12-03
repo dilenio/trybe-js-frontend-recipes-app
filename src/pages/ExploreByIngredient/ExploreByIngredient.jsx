@@ -33,7 +33,7 @@ const ExploreByIngredient = (props) => {
       });
       setPage('bebidas');
     }
-  }, []);
+  }, [pathname, setIngredients, setLoading, setPage]);
 
   return (
     <div>

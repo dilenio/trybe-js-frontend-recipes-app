@@ -30,7 +30,7 @@ const ExploreByArea = (props) => {
       setRecipesShown(data);
       setLoading(false);
     });
-  }, [pageTitle]);
+  }, [pageTitle, setLoading]);
 
   function filterMealsBySelectedArea({ target: { value } }) {
     if (value !== 'All') {
@@ -79,6 +79,7 @@ const ExploreByArea = (props) => {
           return (
             <Link
               to={ pathname.replace('explorar/comidas/area', `comidas/${recipe.idMeal}`) }
+              key={ recipe.idMeal }
             >
               <RecipeCard
                 key={ recipe.idMeal }
