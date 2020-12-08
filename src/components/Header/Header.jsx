@@ -3,14 +3,13 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import profileIcon from '../../images/profileIcon.svg';
 import searchIcon from '../../images/searchIcon.svg';
+import searchIconAct from '../../images/searchIconAct.svg';
 import SearchBar from '../SearchBar/SearchBar';
 import Context from '../../context/Context';
-import './Header.css';
 
 const Header = (props) => {
   const { pathname } = props;
-  const { pageTitle, setPageTitle } = useContext(Context);
-  const [searchBar, setSearchBar] = useState(false);
+  const { pageTitle, setPageTitle, searchBar, setSearchBar } = useContext(Context);
   const [searchButton, setSearchButton] = useState(false);
 
   useEffect(() => {
@@ -39,9 +38,9 @@ const Header = (props) => {
 
   return (
     <div>
-      <header className="page-header">
+      <header className="container-top">
         <Link to="/perfil">
-          <div className="profile-button-container">
+          <div className="button-container-top">
             <img
               data-testid="profile-top-btn"
               src={ profileIcon }
@@ -52,7 +51,7 @@ const Header = (props) => {
         <div className="title-container">
           <h3 data-testid="page-title">{ pageTitle }</h3>
         </div>
-        <div className="search-button-container">
+        <div className="button-container-top">
           {searchButton && (
             <button
               type="button"
@@ -60,7 +59,7 @@ const Header = (props) => {
             >
               <img
                 data-testid="search-top-btn"
-                src={ searchIcon }
+                src={ searchBar ? searchIconAct : searchIcon }
                 alt="search"
               />
             </button>

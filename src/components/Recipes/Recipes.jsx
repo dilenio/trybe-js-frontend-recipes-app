@@ -4,7 +4,6 @@ import Context from '../../context/Context';
 import { getMealsAPI, getDrinksApi } from '../../services/API';
 import CategoryDisplay from '../CategoryDisplay/CategoryDisplay';
 import RecipeCard from '../RecipeCard';
-import './Recipes.css';
 
 const Recipes = () => {
   const {

@@ -5,7 +5,6 @@ import Context from '../../context/Context';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import { getMealsAPI, getDrinksApi } from '../../services/API';
-import './ExploreMealsDrinks.css';
 
 const ExploreMealsDrinks = (props) => {
   const { location: { pathname } } = props;
@@ -45,32 +44,48 @@ const ExploreMealsDrinks = (props) => {
   }, [recipes, pageTitle]);
 
   return (
-    <div>
+    <div className="explore-container">
       <Header pathname={ pathname } />
-      {pathname !== '/receitas-feitas'
-      && pathname !== '/receitas-favoritas'
-      && <Footer pathname={ pathname } />}
-      <div className="explore-container">
+      <div className="explore-buttons">
         <Link
           to={ `${pathname}/ingredientes` }
           data-testid="explore-by-ingredient"
         >
-          <button type="button">Por Ingredientes</button>
+          <button
+            className="btn btn-explore btn-active"
+            type="button"
+          >
+            Por Ingredientes
+          </button>
         </Link>
         { pageTitle === 'Explorar Comidas' && (
           <Link
             to={ `${pathname}/area` }
             data-testid="explore-by-area"
           >
-            <button type="button">Por Local de Origem</button>
+            <button
+              className="btn btn-explore btn-active"
+              type="button"
+            >
+              Por Local de Origem
+            </button>
           </Link>
         )}
         <Link
           to={ `${randomId}` }
           data-testid="explore-surprise"
         >
-          <button type="button">Me Surpreenda!</button>
+          <button
+            className="btn btn-explore btn-active"
+            type="button"
+          >
+            Me Surpreenda!
+          </button>
         </Link>
+      </div>
+      <div className="container-footer">
+        {pathname && pathname !== '/receitas-favoritas'
+        && <Footer pathname={ pathname } />}
       </div>
     </div>
   );

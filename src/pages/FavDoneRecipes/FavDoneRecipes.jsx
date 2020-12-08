@@ -5,7 +5,7 @@ import Header from '../../components/Header';
 import FavDoneRecipeCard from '../../components/FavDoneRecipeCard';
 import FavDoneRecipesFilters
   from '../../components/FavDoneRecipesFilters/FavDoneRecipesFilters';
-import './FavDoneRecipes.css';
+import Footer from '../../components/Footer';
 
 const FavDoneRecipes = (props) => {
   const { location, history } = props;
@@ -22,7 +22,7 @@ const FavDoneRecipes = (props) => {
   }, [pageTitle, setCardType]);
 
   const showMessage = () => {
-    const TWO_SECONDS = 2000;
+    const TWO_SECONDS = 3000;
     setMessageToggle(true);
     setTimeout(() => {
       setMessageToggle(false);
@@ -62,13 +62,16 @@ const FavDoneRecipes = (props) => {
   }
 
   return (
-    <div className="recipes-done">
+    <div className="wapper">
       <Header pathname={ pathname } />
       <FavDoneRecipesFilters />
-      <section className="done-recipes-content">
+      <section className="recipes-container">
         {renderFavDoneRecipes()}
       </section>
       {messageToggle && <p>Link copiado!</p>}
+      <div className="container-footer">
+        <Footer />
+      </div>
     </div>
   );
 };

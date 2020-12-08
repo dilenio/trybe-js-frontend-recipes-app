@@ -4,18 +4,18 @@ import PropTypes from 'prop-types';
 import Context from '../../context/Context';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
-import './Explore.css';
 
 const Explore = (props) => {
   const { setPageTitle } = useContext(Context);
   const { location } = props;
   const { pathname } = location;
   return (
-    <div>
+    <div className="explore-container">
       <Header pathname={ pathname } />
-      <div className="explore-container">
+      <div className="explore-buttons">
         <Link to="/explorar/comidas">
           <button
+            className="btn btn-explore btn-active"
             type="button"
             data-testid="explore-food"
             onClick={ () => setPageTitle('Explorar Comidas') }
@@ -25,6 +25,7 @@ const Explore = (props) => {
         </Link>
         <Link to="/explorar/bebidas">
           <button
+            className="btn btn-explore btn-active"
             type="button"
             data-testid="explore-drinks"
             onClick={ () => setPageTitle('Explorar Bebidas') }
@@ -33,8 +34,10 @@ const Explore = (props) => {
           </button>
         </Link>
       </div>
-      {pathname && pathname !== '/receitas-favoritas'
-      && <Footer pathname={ pathname } />}
+      <div className="container-footer">
+        {pathname && pathname !== '/receitas-favoritas'
+        && <Footer pathname={ pathname } />}
+      </div>
     </div>
   );
 };
