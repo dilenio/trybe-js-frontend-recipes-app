@@ -19,7 +19,7 @@ function Footer() {
           data-testid="drinks-bottom-btn"
           src={ drinkIcon }
           onClick={ () => {
-            setPageTitle('Bebidas');
+            setPageTitle('Drinks');
             setNavFooter('drink');
           } }
         >
@@ -35,7 +35,7 @@ function Footer() {
           data-testid="explore-bottom-btn"
           src={ exploreIcon }
           onClick={ () => {
-            setPageTitle('Explorar');
+            setPageTitle('Explore');
             setNavFooter('explore');
           } }
         >
@@ -51,7 +51,7 @@ function Footer() {
           data-testid="food-bottom-btn"
           src={ mealIcon }
           onClick={ () => {
-            setPageTitle('Comidas');
+            setPageTitle('Meals');
             setNavFooter('meal');
           } }
         >

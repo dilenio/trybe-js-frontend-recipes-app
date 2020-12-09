@@ -15,7 +15,7 @@ const Details = (props) => {
   const { location } = props;
   const { pathname } = location;
   const [startRecipeBtn, setStartRecipeBtn] = useState(true);
-  const [recipeBtnText, setRecipeBtnText] = useState('Iniciar Receita');
+  const [recipeBtnText, setRecipeBtnText] = useState('Start recipe');
   const [messageToggle, setMessageToggle] = useState(false);
   const [heartIcon, setHeartIcon] = useState('');
   const {
@@ -74,7 +74,7 @@ const Details = (props) => {
         return undefined;
       });
     }
-    return setRecipeBtnText('Iniciar receita');
+    return setRecipeBtnText('Start recipe');
   }, [id, idDetails, pop, setRecomendations, setdetails]);
 
   function getUrl() {
@@ -215,7 +215,7 @@ const Details = (props) => {
             />
           </button>
         </div>
-        {messageToggle && <p className="copy-message">Link copiado!</p>}
+        {messageToggle && <p className="copy-message">Link copied!</p>}
         <h1
           className="title-details"
           data-testid="recipe-title"

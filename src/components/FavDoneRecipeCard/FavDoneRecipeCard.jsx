@@ -31,7 +31,7 @@ const FavDoneRecipeCard = (props) => {
   }
 
   const getType = () => (
-    (pageTitle === 'Receitas Feitas') ? 'receitas-feitas' : 'receitas-favoritas'
+    (pageTitle === 'Done recipes') ? 'receitas-feitas' : 'receitas-favoritas'
   );
 
   const copyUrlToClipboard = () => {
@@ -46,7 +46,7 @@ const FavDoneRecipeCard = (props) => {
   );
 
   const getCardType = () => (
-    (pageTitle === 'Receitas Feitas') ? 'done' : 'favorite'
+    (pageTitle === 'Done recipes') ? 'done' : 'favorite'
   );
 
   const updateFavDoneRecipes = () => {

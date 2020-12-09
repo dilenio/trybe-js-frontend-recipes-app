@@ -13,17 +13,17 @@ const Header = (props) => {
   const [searchButton, setSearchButton] = useState(false);
 
   useEffect(() => {
-    if (pathname.match('comidas')) setPageTitle('Comidas');
-    if (pathname.match('bebidas')) setPageTitle('Bebidas');
-    if (pathname.match('perfil')) setPageTitle('Perfil');
-    if (pathname.match('explorar')) setPageTitle('Explorar');
-    if (pathname.match('explorar')) setPageTitle('Explorar');
-    if (pathname.match('explorar/comidas')) setPageTitle('Explorar Comidas');
-    if (pathname.match('explorar/bebidas')) setPageTitle('Explorar Bebidas');
-    if (pathname.match('ingredientes')) setPageTitle('Explorar Ingredientes');
-    if (pathname.match('area')) setPageTitle('Explorar Origem');
-    if (pathname.match('receitas-feitas')) setPageTitle('Receitas Feitas');
-    if (pathname.match('receitas-favoritas')) setPageTitle('Receitas Favoritas');
+    if (pathname.match('comidas')) setPageTitle('Meals');
+    if (pathname.match('bebidas')) setPageTitle('Drinks');
+    if (pathname.match('perfil')) setPageTitle('Profile');
+    if (pathname.match('explorar')) setPageTitle('Explore');
+    if (pathname.match('explorar')) setPageTitle('Explore');
+    if (pathname.match('explorar/comidas')) setPageTitle('Explore Meals');
+    if (pathname.match('explorar/bebidas')) setPageTitle('Explore Drinks');
+    if (pathname.match('ingredientes')) setPageTitle('Explore by ingredient');
+    if (pathname.match('area')) setPageTitle('Explore by origin');
+    if (pathname.match('receitas-feitas')) setPageTitle('Done recipes');
+    if (pathname.match('receitas-favoritas')) setPageTitle('Favorite recipes');
   }, [pathname, setPageTitle]);
 
   useEffect(() => {

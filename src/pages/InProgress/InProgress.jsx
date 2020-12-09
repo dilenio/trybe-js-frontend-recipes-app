@@ -287,7 +287,7 @@ const InProgress = () => {
         >
           Share
         </button>
-        {messageToggle && <p>Link copiado!</p>}
+        {messageToggle && <p>Link copied!</p>}
       </nav>
       <div className="recipe-info">
         <img

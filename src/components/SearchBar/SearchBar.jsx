@@ -35,7 +35,7 @@ function SearchBar() {
       searchType,
     });
     setLoading(true);
-    if (pageTitle === 'Comidas') {
+    if (pageTitle === 'Meals') {
       getMealsAPI(searchText, searchType).then((data) => {
         setRecipes(data);
         setLoading(false);
@@ -49,7 +49,7 @@ function SearchBar() {
         }
       });
     }
-    if (pageTitle === 'Bebidas') {
+    if (pageTitle === 'Drinks') {
       getDrinksApi(searchText, searchType).then((data) => {
         setRecipes(data);
         setLoading(false);

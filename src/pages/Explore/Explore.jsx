@@ -18,9 +18,9 @@ const Explore = (props) => {
             className="btn btn-explore btn-active"
             type="button"
             data-testid="explore-food"
-            onClick={ () => setPageTitle('Explorar Comidas') }
+            onClick={ () => setPageTitle('Explore Meals') }
           >
-            Explorar Comidas
+            Explore Meals
           </button>
         </Link>
         <Link to="/explorar/bebidas">
@@ -28,9 +28,9 @@ const Explore = (props) => {
             className="btn btn-explore btn-active"
             type="button"
             data-testid="explore-drinks"
-            onClick={ () => setPageTitle('Explorar Bebidas') }
+            onClick={ () => setPageTitle('Explore Drinks') }
           >
-            Explorar Bebidas
+            Explore Drinks
           </button>
         </Link>
       </div>

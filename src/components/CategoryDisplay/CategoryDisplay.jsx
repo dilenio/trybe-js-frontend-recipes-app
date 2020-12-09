@@ -9,11 +9,11 @@ const CategoryDisplay = () => {
   const { pageTitle } = useContext(Context);
 
   useEffect(() => {
-    if (pageTitle === 'Comidas') {
+    if (pageTitle === 'Meals') {
       getMealsAPI('c=list', 'category').then((data) => {
         setCategoryes(data);
       });
-    } else if (pageTitle === 'Bebidas') {
+    } else if (pageTitle === 'Drinks') {
       getDrinksApi('c=list', 'category').then((data) => {
         setCategoryes(data);
       });

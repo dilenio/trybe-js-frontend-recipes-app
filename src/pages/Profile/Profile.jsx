@@ -31,7 +31,7 @@ const Profile = (props) => {
             type="button"
             data-testid="profile-done-btn"
           >
-            Receitas Feitas
+            Done recipes
           </button>
         </Link>
         <Link to="/receitas-favoritas">
@@ -40,7 +40,7 @@ const Profile = (props) => {
             type="button"
             data-testid="profile-favorite-btn"
           >
-            Receitas Favoritas
+            Favorite recipes
           </button>
         </Link>
       </div>

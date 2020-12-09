@@ -18,14 +18,14 @@ const ExploreMealsDrinks = (props) => {
   const zero = 0;
 
   useEffect(() => {
-    if (pageTitle === 'Explorar Comidas') {
+    if (pageTitle === 'Explore Meals') {
       setLoading(true);
       getMealsAPI('', 'random').then((data) => {
         setRecipes(data);
         setLoading(false);
       });
     }
-    if (pageTitle === 'Explorar Bebidas') {
+    if (pageTitle === 'Explore Drinks') {
       setLoading(true);
       getDrinksApi('', 'random').then((data) => {
         setRecipes(data);
@@ -35,10 +35,10 @@ const ExploreMealsDrinks = (props) => {
   }, [pageTitle, setLoading, setRecipes]);
 
   useEffect(() => {
-    if (recipes.length > zero && pageTitle === 'Explorar Comidas') {
+    if (recipes.length > zero && pageTitle === 'Explore Meals') {
       setRandomId(`/comidas/${recipes[zero].idMeal}`);
     }
-    if (recipes.length > zero && pageTitle === 'Explorar Bebidas') {
+    if (recipes.length > zero && pageTitle === 'Explore Drinks') {
       setRandomId(`/bebidas/${recipes[zero].idDrink}`);
     }
   }, [recipes, pageTitle]);
@@ -55,10 +55,10 @@ const ExploreMealsDrinks = (props) => {
             className="btn btn-explore btn-active"
             type="button"
           >
-            Por Ingredientes
+            By ingredients
           </button>
         </Link>
-        { pageTitle === 'Explorar Comidas' && (
+        { pageTitle === 'Explore Meals' && (
           <Link
             to={ `${pathname}/area` }
             data-testid="explore-by-area"
@@ -67,7 +67,7 @@ const ExploreMealsDrinks = (props) => {
               className="btn btn-explore btn-active"
               type="button"
             >
-              Por Local de Origem
+              By origin
             </button>
           </Link>
         )}
@@ -79,7 +79,7 @@ const ExploreMealsDrinks = (props) => {
             className="btn btn-explore btn-active"
             type="button"
           >
-            Me Surpreenda!
+            Surprise me!
           </button>
         </Link>
       </div>

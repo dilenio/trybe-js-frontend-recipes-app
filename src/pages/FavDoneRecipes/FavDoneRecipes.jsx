@@ -14,7 +14,7 @@ const FavDoneRecipes = (props) => {
   const { doneFavRecipeFilter, setCardType, pageTitle } = useContext(Context);
 
   useEffect(() => {
-    if (pageTitle === 'Receitas Feitas') {
+    if (pageTitle === 'Done recipes') {
       setCardType('done');
     } else {
       setCardType('favorite');
@@ -41,7 +41,7 @@ const FavDoneRecipes = (props) => {
   };
 
   const getCardType = () => (
-    (pageTitle === 'Receitas Feitas') ? 'done' : 'favorite'
+    (pageTitle === 'Done recipes') ? 'done' : 'favorite'
   );
 
   function renderFavDoneRecipes() {
@@ -68,7 +68,7 @@ const FavDoneRecipes = (props) => {
       <section className="recipes-container">
         {renderFavDoneRecipes()}
       </section>
-      {messageToggle && <p>Link copiado!</p>}
+      {messageToggle && <p>Link copied!</p>}
       <div className="container-footer">
         <Footer />
       </div>

@@ -20,14 +20,14 @@ const Recipes = () => {
 
   useEffect(() => {
     const ingredient = (ingredientFilter) ? 'ingredient' : '';
-    if (pageTitle === 'Comidas') {
+    if (pageTitle === 'Meals') {
       setLoading(true);
       getMealsAPI(ingredientFilter, ingredient).then((data) => {
         setRecipes(data);
         setLoading(false);
         setIngredientFilter('');
       });
-    } else if (pageTitle === 'Bebidas') {
+    } else if (pageTitle === 'Drinks') {
       setLoading(true);
       getDrinksApi(ingredientFilter, ingredient).then((data) => {
         setRecipes(data);
@@ -37,13 +37,13 @@ const Recipes = () => {
     }
   }, [pageTitle]);
   useEffect(() => {
-    if (selectedCategory !== '' && pageTitle === 'Comidas') {
+    if (selectedCategory !== '' && pageTitle === 'Meals') {
       setLoading(true);
       getMealsAPI(`c=${selectedCategory}`, 'byCategory').then((data) => {
         setNewRecipes(data);
         setLoading(false);
       });
-    } else if (selectedCategory !== '' && pageTitle === 'Bebidas') {
+    } else if (selectedCategory !== '' && pageTitle === 'Drinks') {
       setLoading(true);
       getDrinksApi(`c=${selectedCategory}`, 'byCategory').then((data) => {
         setNewRecipes(data);
