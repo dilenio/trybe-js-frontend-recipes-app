@@ -35,7 +35,7 @@ const Recipes = () => {
         setIngredientFilter('');
       });
     }
-  }, [pageTitle]);
+  }, [pageTitle, ingredientFilter, setIngredientFilter, setLoading, setRecipes]);
   useEffect(() => {
     if (selectedCategory !== '' && pageTitle === 'Meals') {
       setLoading(true);
@@ -50,7 +50,7 @@ const Recipes = () => {
         setLoading(false);
       });
     }
-  }, [selectedCategory]);
+  }, [selectedCategory, pageTitle, setLoading]);
   function renderCards() {
     if (recipes) {
       const MAX_CARDS = 11;
