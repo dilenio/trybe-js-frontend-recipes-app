@@ -9,7 +9,7 @@ import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
-import '../../../node_modules/react-responsive-carousel/lib/styles/carousel.css';
+import '../../carousel.css';
 
 const Details = (props) => {
   const { location } = props;
