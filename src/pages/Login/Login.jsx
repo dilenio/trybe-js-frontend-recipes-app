@@ -6,7 +6,7 @@ function Login(props) {
   const [splash, setSplash] = useState(true);
   const [validation, setValidation] = useState(true);
   const { email, setemail } = useContext(Context);
-  const [password, setPassword] = useState('');
+  const [password, setPassword] = useState('123456789');
 
   const loginValidation = () => {
     const emailResult = document.getElementById('input-email');
@@ -32,6 +32,7 @@ function Login(props) {
   const handleEmail = ({ target }) => {
     setemail(target.value);
     loginValidation();
+    if (validation) return;
   };
 
   const handlePassword = ({ target }) => {
@@ -79,7 +80,7 @@ function Login(props) {
           type="button"
           data-testid="login-submit-btn"
           onClick={ handleClick }
-          disabled={ validation }
+          // disabled={ validation }
         >
           Login
         </button>

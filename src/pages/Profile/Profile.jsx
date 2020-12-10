@@ -25,7 +25,7 @@ const Profile = (props) => {
         >
           {(user) ? user.email : 'teste@trybe.com' }
         </h3>
-        <Link to="/receitas-feitas">
+        {/* <Link to="/receitas-feitas">
           <button
             className="btn btn-explore btn-active"
             type="button"
@@ -33,7 +33,7 @@ const Profile = (props) => {
           >
             Done recipes
           </button>
-        </Link>
+        </Link> */}
         <Link to="/receitas-favoritas">
           <button
             className="btn btn-explore btn-active"

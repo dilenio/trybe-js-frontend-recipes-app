@@ -4,8 +4,8 @@ import Context from './Context';
 
 // Refatorar o context
 function Provider({ children }) {
-  const [email, setemail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setemail] = useState('dilenio@gmail.com');
+  const [password, setPassword] = useState('123456789');
   const [search, setSearch] = useState({
     searchText: '',
     searchType: '',

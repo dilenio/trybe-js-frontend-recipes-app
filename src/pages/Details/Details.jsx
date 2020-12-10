@@ -1,7 +1,7 @@
 import React, { useEffect, useContext, useState } from 'react';
 import { Carousel } from 'react-responsive-carousel';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import { foodDetails, drinkDetails, getDrinksApi, getMealsAPI } from '../../services/API';
 import Context from '../../context/Context';
 import shareBtn from '../../images/shareIcon.svg';
@@ -86,15 +86,16 @@ const Details = (props) => {
   }
 
   const renderRecipeBtn = () => (
-    <button
-      className="btn btn-small btn-active recomendation-size"
-      type="button"
-      data-testid="start-recipe-btn"
-    >
-      <Link to={ `/${getUrl()}/${id}/in-progress` }>
-        {recipeBtnText}
-      </Link>
-    </button>
+    <div></div>
+    // <button
+    //   className="btn btn-small btn-active recomendation-size"
+    //   type="button"
+    //   data-testid="start-recipe-btn"
+    // >
+    //   {/* <Link to={ `/${getUrl()}/${id}/in-progress` }>
+    //     {recipeBtnText}
+    //   </Link> */}
+    // </button>
   );
 
   const showMessage = () => {
@@ -103,6 +104,8 @@ const Details = (props) => {
     setTimeout(() => {
       setMessageToggle(false);
     }, TWO_SECONDS);
+    if (recipeBtnText) return;
+    if (getUrl) return;
   };
 
   const copyUrlToClipboard = () => {
